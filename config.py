@@ -6,11 +6,11 @@ Modify these values to adjust the system behavior.
 
 # Sentence matcher parameters
 MATCHER_CONFIG = {
-    "method": "sequence_preserving",  # Options: "greedy", "hungarian", "relaxed", "sequence_preserving"
+    "method": "hungarian",  # Options: "greedy", "hungarian", "relaxed", "sequence_preserving"
     "similarity_threshold": 0.2,       # Minimum similarity threshold for matches (lower = more matches)
-    "force_all_matches": True,         # Force matching all segments even with low similarity
+    "force_all_matches": False,         # Force matching all segments even with low similarity
     "preserve_order": True,            # Preserve the original sequence order in matching
-    "max_position_shift": 2            # Maximum position shift allowed when preserve_order is True
+    "max_position_shift": 1            # Maximum position shift allowed when preserve_order is True
 }
 
 # Prosodic aligner parameters
@@ -25,12 +25,12 @@ ALIGNER_CONFIG = {
         "is": 0.1                      # Isochrony score weight
     },
     "relaxation_factor_on_screen": 0.5,    # Max relaxation factor for on-screen segments (fraction of min_silence)
-    "relaxation_factor_off_screen": 2.0,   # Max relaxation factor for off-screen segments (fraction of min_silence)
+    "relaxation_factor_off_screen": 1.2,   # Max relaxation factor for off-screen segments (fraction of min_silence)
 }
 
 # TTS parameters
 TTS_CONFIG = {
-    "engine": "neural",                # TTS engine: "neural", "amazon", "google"
+    "engine": "google",                # TTS engine: "neural", "amazon", "google"
     "voice_style": "neutral",          # Voice style: "neutral", "conversational", "formal"
     "speaking_rate": 1.0,              # Speaking rate multiplier (1.0 = normal)
     "pitch": 0.0,                      # Pitch adjustment (-10.0 to 10.0)

@@ -14,7 +14,11 @@ class TextToSpeech:
         self, 
         lang: str = "en", 
         voice_id: Optional[str] = None,
-        engine: str = "neural"
+        engine: str = "neural",
+        speaking_rate: float = 1.0,
+        pitch: float = 0.0,
+        volume: float = 1.0,
+        voice_style: str = "neutral"
     ):
         """
         Initialize the TTS engine.
@@ -23,10 +27,18 @@ class TextToSpeech:
             lang: Language code
             voice_id: Voice ID to use (if None, a default is selected)
             engine: TTS engine to use ('neural', 'amazon', 'google', etc.)
+            speaking_rate: Speaking rate multiplier (1.0 = normal)
+            pitch: Pitch adjustment (-10.0 to 10.0)
+            volume: Volume (0.0 to 2.0)
+            voice_style: Voice style ('neutral', 'conversational', 'formal')
         """
         self.lang = lang
         self.voice_id = voice_id
         self.engine = engine
+        self.speaking_rate = speaking_rate
+        self.pitch = pitch
+        self.volume = volume
+        self.voice_style = voice_style
         
         # Map language codes to voice IDs for different engines
         self.voice_map = {
@@ -64,6 +76,52 @@ class TextToSpeech:
             self.voice_id = self.voice_map.get(self.engine, {}).get(self.lang, None)
         
         logger.info(f"Initialized {self.engine} TTS for language {self.lang} with voice {self.voice_id}")
+        logger.info(f"TTS parameters: speaking_rate={speaking_rate}, pitch={pitch}, volume={volume}, style={voice_style}")
+    
+    # [Rest of the class methods remain the same]
+    
+    def _synthesize_neural(
+        self, 
+        text: str, 
+        output_path: str, 
+        target_duration: Optional[float] = None
+    ) -> float:
+        """
+        Synthesize speech using a neural TTS engine.
+        
+        Args:
+            text: Text to synthesize
+            output_path: Path to save the output audio
+            target_duration: Target duration in seconds
+        
+        Returns:
+            Actual duration of the synthesized audio
+        """
+        try:
+            # Generate speech with specified parameters
+            self.tts.tts_to_file(
+                text=text,
+                file_path=output_path,
+                speaker=self.voice_id,
+                language=self.lang,
+                # Apply style and other parameters if supported by the engine
+                speed=self.speaking_rate,
+                # Additional parameters might be supported by specific TTS engines
+            )
+            
+            # Get actual duration
+            import librosa
+            duration = librosa.get_duration(path=output_path)
+            
+            # Adjust duration if needed
+            if target_duration is not None and abs(duration - target_duration) > 0.1:
+                self._adjust_audio_duration(output_path, target_duration)
+                duration = target_duration
+            
+            return duration
+        except Exception as e:
+            logger.error(f"Error in neural TTS: {e}")
+            return self._synthesize_mock(text, output_path, target_duration)
     
     def _init_tts_engine(self):
         """Initialize the TTS engine based on the selected type."""

@@ -12,7 +12,7 @@ from aligner import ProsodicAligner
 from evaluator import DubbingEvaluator
 from renderer import AudioRenderer
 from utils import TextGridProcessor
-from config import DEFAULT_CONFIG, MATCHER_CONFIG, ALIGNER_CONFIG, EMBEDDER_CONFIG
+from config import DEFAULT_CONFIG, MATCHER_CONFIG, ALIGNER_CONFIG, EMBEDDER_CONFIG, TTS_CONFIG
 
 # Configure logging
 logging.basicConfig(
@@ -49,7 +49,8 @@ class AutomaticDubbingPipeline:
             **DEFAULT_CONFIG,
             "matcher": MATCHER_CONFIG,
             "aligner": ALIGNER_CONFIG,
-            "embedder": EMBEDDER_CONFIG
+            "embedder": EMBEDDER_CONFIG,
+            "tts": TTS_CONFIG
         }
         
         # Override config with any provided parameters
@@ -75,6 +76,47 @@ class AutomaticDubbingPipeline:
         
         logger.info(f"Automatic Dubbing Pipeline initialized: {self.src_lang} → {self.tgt_lang}")
     
+    def validate_config(self) -> None:
+        """
+        Validate that configuration parameters are properly loaded and applied.
+        Logs config details to help with debugging.
+        """
+        logger.info("=== Configuration Validation ===")
+        
+        # Core settings
+        logger.info(f"Source language: {self.src_lang} (from config: {self.config.get('src_lang')})")
+        logger.info(f"Target language: {self.tgt_lang} (from config: {self.config.get('tgt_lang')})")
+        logger.info(f"Min silence: {self.min_silence} (from config: {self.config.get('aligner', {}).get('min_silence')})")
+        logger.info(f"Use relaxation: {self.use_relaxation} (from config: {self.config.get('aligner', {}).get('use_relaxation')})")
+        
+        # Matcher settings
+        matcher_config = self.config.get("matcher", {})
+        logger.info(f"Matcher method: {matcher_config.get('method')}")
+        logger.info(f"Similarity threshold: {matcher_config.get('similarity_threshold')}")
+        logger.info(f"Force all matches: {matcher_config.get('force_all_matches')}")
+        logger.info(f"Preserve order: {matcher_config.get('preserve_order')}")
+        
+        # Aligner settings
+        aligner_config = self.config.get("aligner", {})
+        logger.info(f"Feature weights: {aligner_config.get('feature_weights')}")
+        logger.info(f"Relaxation factor (on-screen): {aligner_config.get('relaxation_factor_on_screen')}")
+        logger.info(f"Relaxation factor (off-screen): {aligner_config.get('relaxation_factor_off_screen')}")
+        
+        # TTS settings
+        tts_config = self.config.get("tts", {})
+        logger.info(f"TTS engine: {tts_config.get('engine')}")
+        logger.info(f"Voice style: {tts_config.get('voice_style')}")
+        logger.info(f"Speaking rate: {tts_config.get('speaking_rate')}")
+        
+        # Confirm config is passed to components
+        logger.info(f"Matcher config loaded: {bool(self.matcher.config)}")
+        logger.info(f"Matcher similarity threshold: {self.matcher.similarity_threshold}")
+        
+        # Check if feature weights were passed to aligner
+        logger.info(f"Aligner feature weights: {self.aligner.feature_weights}")
+        
+        logger.info("=== End Configuration Validation ===")
+
     def process(
         self, 
         src_audio_path: str,
@@ -375,16 +417,81 @@ class AutomaticDubbingPipeline:
         matched_src_indices = set(match['src_idx'] for match in matches)
         if len(matched_src_indices) < len(src_segments):
             logger.warning(f"Not all source segments were matched. "
-                          f"Matched {len(matched_src_indices)}/{len(src_segments)}")
+                        f"Matched {len(matched_src_indices)}/{len(src_segments)}")
         
-        # Create a list of target sentences for each source segment
-        tgt_sentences = [""] * len(src_segments)  # Initialize with empty strings
-        for match in matches:
-            src_idx = match['src_idx']
-            tgt_idx = match['tgt_idx']
+        # CHANGE: Ensure all target texts are used regardless of matching
+        if len(tgt_text) <= len(src_segments):
+            # If we have fewer target sentences than source segments, distribute them
+            # Create a list of target sentences for each source segment
+            tgt_sentences = [""] * len(src_segments)
             
-            if src_idx < len(tgt_sentences) and tgt_idx < len(tgt_text):
-                tgt_sentences[src_idx] = tgt_text[tgt_idx]
+            # First fill in matched sentences
+            for match in matches:
+                src_idx = match['src_idx']
+                tgt_idx = match['tgt_idx']
+                
+                if src_idx < len(tgt_sentences) and tgt_idx < len(tgt_text):
+                    tgt_sentences[src_idx] = tgt_text[tgt_idx]
+            
+            # Then fill in any remaining target sentences to empty slots
+            used_tgt_indices = set(match['tgt_idx'] for match in matches if match['tgt_idx'] < len(tgt_text))
+            unused_tgt_indices = [i for i in range(len(tgt_text)) if i not in used_tgt_indices]
+            
+            # Find empty slots in tgt_sentences
+            empty_slots = [i for i, sentence in enumerate(tgt_sentences) if not sentence]
+            
+            # Fill empty slots with unused target sentences
+            for slot_idx, tgt_idx in zip(empty_slots, unused_tgt_indices):
+                if tgt_idx < len(tgt_text):
+                    tgt_sentences[slot_idx] = tgt_text[tgt_idx]
+                    
+            # If we still have empty slots but used all target sentences,
+            # combine remaining text into the last slot
+            if empty_slots and not unused_tgt_indices:
+                # Join any missing target text
+                all_used_indices = set([match['tgt_idx'] for match in matches])
+                missing_indices = [i for i in range(len(tgt_text)) if i not in all_used_indices]
+                if missing_indices:
+                    missing_text = " ".join([tgt_text[i] for i in missing_indices])
+                    if empty_slots:
+                        tgt_sentences[empty_slots[0]] = missing_text
+        else:
+            # If we have more target sentences than source segments, combine them
+            tgt_sentences = [""] * len(src_segments)
+            
+            # First, handle matched sentences
+            for match in matches:
+                src_idx = match['src_idx']
+                tgt_idx = match['tgt_idx']
+                
+                if src_idx < len(tgt_sentences) and tgt_idx < len(tgt_text):
+                    tgt_sentences[src_idx] = tgt_text[tgt_idx]
+            
+            # For any remaining target sentences, append them to the last segment
+            matched_tgt_indices = set(match['tgt_idx'] for match in matches if match['tgt_idx'] < len(tgt_text))
+            unmatched_tgt_indices = [i for i in range(len(tgt_text)) if i not in matched_tgt_indices]
+            
+            if unmatched_tgt_indices:
+                unmatched_text = " ".join([tgt_text[i] for i in unmatched_tgt_indices])
+                if tgt_sentences[-1]:
+                    tgt_sentences[-1] += " " + unmatched_text
+                else:
+                    tgt_sentences[-1] = unmatched_text
+        
+        # CRITICAL CHECK: Make sure all target text is included somewhere
+        all_tgt_text = " ".join(tgt_text).replace(" ", "").lower()
+        all_assigned_text = " ".join(tgt_sentences).replace(" ", "").lower()
+        
+        if all_tgt_text != all_assigned_text:
+            logger.warning(f"Not all target text was assigned to segments!")
+            logger.warning(f"Original: {all_tgt_text}")
+            logger.warning(f"Assigned: {all_assigned_text}")
+            
+            # Combine all target sentences if matching failed
+            if len(src_segments) >= 1:
+                tgt_sentences[0] = " ".join(tgt_text)
+                for i in range(1, len(tgt_sentences)):
+                    tgt_sentences[i] = ""
         
         # Perform prosodic alignment for all segments
         aligned_segments = []
@@ -410,22 +517,64 @@ class AutomaticDubbingPipeline:
                     "on_screen": is_on_screen
                 })
         
+        # CHANGE: Ensure we actually have all the text represented in our segments
+        combined_aligned_text = " ".join([seg["text"] for seg in aligned_segments]).replace(" ", "").lower()
+        if combined_aligned_text != all_tgt_text:
+            logger.warning("Text mismatch after alignment. Forcing full text in first segment.")
+            if aligned_segments:
+                # Put all text in the first segment as a fallback
+                aligned_segments[0]["text"] = " ".join(tgt_text)
+                for i in range(1, len(aligned_segments)):
+                    aligned_segments[i]["text"] = ""
+        
         if use_tts:
-            # Initialize TTS engine
-            tts = TextToSpeech(lang=self.tgt_lang)
+            # Initialize TTS engine with config parameters
+            tts_config = self.config.get("tts", {})
+            tts = TextToSpeech(
+                lang=self.tgt_lang,
+                voice_id=tts_config.get("voice_id"),
+                engine=tts_config.get("engine", "neural")
+            )
             
             # Generate TTS for aligned segments
             tts_results = tts.synthesize(
-                sentences=[seg['text'] for seg in aligned_segments],
-                durations=[seg['duration'] for seg in aligned_segments]
+                sentences=[seg['text'] for seg in aligned_segments if seg['text'].strip()],  # Only synthesize non-empty segments
+                durations=[seg['duration'] for seg in aligned_segments if seg['text'].strip()]
             )
+            
+            # Map the TTS results back to all segments
+            all_tts_results = []
+            tts_idx = 0
+            for seg in aligned_segments:
+                if seg['text'].strip():
+                    # Use the generated TTS result for this segment
+                    if tts_idx < len(tts_results):
+                        all_tts_results.append(tts_results[tts_idx])
+                        tts_idx += 1
+                    else:
+                        # Fallback for unexpected case
+                        logger.warning(f"Missing TTS result for segment '{seg['text']}'")
+                        all_tts_results.append({
+                            'text': seg['text'],
+                            'audio_path': '',
+                            'duration': seg['duration'],
+                            'target_duration': seg['duration']
+                        })
+                else:
+                    # Create silent audio for empty segments
+                    all_tts_results.append({
+                        'text': '',
+                        'audio_path': '',
+                        'duration': seg['duration'],
+                        'target_duration': seg['duration']
+                    })
             
             # Render final audio with background from original
             final_audio_path = output_dir / "dubbed_audio.wav"
             self.renderer.render(
                 src_audio_path=src_audio_path,
-                tts_audio_paths=[res['audio_path'] for res in tts_results],
-                segment_timings=[(seg['start'], seg['end']) for seg in aligned_segments],
+                tts_audio_paths=[res['audio_path'] for res in all_tts_results if res['audio_path']],
+                segment_timings=[(seg['start'], seg['end']) for seg in aligned_segments if seg['text'].strip()],
                 output_path=final_audio_path
             )
             
@@ -434,8 +583,8 @@ class AutomaticDubbingPipeline:
                 src_audio_path=src_audio_path,
                 src_segments=src_segments,
                 tgt_audio_path=final_audio_path,
-                aligned_segments=aligned_segments,
-                tts_results=tts_results
+                aligned_segments=[seg for seg in aligned_segments if seg['text'].strip()],
+                tts_results=[res for res in all_tts_results if res['text'].strip()]
             )
         else:
             # Skip TTS and rendering, just return alignment results
@@ -470,7 +619,8 @@ class AutomaticDubbingPipeline:
                 }
                 for seg in aligned_segments
             ],
-            "evaluation": evaluation
+            "evaluation": evaluation,
+            "complete_text": " ".join(tgt_text)  # Add the full intended text for reference
         }
         
         # Save results to JSON
@@ -489,26 +639,26 @@ if __name__ == "__main__":
         use_relaxation=True
     )
     
-    # Process with pre-synthesized target audio
+    # Example 1: Process with pre-synthesized target audio
     current_directory = os.getcwd()
 
     # 특정 세그먼트만 on-screen으로 지정
-    # results = pipeline.process(
-    # src_audio_path=os.path.join(current_directory, 'input/윤장목소리1.wav'),
-    # src_textgrid_path=os.path.join(current_directory, 'input/윤장목소리1.TextGrid'),
-    # tgt_audio_path=os.path.join(current_directory, 'input/mine_en.wav'),
-    # tgt_textgrid_path=os.path.join(current_directory, 'input/mine_en.Textgrid'),
-    # output_dir=Path("output"),
-    # # on_screen_segments=[False, True, False]  # 매개변수 생략 - 모두 off-screen으로 처리됨
-    # )
-
-    # Process with target text only
-    results = pipeline.process_with_text(
-        src_audio_path=os.path.join(current_directory, 'input/윤장목소리1.wav'),
-        src_textgrid_path=os.path.join(current_directory, 'input/윤장목소리1.TextGrid'),
-        tgt_text=["Hello.", "My name is Jo Yoon-jang.", "Nice to meet you.", "Please take care of me."],
-        output_dir=Path("output")
-        # on_screen_segments parameter omitted - default off-screen will be used
+    results = pipeline.process(
+    src_audio_path=os.path.join(current_directory, 'input/윤장목소리1.wav'),
+    src_textgrid_path=os.path.join(current_directory, 'input/윤장목소리1.TextGrid'),
+    tgt_audio_path=os.path.join(current_directory, 'input/mine_en.wav'),
+    tgt_textgrid_path=os.path.join(current_directory, 'input/mine_en.Textgrid'),
+    output_dir=Path("output"),
+    # on_screen_segments=[False, True, False]  # 매개변수 생략 - 모두 off-screen으로 처리됨
     )
+
+    # # Example 2: Process with target text only
+    # results = pipeline.process_with_text(
+    #     src_audio_path=os.path.join(current_directory, 'input/윤장목소리1.wav'),
+    #     src_textgrid_path=os.path.join(current_directory, 'input/윤장목소리1.TextGrid'),
+    #     tgt_text=["Hello.", "My name is Jo Yoon-jang.", "Nice to meet you.", "Please take care of me."],
+    #     output_dir=Path("output")
+    #     # on_screen_segments parameter omitted - default off-screen will be used
+    # )
     
     print(f"Evaluation results: {results['evaluation']}")

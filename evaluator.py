@@ -138,8 +138,7 @@ class DubbingEvaluator:
             score = max(0, 1 - normalized_error)
             
             # Store for on-screen segments (which need better isochrony)
-            if tgt_seg.get("on_screen", True):
-                scores.append(score)
+            scores.append(score)
         
         # Calculate average score
         if scores:

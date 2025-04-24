@@ -275,37 +275,28 @@ class AudioRenderer:
     
     def _time_compress(self, audio: np.ndarray, sr: int, target_duration: float) -> np.ndarray:
         """
-        Compress audio to fit target duration.
-        
+        Compress or expand audio to fit target duration using resampling only.
+
         Args:
-            audio: Audio to compress
+            audio: Audio to compress or stretch
             sr: Sample rate
             target_duration: Target duration in seconds
-        
+
         Returns:
-            Compressed audio
+            Resampled audio to match the target duration
         """
-        try:
-            import pyrubberband as pyrb
-            
-            # Calculate current duration
-            current_duration = len(audio) / sr
-            
-            # Calculate stretch factor
-            stretch_factor = target_duration / current_duration
-            
-            # Apply time stretching
-            compressed_audio = pyrb.time_stretch(audio, sr, stretch_factor)
-            
-            return compressed_audio
-            
-        except Exception as e:
-            logger.warning(f"Failed to compress audio: {e}")
-            
-            # Simple resampling as fallback
-            target_length = int(target_duration * sr)
-            from scipy import signal
-            return signal.resample(audio, target_length)
+        # Calculate current duration
+        current_duration = len(audio) / sr
+
+        # Calculate target length in samples
+        target_length = int(target_duration * sr)
+
+        # Apply simple resampling
+        from scipy import signal
+        compressed_audio = signal.resample(audio, target_length)
+
+        return compressed_audio
+
     
     def _normalize_audio(self, audio: np.ndarray, target_db: float = -3.0) -> np.ndarray:
         """

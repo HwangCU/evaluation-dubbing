@@ -1,0 +1,22 @@
+{
+  "iterations_completed": 2,
+  "max_iterations": 2,
+  "initial_params": {
+    "engine": "google",
+    "voice_style": "neutral",
+    "speaking_rate": 1.0,
+    "pitch": 0.0,
+    "volume": 1.0
+  },
+  "best_iteration": 2,
+  "best_score": 0.5568644931674942,
+  "best_params": {
+    "engine": "google",
+    "voice_style": "conversational",
+    "speaking_rate": 1.0,
+    "pitch": -1.0,
+    "volume": 1.2
+  },
+  "improvement": 0.0010022555607394068,
+  "relative_improvement": "0.18%"
+}

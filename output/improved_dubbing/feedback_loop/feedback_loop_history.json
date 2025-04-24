@@ -1,0 +1,38 @@
+[
+  {
+    "iteration": 1,
+    "params": {
+      "engine": "google",
+      "voice_style": "neutral",
+      "speaking_rate": 1.0,
+      "pitch": 0.0,
+      "volume": 1.0
+    },
+    "similarity_scores": {
+      "pause_similarity": 0.7827896245253542,
+      "pitch_similarity": 0.49824983069104184,
+      "energy_similarity": 0.4029345464875712,
+      "rhythm_similarity": 0.4260112552637517,
+      "overall": 0.5558622376067548
+    },
+    "overall_score": 0.5558622376067548
+  },
+  {
+    "iteration": 2,
+    "params": {
+      "engine": "google",
+      "voice_style": "conversational",
+      "speaking_rate": 1.0,
+      "pitch": -1.0,
+      "volume": 1.2
+    },
+    "similarity_scores": {
+      "pause_similarity": 0.7827896245253542,
+      "pitch_similarity": 0.503017209024637,
+      "energy_similarity": 0.402677318177303,
+      "rhythm_similarity": 0.4260112552637517,
+      "overall": 0.5568644931674942
+    },
+    "overall_score": 0.5568644931674942
+  }
+]

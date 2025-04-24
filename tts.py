@@ -7,6 +7,8 @@ from typing import List, Dict, Any, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/SSAFY/Desktop/work/onion_PJT/S12P31S307/src/AI/TTS_Similarity/autodubbing_2ver/thewater-455706-f98cc73703ca.json"
+
 class TextToSpeech:
     """Class for synthesizing speech using TTS engines."""
     
@@ -172,10 +174,12 @@ class TextToSpeech:
         try:
             from google.cloud import texttospeech
             
-            # Initialize Google TTS client
+            # 클라이언트 초기화
             self.google_client = texttospeech.TextToSpeechClient()
             self.use_mock = False
-        except ImportError:
+            logger.info("Google Cloud TTS initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize Google TTS: {e}")
             logger.warning("Google Cloud TTS not available, using mock implementation")
             self.use_mock = True
     

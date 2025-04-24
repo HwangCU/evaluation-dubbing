@@ -1,16 +1,16 @@
 {
   "aligned": {
-    "isochrony": 0.925,
-    "smoothness": 0,
-    "fluency": 0.788,
-    "intelligibility": 1.0,
-    "overall": 0.714
+    "isochrony": 0.825,
+    "smoothness": 1.0,
+    "fluency": 0.0,
+    "intelligibility": 0.0,
+    "overall": 0.447
   },
   "original": {
     "isochrony": 0.0,
-    "smoothness": 0,
-    "fluency": 0.788,
-    "intelligibility": 1.0,
-    "overall": 0.436
+    "smoothness": 1.0,
+    "fluency": 0.0,
+    "intelligibility": 0.0,
+    "overall": 0.2
   }
 }

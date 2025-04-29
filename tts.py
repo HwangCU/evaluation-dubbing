@@ -89,72 +89,51 @@ class TextToSpeech:
         target_duration: Optional[float] = None
     ) -> float:
         """
-        Synthesize speech using a neural TTS engine.
-        
-        Args:
-            text: Text to synthesize
-            output_path: Path to save the output audio
-            target_duration: Target duration in seconds
-        
-        Returns:
-            Actual duration of the synthesized audio
+        Synthesize speech using gTTS.
         """
         try:
-            # Generate speech with specified parameters
-            self.tts.tts_to_file(
-                text=text,
-                file_path=output_path,
-                speaker=self.voice_id,
-                language=self.lang,
-                # Apply style and other parameters if supported by the engine
-                speed=self.speaking_rate,
-                # Additional parameters might be supported by specific TTS engines
-            )
+            from gtts import gTTS
+            # 텍스트를 음성으로 변환
+            tts = gTTS(text=text, lang=self.lang[:2])  # 'ko-KR'에서 'ko'만 사용
+            tts.save(output_path)
             
-            # Get actual duration
+            # 실제 오디오 길이 얻기
             import librosa
             duration = librosa.get_duration(path=output_path)
             
-            # Adjust duration if needed
+            # 필요시 오디오 길이 조정
             if target_duration is not None and abs(duration - target_duration) > 0.1:
                 self._adjust_audio_duration(output_path, target_duration)
                 duration = target_duration
             
             return duration
         except Exception as e:
-            logger.error(f"Error in neural TTS: {e}")
+            logger.error(f"Error in gTTS: {e}")
             return self._synthesize_mock(text, output_path, target_duration)
     
     def _init_tts_engine(self):
         """Initialize the TTS engine based on the selected type."""
-        try:
-            if self.engine == "neural":
-                self._init_neural_tts()
-            elif self.engine == "amazon":
-                self._init_amazon_tts()
-            elif self.engine == "google":
-                self._init_google_tts()
-            else:
-                logger.warning(f"Unknown TTS engine: {self.engine}, falling back to neural TTS")
-                self.engine = "neural"
-                self._init_neural_tts()
-        except Exception as e:
-            logger.error(f"Failed to initialize {self.engine} TTS: {e}")
-            logger.info("Falling back to mock TTS implementation")
-            self.use_mock = True
+        if self.engine == "neural":
+            self._init_neural_tts()
+        elif self.engine == "amazon":
+            self._init_amazon_tts()
+        elif self.engine == "google":
+            self._init_google_tts()
+        else:
+            logger.warning(f"Unknown TTS engine: {self.engine}, using Google TTS instead")
+            self.engine = "google"
+            self._init_google_tts()
     
     def _init_neural_tts(self):
         """Initialize a local neural TTS engine (e.g., using TTS or ESPnet)."""
         try:
-            # Try to import TTS library
-            import torch
-            from TTS.api import TTS
-            
-            # Initialize TTS
-            self.tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", gpu=torch.cuda.is_available())
+            # 간단한 gTTS로 대체
+            from gtts import gTTS
+            self.tts = gTTS
             self.use_mock = False
+            logger.info("gTTS initialized successfully")
         except ImportError:
-            logger.warning("TTS library not available, using mock implementation")
+            logger.warning("TTS libraries not available, using mock implementation")
             self.use_mock = True
     
     def _init_amazon_tts(self):
@@ -339,57 +318,73 @@ class TextToSpeech:
         target_duration: Optional[float] = None
     ) -> float:
         """
-        Synthesize speech using Google TTS.
+        Google Cloud TTS를 사용하여 음성을 합성합니다.
         
         Args:
-            text: Text to synthesize
-            output_path: Path to save the output audio
-            target_duration: Target duration in seconds
+            text: 합성할 텍스트
+            output_path: 출력 오디오 경로
+            target_duration: 목표 지속 시간(초)
         
         Returns:
-            Actual duration of the synthesized audio
+            합성된 오디오의 지속 시간(초)
         """
         try:
             from google.cloud import texttospeech
             
-            # Set up request
+            # 디버깅을 위한 로그
+            logger.info(f"Google TTS 시작: '{text[:30]}...'")
+            logger.info(f"사용 중인 voice_id: {self.voice_id}")
+            logger.info(f"사용 중인 언어 코드: {self.lang}")
+            
+            # 클라이언트 초기화
+            client = texttospeech.TextToSpeechClient()
+            
+            # 입력 텍스트 설정
             synthesis_input = texttospeech.SynthesisInput(text=text)
             
-            # Build voice parameters
+            # 음성 매개변수 설정
             voice = texttospeech.VoiceSelectionParams(
                 language_code=self.lang,
                 name=self.voice_id
             )
             
-            # Select audio config
+            # 오디오 설정
             audio_config = texttospeech.AudioConfig(
-                audio_encoding=texttospeech.AudioEncoding.LINEAR16
+                audio_encoding=texttospeech.AudioEncoding.LINEAR16,
+                speaking_rate=self.speaking_rate,
+                pitch=self.pitch,
+                volume_gain_db=6.0 * (self.volume - 1.0)  # 볼륨을 dB로 변환
             )
             
-            # Generate speech
-            response = self.google_client.synthesize_speech(
+            # 음성 합성 요청
+            response = client.synthesize_speech(
                 input=synthesis_input,
                 voice=voice,
                 audio_config=audio_config
             )
             
-            # Save audio
-            with open(output_path, 'wb') as file:
-                file.write(response.audio_content)
+            # 오디오 저장
+            with open(output_path, 'wb') as out:
+                out.write(response.audio_content)
+                logger.info(f"오디오가 '{output_path}'에 저장되었습니다.")
             
-            # Get actual duration
+            # 지속 시간 얻기
             import librosa
             duration = librosa.get_duration(path=output_path)
             
-            # Adjust duration if needed
+            # 필요한 경우 지속 시간 조정
             if target_duration is not None and abs(duration - target_duration) > 0.1:
                 self._adjust_audio_duration(output_path, target_duration)
                 duration = target_duration
             
             return duration
+        
         except Exception as e:
-            logger.error(f"Error in Google TTS: {e}")
-            return self._synthesize_mock(text, output_path, target_duration)
+            logger.error(f"Google TTS 오류: {e}")
+            # 스택 트레이스 출력
+            import traceback
+            logger.error(traceback.format_exc())
+            raise  # 오류를 다시 발생시켜 mock으로 폴백하지 않음
     
     def _synthesize_mock(
         self, 
@@ -397,61 +392,65 @@ class TextToSpeech:
         output_path: str, 
         target_duration: Optional[float] = None
     ) -> float:
-        """
-        Create a mock audio file for testing.
+        # """
+        # Create a mock audio file for testing.
         
-        Args:
-            text: Text to synthesize
-            output_path: Path to save the output audio
-            target_duration: Target duration in seconds
+        # Args:
+        #     text: Text to synthesize
+        #     output_path: Path to save the output audio
+        #     target_duration: Target duration in seconds
         
-        Returns:
-            Actual duration of the synthesized audio
-        """
-        try:
-            import numpy as np
-            from scipy.io import wavfile
+        # Returns:
+        #     Actual duration of the synthesized audio
+        # """
+        # try:
+        #     import numpy as np
+        #     from scipy.io import wavfile
             
-            # Estimate natural duration
-            words = len(text.split())
-            natural_duration = max(1.0, words * 0.3)  # ~0.3 seconds per word
+        #     # Estimate natural duration
+        #     words = len(text.split())
+        #     natural_duration = max(1.0, words * 0.3)  # ~0.3 seconds per word
             
-            # Use target duration if provided
-            duration = target_duration if target_duration is not None else natural_duration
+        #     # Use target duration if provided
+        #     duration = target_duration if target_duration is not None else natural_duration
             
-            # Generate a simple sine wave
-            sample_rate = 22050
-            t = np.linspace(0, duration, int(sample_rate * duration), False)
+        #     # Generate a simple sine wave
+        #     sample_rate = 22050
+        #     t = np.linspace(0, duration, int(sample_rate * duration), False)
             
-            # Generate a note that changes pitch based on text length
-            frequency = 440 + (len(text) % 10) * 20
-            audio = 0.5 * np.sin(2 * np.pi * frequency * t)
+        #     # Generate a note that changes pitch based on text length
+        #     frequency = 440 + (len(text) % 10) * 20
+        #     audio = 0.5 * np.sin(2 * np.pi * frequency * t)
             
-            # Add some random noise
-            audio += 0.01 * np.random.normal(0, 1, len(t))
+        #     # Add some random noise
+        #     audio += 0.01 * np.random.normal(0, 1, len(t))
             
-            # Ensure the audio is within range [-1, 1]
-            audio = np.clip(audio, -1, 1)
+        #     # Ensure the audio is within range [-1, 1]
+        #     audio = np.clip(audio, -1, 1)
             
-            # Convert to int16
-            audio_int16 = (audio * 32767).astype(np.int16)
+        #     # Convert to int16
+        #     audio_int16 = (audio * 32767).astype(np.int16)
             
-            # Save as WAV
-            wavfile.write(output_path, sample_rate, audio_int16)
+        #     # Save as WAV
+        #     wavfile.write(output_path, sample_rate, audio_int16)
             
-            return duration
-        except Exception as e:
-            logger.error(f"Error in mock TTS: {e}")
+        #     return duration
+        # except Exception as e:
+        #     logger.error(f"Error in mock TTS: {e}")
             
-            # Create an empty file as fallback
-            with open(output_path, 'wb') as file:
-                file.write(b'')
+        #     # Create an empty file as fallback
+        #     with open(output_path, 'wb') as file:
+        #         file.write(b'')
             
-            return 1.0  # Default duration
+        #     return 1.0  # Default duration
+            """
+            Mock 함수를 사용하지 않고 오류를 발생시켜 실제 TTS 엔진이 사용되게 합니다.
+            """
+            raise Exception("Mock TTS is disabled. Please use a real TTS engine.")
     
     def _adjust_audio_duration(self, audio_path: str, target_duration: float) -> None:
         """
-        Adjust the duration of an audio file.
+        Adjust the duration of an audio file without using pyrubberband.
         
         Args:
             audio_path: Path to the audio file
@@ -460,23 +459,26 @@ class TextToSpeech:
         try:
             import librosa
             import soundfile as sf
-            import pyrubberband as pyrb
+            from scipy import signal
             
-            # Load audio
+            # 오디오 로드
             y, sr = librosa.load(audio_path, sr=None)
             
-            # Get current duration
+            # 현재 오디오 길이 계산
             current_duration = librosa.get_duration(y=y, sr=sr)
             
-            # Calculate stretch factor
+            # 스트레치 팩터 계산
             stretch_factor = target_duration / current_duration
             
-            # Only adjust if the difference is significant
+            # 차이가 유의미한 경우에만 조정
             if abs(stretch_factor - 1.0) > 0.05:
-                # Apply time stretching
-                y_stretched = pyrb.time_stretch(y, sr, stretch_factor)
+                # 새로운 샘플 개수 계산
+                target_samples = int(len(y) * stretch_factor)
                 
-                # Save the stretched audio
+                # scipy의 resample 함수로 오디오 길이 조정
+                y_stretched = signal.resample(y, target_samples)
+                
+                # 조정된 오디오 저장
                 sf.write(audio_path, y_stretched, sr)
                 
                 logger.info(f"Adjusted audio duration from {current_duration:.2f}s to {target_duration:.2f}s")

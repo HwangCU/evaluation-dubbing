@@ -196,17 +196,25 @@ class AutomaticDubbingPipeline:
             
             if should_use_feedback and non_empty_segments:
                 logger.info("Using feedback loop for TTS optimization")
-                
-                # 피드백 루프 실행
-                best_params, tts_results = self.feedback_loop.run(
-                    tts=tts,
-                    src_audio_path=src_audio_path,
-                    src_segments=src_segments,
-                    aligned_segments=non_empty_segments,
-                    initial_params=tts_config,
-                    output_dir=output_dir / "feedback_loop"
-                )
-                
+                try:
+                    # 피드백 루프 실행
+                    best_params, tts_results = self.feedback_loop.run(
+                        tts=tts,
+                        src_audio_path=src_audio_path,
+                        src_segments=src_segments,
+                        aligned_segments=non_empty_segments,
+                        initial_params=tts_config,
+                        output_dir=output_dir / "feedback_loop"
+                    )
+                except Exception as e:
+                    logger.error(f"피드백 루프 실행 중 오류 발생: {e}. 직접 TTS 생성으로 전환합니다.")
+                    # 직접 TTS 생성으로 전환
+                    tts_results = tts.synthesize(
+                        sentences=[seg['text'] for seg in non_empty_segments],
+                        durations=[seg['duration'] for seg in non_empty_segments]
+                    )
+                    best_params = tts_config
+                    
                 # 설정에 최적 파라미터 저장
                 self.config["tts"].update(best_params)
                 
@@ -473,14 +481,22 @@ class AutomaticDubbingPipeline:
         return all_tts_results
 
 if __name__ == "__main__":
-    # 예제 실행
+    # Google TTS 테스트
+    test_tts = TextToSpeech(
+    lang="en-US",
+    engine="google",
+    voice_id="en-US-Wavenet-F"
+    )
+    test_result = test_tts.synthesize(["This is a direct test of Google TTS."])
+    print(f"직접 호출 테스트 결과: {test_result}")
+
     pipeline = AutomaticDubbingPipeline(
         src_lang="ko",
         tgt_lang="en",
         embedding_model="LASER", # LASER, SBERT
         use_relaxation=True,
         enable_feedback=True,   # 피드백 루프 활성화
-        feedback_iterations=2    # 최대 2회 반복
+        feedback_iterations=5    # 최대 2회 반복
     )
     
     # 현재 디렉토리 가져오기

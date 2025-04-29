@@ -1,6 +1,6 @@
 {
   "iterations_completed": 2,
-  "max_iterations": 2,
+  "max_iterations": 5,
   "initial_params": {
     "engine": "google",
     "voice_style": "neutral",
@@ -8,15 +8,15 @@
     "pitch": 0.0,
     "volume": 1.0
   },
-  "best_iteration": 2,
-  "best_score": 0.5568644931674942,
+  "best_iteration": 1,
+  "best_score": 0.6067503081133815,
   "best_params": {
     "engine": "google",
-    "voice_style": "conversational",
+    "voice_style": "neutral",
     "speaking_rate": 1.0,
-    "pitch": -1.0,
-    "volume": 1.2
+    "pitch": 0.0,
+    "volume": 1.0
   },
-  "improvement": 0.0010022555607394068,
-  "relative_improvement": "0.18%"
+  "improvement": 0.0,
+  "relative_improvement": "0.00%"
 }

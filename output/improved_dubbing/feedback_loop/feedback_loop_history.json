@@ -10,12 +10,12 @@
     },
     "similarity_scores": {
       "pause_similarity": 0.7827896245253542,
-      "pitch_similarity": 0.49824983069104184,
-      "energy_similarity": 0.4029345464875712,
-      "rhythm_similarity": 0.4260112552637517,
-      "overall": 0.5558622376067548
+      "pitch_similarity": 0.5037506146287323,
+      "energy_similarity": 0.40068662764479956,
+      "rhythm_similarity": 0.6517547074486534,
+      "overall": 0.6067503081133815
     },
-    "overall_score": 0.5558622376067548
+    "overall_score": 0.6067503081133815
   },
   {
     "iteration": 2,
@@ -28,11 +28,11 @@
     },
     "similarity_scores": {
       "pause_similarity": 0.7827896245253542,
-      "pitch_similarity": 0.503017209024637,
-      "energy_similarity": 0.402677318177303,
-      "rhythm_similarity": 0.4260112552637517,
-      "overall": 0.5568644931674942
+      "pitch_similarity": 0.5141157356441183,
+      "energy_similarity": 0.40135430836084907,
+      "rhythm_similarity": 0.47486534064027813,
+      "overall": 0.5698932936518394
     },
-    "overall_score": 0.5568644931674942
+    "overall_score": 0.5698932936518394
   }
 ]

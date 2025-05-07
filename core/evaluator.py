@@ -146,7 +146,7 @@ class SimilarityEvaluator:
         prosody_overall = prosody_scores.get("overall", 0.7)
         
         # 가중 평균 계산 (프로소디 70%, 정렬 30%)
-        final_score = 0.7 * prosody_overall + 0.3 * alignment_score
+        final_score = prosody_overall
         
         return final_score
     
@@ -168,8 +168,10 @@ class SimilarityEvaluator:
             return "B"
         elif score >= 0.6:
             return "C"
-        else:
+        elif score >= 0.5:
             return "D"
+        else:
+            return "F"
     
     def _generate_suggestions(self, scores: Dict[str, float]) -> List[str]:
         """

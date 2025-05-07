@@ -2033,3 +2033,424 @@ ValueError: setting an array element with a sequence. The requested array has an
 2025-05-02 11:11:34,189 - utils.visualizer - INFO - 요약 보고서가 data\output\cli_example\summary_report.txt에 저장되었습니다.
 2025-05-02 11:11:34,189 - __main__ - INFO - 유사도 분석 완료
 2025-05-02 11:11:34,189 - __main__ - INFO - 최종 점수: 0.5313, 등급: D
+2025-05-07 09:29:09,800 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 09:29:09,800 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 09:29:09,800 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초
+2025-05-07 09:29:09,801 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 09:29:09,801 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 09:29:09,801 - __main__ - INFO - 프로소디 유사도 분석기 초기화 완료
+2025-05-07 09:29:09,801 - __main__ - INFO - 유사도 분석 시작
+2025-05-07 09:29:09,802 - __main__ - INFO - 원본 오디오: data/input/kr/윤장목소리1.wav
+2025-05-07 09:29:09,802 - __main__ - INFO - 원본 TextGrid: data/input/text_grid/윤장목소리1.TextGrid
+2025-05-07 09:29:09,802 - __main__ - INFO - 합성 오디오: data/input/en/윤장목소리1.wav
+2025-05-07 09:29:09,802 - __main__ - INFO - 합성 TextGrid: data/input/text_grid/윤장목소리1.TextGrid
+2025-05-07 09:29:09,802 - __main__ - INFO - 출력 디렉토리: data\output\cli_example2
+2025-05-07 09:29:09,802 - __main__ - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 09:29:09,818 - core.processor - INFO - TextGrid에서 4개 세그먼트 추출 완료
+2025-05-07 09:29:09,821 - core.processor - INFO - TextGrid에서 4개 세그먼트 추출 완료
+2025-05-07 09:29:09,821 - __main__ - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 09:29:09,821 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/윤장목소리1.wav
+2025-05-07 09:29:13,305 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 9.74초, 샘플레이트 22050Hz
+2025-05-07 09:29:13,306 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/en/윤장목소리1.wav
+2025-05-07 09:29:13,307 - utils.audio_utils - ERROR - 오디오 파일 로드 실패: [Errno 2] No such file or directory: 'data/input/en/윤장목소리1.wav'
+2025-05-07 09:29:13,308 - __main__ - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 09:29:14,425 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\cli_example2\audio_comparison.png에 저장되었습니다.
+2025-05-07 09:29:14,425 - __main__ - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 09:29:14,428 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\cli_example2\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 09:29:14,610 - core.aligner - INFO - 세그먼트 정렬 시각화가 data\output\cli_example2\alignment\segment_alignment.png에 저장되었습니다.
+2025-05-07 09:29:14,610 - core.aligner - INFO - 세그먼트 정렬 완료: 4개 세그먼트 쌍
+2025-05-07 09:29:14,610 - __main__ - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 09:29:14,711 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 0.4750
+2025-05-07 09:29:14,711 - core.analyzer - INFO -   - pause_similarity: 0.0000
+2025-05-07 09:29:14,711 - core.analyzer - INFO -   - pitch_similarity: 0.7500
+2025-05-07 09:29:14,711 - core.analyzer - INFO -   - energy_similarity: 0.7500
+2025-05-07 09:29:14,711 - core.analyzer - INFO -   - rhythm_similarity: 0.3000
+2025-05-07 09:29:14,712 - core.analyzer - INFO -   - vowel_similarity: 1.0000
+2025-05-07 09:29:14,713 - core.analyzer - INFO - 분석 결과가 data\output\cli_example2\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 09:29:14,873 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\cli_example2\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 09:29:15,525 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\cli_example2\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 09:29:15,526 - __main__ - INFO - 5. 종합 평가 중...
+2025-05-07 09:29:15,528 - core.evaluator - INFO - 평가 결과가 data\output\cli_example2\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 09:29:15,529 - core.evaluator - INFO - 평가 보고서가 data\output\cli_example2\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 09:29:15,738 - core.evaluator - INFO - 평가 시각화가 data\output\cli_example2\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 09:29:15,738 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 0.6325, 등급 C
+2025-05-07 09:29:15,738 - __main__ - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 09:29:15,910 - utils.visualizer - INFO - 점수 시각화가 data\output\cli_example2\similarity_scores.png에 저장되었습니다.
+2025-05-07 09:29:16,057 - utils.visualizer - INFO - 레이더 차트가 data\output\cli_example2\similarity_radar.png에 저장되었습니다.
+2025-05-07 09:29:16,058 - utils.visualizer - INFO - 요약 보고서가 data\output\cli_example2\summary_report.txt에 저장되었습니다.
+2025-05-07 09:29:16,058 - __main__ - INFO - 유사도 분석 완료
+2025-05-07 09:29:16,059 - __main__ - INFO - 최종 점수: 0.6325, 등급: C
+2025-05-07 09:30:42,663 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 09:30:42,663 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 09:30:42,663 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초
+2025-05-07 09:30:42,665 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 09:30:42,665 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 09:30:42,665 - __main__ - INFO - 프로소디 유사도 분석기 초기화 완료
+2025-05-07 09:30:42,666 - __main__ - INFO - 유사도 분석 시작
+2025-05-07 09:30:42,666 - __main__ - INFO - 원본 오디오: data/input/kr/윤장목소리1.wav
+2025-05-07 09:30:42,666 - __main__ - INFO - 원본 TextGrid: data/input/text_grid/윤장목소리1.TextGrid
+2025-05-07 09:30:42,667 - __main__ - INFO - 합성 오디오: data/input/kr/윤장목소리1.wav
+2025-05-07 09:30:42,667 - __main__ - INFO - 합성 TextGrid: data/input/text_grid/윤장목소리1.TextGrid
+2025-05-07 09:30:42,667 - __main__ - INFO - 출력 디렉토리: data\output\cli_example2
+2025-05-07 09:30:42,667 - __main__ - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 09:30:42,674 - core.processor - INFO - TextGrid에서 4개 세그먼트 추출 완료
+2025-05-07 09:30:42,677 - core.processor - INFO - TextGrid에서 4개 세그먼트 추출 완료
+2025-05-07 09:30:42,678 - __main__ - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 09:30:42,678 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/윤장목소리1.wav
+2025-05-07 09:30:44,177 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 9.74초, 샘플레이트 22050Hz
+2025-05-07 09:30:44,177 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/윤장목소리1.wav
+2025-05-07 09:30:44,178 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 9.74초, 샘플레이트 22050Hz
+2025-05-07 09:30:44,178 - __main__ - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 09:30:45,184 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\cli_example2\audio_comparison.png에 저장되었습니다.
+2025-05-07 09:30:45,184 - __main__ - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 09:30:45,187 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\cli_example2\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 09:30:45,360 - core.aligner - INFO - 세그먼트 정렬 시각화가 data\output\cli_example2\alignment\segment_alignment.png에 저장되었습니다.
+2025-05-07 09:30:45,360 - core.aligner - INFO - 세그먼트 정렬 완료: 4개 세그먼트 쌍
+2025-05-07 09:30:45,360 - __main__ - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 09:30:45,456 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 1.0000
+2025-05-07 09:30:45,457 - core.analyzer - INFO -   - pause_similarity: 1.0000
+2025-05-07 09:30:45,457 - core.analyzer - INFO -   - pitch_similarity: 1.0000
+2025-05-07 09:30:45,457 - core.analyzer - INFO -   - energy_similarity: 1.0000
+2025-05-07 09:30:45,457 - core.analyzer - INFO -   - rhythm_similarity: 1.0000
+2025-05-07 09:30:45,457 - core.analyzer - INFO -   - vowel_similarity: 1.0000
+2025-05-07 09:30:45,458 - core.analyzer - INFO - 분석 결과가 data\output\cli_example2\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 09:30:45,616 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\cli_example2\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 09:30:46,493 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\cli_example2\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 09:30:46,494 - __main__ - INFO - 5. 종합 평가 중...
+2025-05-07 09:30:46,495 - core.evaluator - INFO - 평가 결과가 data\output\cli_example2\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 09:30:46,496 - core.evaluator - INFO - 평가 보고서가 data\output\cli_example2\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 09:30:46,680 - core.evaluator - INFO - 평가 시각화가 data\output\cli_example2\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 09:30:46,681 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 1.0000, 등급 A+
+2025-05-07 09:30:46,681 - __main__ - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 09:30:46,858 - utils.visualizer - INFO - 점수 시각화가 data\output\cli_example2\similarity_scores.png에 저장되었습니다.
+2025-05-07 09:30:47,005 - utils.visualizer - INFO - 레이더 차트가 data\output\cli_example2\similarity_radar.png에 저장되었습니다.
+2025-05-07 09:30:47,007 - utils.visualizer - INFO - 요약 보고서가 data\output\cli_example2\summary_report.txt에 저장되었습니다.
+2025-05-07 09:30:47,007 - __main__ - INFO - 유사도 분석 완료
+2025-05-07 09:30:47,007 - __main__ - INFO - 최종 점수: 1.0000, 등급: A+
+2025-05-07 14:03:39,585 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 14:03:39,586 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 14:03:40,763 - core.aligner - INFO - LASER 임베딩 모델을 사용합니다.
+2025-05-07 14:03:40,764 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초, 유사도 임계값 0.3
+2025-05-07 14:03:40,764 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 14:03:40,764 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 14:03:40,764 - main - INFO - 프로소디 유사도 분석기 초기화 완료 (임베딩 모델: laser, 임계값: 0.3)
+2025-05-07 14:03:40,765 - main - INFO - 유사도 분석 시작
+2025-05-07 14:03:40,765 - main - INFO - 원본 오디오: data/input/kr/윤장목소리1.wav (언어: ko)
+2025-05-07 14:03:40,765 - main - INFO - 원본 TextGrid: data/input/text_grid/윤장목소리1.TextGrid
+2025-05-07 14:03:40,765 - main - INFO - 합성 오디오: data/input/en/mine_en.wav (언어: en)
+2025-05-07 14:03:40,766 - main - INFO - 합성 TextGrid: data/input/text_grid/mine_en.TextGrid
+2025-05-07 14:03:40,766 - main - INFO - 출력 디렉토리: data\output\example1
+2025-05-07 14:03:40,766 - main - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 14:03:40,774 - core.processor - INFO - TextGrid에서 4개 세그먼트 추출 완료
+2025-05-07 14:03:40,777 - core.processor - INFO - TextGrid에서 6개 세그먼트 추출 완료
+2025-05-07 14:03:40,777 - main - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 14:03:40,777 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/윤장목소리1.wav
+2025-05-07 14:03:42,229 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 9.74초, 샘플레이트 22050Hz
+2025-05-07 14:03:42,229 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/en/mine_en.wav
+2025-05-07 14:03:42,230 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 11.35초, 샘플레이트 22050Hz
+2025-05-07 14:03:42,231 - main - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 14:03:43,435 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\example1\audio_comparison.png에 저장되었습니다.
+2025-05-07 14:03:43,435 - main - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 14:03:43,437 - core.aligner - INFO - 세그먼트 정렬 시작: ko -> en, 소스 세그먼트 4개, 타겟 세그먼트 6개
+2025-05-07 14:03:44,329 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\example1\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 14:03:44,329 - core.aligner - INFO - 정렬 통계가 data\output\example1\alignment\alignment_stats.json에 저장되었습니다.
+2025-05-07 14:03:44,547 - core.aligner - INFO - 세그먼트 정렬 시각화가 data\output\example1\alignment\segment_alignment.png에 저장되었습니다.
+2025-05-07 14:03:44,547 - core.aligner - INFO - 상세 텍스트 정보가 data\output\example1\alignment\alignment_text.txt에 저장되었습니다.
+2025-05-07 14:03:44,548 - core.aligner - INFO - 세그먼트 정렬 완료: 4개 세그먼트 쌍
+2025-05-07 14:03:44,548 - main - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 14:03:44,681 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 0.5959
+2025-05-07 14:03:44,682 - core.analyzer - INFO -   - pause_similarity: 0.8253
+2025-05-07 14:03:44,682 - core.analyzer - INFO -   - pitch_similarity: 0.5287
+2025-05-07 14:03:44,682 - core.analyzer - INFO -   - energy_similarity: 0.4168
+2025-05-07 14:03:44,682 - core.analyzer - INFO -   - rhythm_similarity: 0.5610
+2025-05-07 14:03:44,682 - core.analyzer - INFO -   - vowel_similarity: 0.6022
+2025-05-07 14:03:44,683 - core.analyzer - INFO - 분석 결과가 data\output\example1\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 14:03:44,873 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\example1\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 14:03:45,990 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\example1\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 14:03:45,990 - main - INFO - 5. 종합 평가 중...
+2025-05-07 14:03:45,994 - core.evaluator - INFO - 평가 결과가 data\output\example1\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 14:03:45,994 - core.evaluator - INFO - 평가 보고서가 data\output\example1\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 14:03:46,199 - core.evaluator - INFO - 평가 시각화가 data\output\example1\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 14:03:46,199 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 0.5958, 등급 D
+2025-05-07 14:03:46,200 - main - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 14:03:46,394 - utils.visualizer - INFO - 점수 시각화가 data\output\example1\similarity_scores.png에 저장되었습니다.
+2025-05-07 14:03:46,565 - utils.visualizer - INFO - 레이더 차트가 data\output\example1\similarity_radar.png에 저장되었습니다.
+2025-05-07 14:03:46,566 - utils.visualizer - INFO - 요약 보고서가 data\output\example1\summary_report.txt에 저장되었습니다.
+2025-05-07 14:03:46,566 - main - INFO - 유사도 분석 완료
+2025-05-07 14:03:46,566 - main - INFO - 최종 점수: 0.5958, 등급: D
+2025-05-07 15:44:01,633 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 15:44:01,633 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 15:44:02,678 - core.aligner - INFO - LASER 임베딩 모델을 사용합니다.
+2025-05-07 15:44:02,679 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초, 유사도 임계값 0.3
+2025-05-07 15:44:02,679 - core.aligner - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 15:44:02,679 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 15:44:02,679 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 15:44:02,679 - main - INFO - 프로소디 유사도 분석기 초기화 완료 (임베딩 모델: laser, 임계값: 0.3)
+2025-05-07 15:44:02,679 - main - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 15:44:02,690 - main - INFO - 유사도 분석 시작
+2025-05-07 15:44:02,690 - main - INFO - 원본 오디오: data/input/kr/윤장목소리1.wav (언어: ko)
+2025-05-07 15:44:02,691 - main - INFO - 원본 TextGrid: data/input/text_grid/윤장목소리1.TextGrid
+2025-05-07 15:44:02,691 - main - INFO - 합성 오디오: data/input/en/mine_en.wav (언어: en)
+2025-05-07 15:44:02,691 - main - INFO - 합성 TextGrid: data/input/text_grid/mine_en.TextGrid
+2025-05-07 15:44:02,691 - main - INFO - 출력 디렉토리: data\output\example_with_config
+2025-05-07 15:44:02,691 - main - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 15:44:02,700 - core.processor - INFO - TextGrid에서 4개 세그먼트 추출 완료
+2025-05-07 15:44:02,702 - core.processor - INFO - TextGrid에서 6개 세그먼트 추출 완료
+2025-05-07 15:44:02,703 - main - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 15:44:02,703 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/윤장목소리1.wav
+2025-05-07 15:44:04,331 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 9.74초, 샘플레이트 22050Hz
+2025-05-07 15:44:04,331 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/en/mine_en.wav
+2025-05-07 15:44:04,334 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 11.35초, 샘플레이트 22050Hz
+2025-05-07 15:44:04,334 - main - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 15:44:05,491 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\example_with_config\audio_comparison.png에 저장되었습니다.
+2025-05-07 15:44:05,491 - main - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 15:44:05,493 - core.aligner - INFO - 세그먼트 정렬 시작: ko -> en, 소스 세그먼트 4개, 타겟 세그먼트 6개
+2025-05-07 15:44:05,494 - core.aligner - INFO - 1개의 짧은 세그먼트를 병합 처리합니다.
+2025-05-07 15:44:05,494 - core.aligner - INFO - 전처리 후 타겟 세그먼트: 5개 (원래: 6개)
+2025-05-07 15:44:06,228 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\example_with_config\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 15:44:06,228 - core.aligner - INFO - 정렬 통계가 data\output\example_with_config\alignment\alignment_stats.json에 저장되었습니다.
+2025-05-07 15:44:06,228 - core.aligner - INFO - 매핑 타입: 1:1 = 3, N:M = 1, 대체 매칭 = 0, 누락 세그먼트 = 0
+2025-05-07 15:44:06,448 - core.aligner - INFO - 누락된 세그먼트를 포함한 정렬 시각화가 data\output\example_with_config\alignment\segment_alignment_with_missing.png에 저장되었습니다.
+2025-05-07 15:44:06,449 - core.aligner - INFO - 상세 텍스트 정보가 data\output\example_with_config\alignment\alignment_text.txt에 저장되었습니다.
+2025-05-07 15:44:06,449 - core.aligner - INFO - 세그먼트 정렬 완료: 4개 세그먼트 쌍
+2025-05-07 15:44:06,450 - main - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 15:44:06,578 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 0.5959
+2025-05-07 15:44:06,579 - core.analyzer - INFO -   - pause_similarity: 0.8253
+2025-05-07 15:44:06,579 - core.analyzer - INFO -   - pitch_similarity: 0.5287
+2025-05-07 15:44:06,579 - core.analyzer - INFO -   - energy_similarity: 0.4168
+2025-05-07 15:44:06,579 - core.analyzer - INFO -   - rhythm_similarity: 0.5610
+2025-05-07 15:44:06,579 - core.analyzer - INFO -   - vowel_similarity: 0.6022
+2025-05-07 15:44:06,580 - core.analyzer - INFO - 분석 결과가 data\output\example_with_config\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 15:44:06,755 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\example_with_config\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 15:44:07,754 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\example_with_config\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 15:44:07,755 - main - INFO - 5. 종합 평가 중...
+2025-05-07 15:44:07,758 - core.evaluator - INFO - 평가 결과가 data\output\example_with_config\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 15:44:07,758 - core.evaluator - INFO - 평가 보고서가 data\output\example_with_config\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 15:44:07,947 - core.evaluator - INFO - 평가 시각화가 data\output\example_with_config\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 15:44:07,947 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 0.5748, 등급 D
+2025-05-07 15:44:07,947 - main - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 15:44:08,167 - utils.visualizer - INFO - 점수 시각화가 data\output\example_with_config\similarity_scores.png에 저장되었습니다.
+2025-05-07 15:44:08,405 - utils.visualizer - INFO - 레이더 차트가 data\output\example_with_config\similarity_radar.png에 저장되었습니다.
+2025-05-07 15:44:08,407 - utils.visualizer - INFO - 요약 보고서가 data\output\example_with_config\summary_report.txt에 저장되었습니다.
+2025-05-07 15:44:08,407 - main - INFO - 유사도 분석 완료
+2025-05-07 15:44:08,408 - main - INFO - 최종 점수: 0.5748, 등급: D
+2025-05-07 16:24:32,519 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 16:24:32,520 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 16:24:33,329 - core.aligner - INFO - LASER 임베딩 모델을 사용합니다.
+2025-05-07 16:24:33,329 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초, 유사도 임계값 0.3
+2025-05-07 16:24:33,329 - core.aligner - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 16:24:33,329 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 16:24:33,330 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 16:24:33,330 - main - INFO - 프로소디 유사도 분석기 초기화 완료 (임베딩 모델: laser, 임계값: 0.3)
+2025-05-07 16:24:33,330 - main - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 16:24:33,330 - main - INFO - 유사도 분석 시작
+2025-05-07 16:24:33,330 - main - INFO - 원본 오디오: data/input/en/eleven_joker2/eleven_joker_eng2.wav (언어: en)
+2025-05-07 16:24:33,331 - main - INFO - 원본 TextGrid: data/input/text_grid/eleven_joker_eng2.TextGrid
+2025-05-07 16:24:33,331 - main - INFO - 합성 오디오: data/input/kr/eleven_joker/eleven_joker_kor1.wav (언어: kr)
+2025-05-07 16:24:33,331 - main - INFO - 합성 TextGrid: data/input/text_grid/eleven_joker_kor1.TextGrid
+2025-05-07 16:24:33,331 - main - INFO - 출력 디렉토리: data\output\example_with_config
+2025-05-07 16:24:33,331 - main - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 16:24:33,344 - core.processor - INFO - TextGrid에서 12개 세그먼트 추출 완료
+2025-05-07 16:24:33,355 - core.processor - INFO - TextGrid에서 19개 세그먼트 추출 완료
+2025-05-07 16:24:33,355 - main - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 16:24:33,356 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/en/eleven_joker2/eleven_joker_eng2.wav
+2025-05-07 16:24:34,527 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 42.45초, 샘플레이트 44100Hz
+2025-05-07 16:24:34,527 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/eleven_joker/eleven_joker_kor1.wav
+2025-05-07 16:24:34,566 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 59.17초, 샘플레이트 44100Hz
+2025-05-07 16:24:34,567 - main - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 16:24:39,777 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\example_with_config\audio_comparison.png에 저장되었습니다.
+2025-05-07 16:24:39,780 - main - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 16:24:39,781 - core.aligner - INFO - 세그먼트 정렬 시작: en -> kr, 소스 세그먼트 12개, 타겟 세그먼트 19개
+2025-05-07 16:24:39,781 - core.aligner - INFO - 전처리 후 타겟 세그먼트: 19개 (원래: 19개)
+2025-05-07 16:24:48,578 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\example_with_config\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 16:24:48,578 - core.aligner - INFO - 정렬 통계가 data\output\example_with_config\alignment\alignment_stats.json에 저장되었습니다.
+2025-05-07 16:24:48,578 - core.aligner - INFO - 매핑 타입: 1:1 = 7, N:M = 5, 대체 매칭 = 0, 누락 세그먼트 = 0
+2025-05-07 16:24:48,877 - core.aligner - INFO - 누락된 세그먼트를 포함한 정렬 시각화가 data\output\example_with_config\alignment\segment_alignment_with_missing.png에 저장되었습니다.
+2025-05-07 16:24:48,878 - core.aligner - INFO - 상세 텍스트 정보가 data\output\example_with_config\alignment\alignment_text.txt에 저장되었습니다.
+2025-05-07 16:24:48,878 - core.aligner - INFO - 세그먼트 정렬 완료: 12개 세그먼트 쌍
+2025-05-07 16:24:48,878 - main - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 16:24:49,392 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 0.6076
+2025-05-07 16:24:49,392 - core.analyzer - INFO -   - pause_similarity: 0.7795
+2025-05-07 16:24:49,392 - core.analyzer - INFO -   - pitch_similarity: 0.4895
+2025-05-07 16:24:49,392 - core.analyzer - INFO -   - energy_similarity: 0.5018
+2025-05-07 16:24:49,393 - core.analyzer - INFO -   - rhythm_similarity: 0.6271
+2025-05-07 16:24:49,393 - core.analyzer - INFO -   - vowel_similarity: 0.5766
+2025-05-07 16:24:49,394 - core.analyzer - INFO - 분석 결과가 data\output\example_with_config\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 16:24:49,563 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\example_with_config\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 16:25:00,600 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\example_with_config\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 16:25:00,602 - main - INFO - 5. 종합 평가 중...
+2025-05-07 16:25:00,604 - core.evaluator - INFO - 평가 결과가 data\output\example_with_config\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 16:25:00,604 - core.evaluator - INFO - 평가 보고서가 data\output\example_with_config\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 16:25:00,797 - core.evaluator - INFO - 평가 시각화가 data\output\example_with_config\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 16:25:00,797 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 0.4414, 등급 D
+2025-05-07 16:25:00,797 - main - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 16:25:00,980 - utils.visualizer - INFO - 점수 시각화가 data\output\example_with_config\similarity_scores.png에 저장되었습니다.
+2025-05-07 16:25:01,129 - utils.visualizer - INFO - 레이더 차트가 data\output\example_with_config\similarity_radar.png에 저장되었습니다.
+2025-05-07 16:25:01,131 - utils.visualizer - INFO - 요약 보고서가 data\output\example_with_config\summary_report.txt에 저장되었습니다.
+2025-05-07 16:25:01,131 - main - INFO - 유사도 분석 완료
+2025-05-07 16:25:01,131 - main - INFO - 최종 점수: 0.4414, 등급: D
+2025-05-07 16:26:07,557 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 16:26:07,557 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 16:26:08,415 - core.aligner - INFO - LASER 임베딩 모델을 사용합니다.
+2025-05-07 16:26:08,415 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초, 유사도 임계값 0.3
+2025-05-07 16:26:08,416 - core.aligner - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 16:26:08,416 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 16:26:08,416 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 16:26:08,416 - main - INFO - 프로소디 유사도 분석기 초기화 완료 (임베딩 모델: laser, 임계값: 0.3)
+2025-05-07 16:26:08,417 - main - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 16:26:08,417 - main - INFO - 유사도 분석 시작
+2025-05-07 16:26:08,417 - main - INFO - 원본 오디오: data/input/en/eleven_joker2/eleven_joker_eng2.wav (언어: en)
+2025-05-07 16:26:08,418 - main - INFO - 원본 TextGrid: data/input/text_grid/eleven_joker_eng2.TextGrid
+2025-05-07 16:26:08,418 - main - INFO - 합성 오디오: data/input/kr/eleven_joker/eleven_joker_kor1.wav (언어: kr)
+2025-05-07 16:26:08,418 - main - INFO - 합성 TextGrid: data/input/text_grid/eleven_joker_kor1.TextGrid
+2025-05-07 16:26:08,418 - main - INFO - 출력 디렉토리: data\output\eleven_joker
+2025-05-07 16:26:08,418 - main - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 16:26:08,430 - core.processor - INFO - TextGrid에서 12개 세그먼트 추출 완료
+2025-05-07 16:26:08,448 - core.processor - INFO - TextGrid에서 19개 세그먼트 추출 완료
+2025-05-07 16:26:08,448 - main - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 16:26:08,449 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/en/eleven_joker2/eleven_joker_eng2.wav
+2025-05-07 16:26:09,850 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 42.45초, 샘플레이트 44100Hz
+2025-05-07 16:26:09,850 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/eleven_joker/eleven_joker_kor1.wav
+2025-05-07 16:26:09,888 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 59.17초, 샘플레이트 44100Hz
+2025-05-07 16:26:09,888 - main - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 16:26:14,707 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\eleven_joker\audio_comparison.png에 저장되었습니다.
+2025-05-07 16:26:14,709 - main - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 16:26:14,710 - core.aligner - INFO - 세그먼트 정렬 시작: en -> kr, 소스 세그먼트 12개, 타겟 세그먼트 19개
+2025-05-07 16:26:14,710 - core.aligner - INFO - 전처리 후 타겟 세그먼트: 19개 (원래: 19개)
+2025-05-07 16:26:23,585 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\eleven_joker\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 16:26:23,585 - core.aligner - INFO - 정렬 통계가 data\output\eleven_joker\alignment\alignment_stats.json에 저장되었습니다.
+2025-05-07 16:26:23,585 - core.aligner - INFO - 매핑 타입: 1:1 = 7, N:M = 5, 대체 매칭 = 0, 누락 세그먼트 = 0
+2025-05-07 16:26:23,876 - core.aligner - INFO - 누락된 세그먼트를 포함한 정렬 시각화가 data\output\eleven_joker\alignment\segment_alignment_with_missing.png에 저장되었습니다.
+2025-05-07 16:26:23,876 - core.aligner - INFO - 상세 텍스트 정보가 data\output\eleven_joker\alignment\alignment_text.txt에 저장되었습니다.
+2025-05-07 16:26:23,877 - core.aligner - INFO - 세그먼트 정렬 완료: 12개 세그먼트 쌍
+2025-05-07 16:26:23,877 - main - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 16:26:24,405 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 0.6076
+2025-05-07 16:26:24,405 - core.analyzer - INFO -   - pause_similarity: 0.7795
+2025-05-07 16:26:24,405 - core.analyzer - INFO -   - pitch_similarity: 0.4895
+2025-05-07 16:26:24,405 - core.analyzer - INFO -   - energy_similarity: 0.5018
+2025-05-07 16:26:24,406 - core.analyzer - INFO -   - rhythm_similarity: 0.6271
+2025-05-07 16:26:24,406 - core.analyzer - INFO -   - vowel_similarity: 0.5766
+2025-05-07 16:26:24,407 - core.analyzer - INFO - 분석 결과가 data\output\eleven_joker\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 16:26:24,580 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\eleven_joker\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 16:26:35,584 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\eleven_joker\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 16:26:35,587 - main - INFO - 5. 종합 평가 중...
+2025-05-07 16:26:35,589 - core.evaluator - INFO - 평가 결과가 data\output\eleven_joker\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 16:26:35,589 - core.evaluator - INFO - 평가 보고서가 data\output\eleven_joker\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 16:26:35,801 - core.evaluator - INFO - 평가 시각화가 data\output\eleven_joker\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 16:26:35,801 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 0.4414, 등급 D
+2025-05-07 16:26:35,801 - main - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 16:26:36,011 - utils.visualizer - INFO - 점수 시각화가 data\output\eleven_joker\similarity_scores.png에 저장되었습니다.
+2025-05-07 16:26:36,183 - utils.visualizer - INFO - 레이더 차트가 data\output\eleven_joker\similarity_radar.png에 저장되었습니다.
+2025-05-07 16:26:36,186 - utils.visualizer - INFO - 요약 보고서가 data\output\eleven_joker\summary_report.txt에 저장되었습니다.
+2025-05-07 16:26:36,186 - main - INFO - 유사도 분석 완료
+2025-05-07 16:26:36,186 - main - INFO - 최종 점수: 0.4414, 등급: D
+2025-05-07 17:03:17,993 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 17:03:17,993 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 17:03:18,892 - core.aligner - INFO - LASER 임베딩 모델을 사용합니다.
+2025-05-07 17:03:18,892 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초, 유사도 임계값 0.3
+2025-05-07 17:03:18,892 - core.aligner - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 17:03:18,892 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 17:03:18,892 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 17:03:18,893 - main - INFO - 프로소디 유사도 분석기 초기화 완료 (임베딩 모델: laser, 임계값: 0.3)
+2025-05-07 17:03:18,893 - main - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 17:03:18,893 - main - INFO - 유사도 분석 시작
+2025-05-07 17:03:18,893 - main - INFO - 원본 오디오: data/input/en/eleven_joker2/eleven_joker_eng2.wav (언어: en)
+2025-05-07 17:03:18,894 - main - INFO - 원본 TextGrid: data/input/text_grid/eleven_joker_eng2.TextGrid
+2025-05-07 17:03:18,895 - main - INFO - 합성 오디오: data/input/kr/eleven_joker/eleven_joker_kor1.wav (언어: kr)
+2025-05-07 17:03:18,895 - main - INFO - 합성 TextGrid: data/input/text_grid/eleven_joker_kor1.TextGrid
+2025-05-07 17:03:18,895 - main - INFO - 출력 디렉토리: data\output\eleven_joker
+2025-05-07 17:03:18,895 - main - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 17:03:18,907 - core.processor - INFO - TextGrid에서 12개 세그먼트 추출 완료
+2025-05-07 17:03:18,922 - core.processor - INFO - TextGrid에서 19개 세그먼트 추출 완료
+2025-05-07 17:03:18,927 - main - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 17:03:18,928 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/en/eleven_joker2/eleven_joker_eng2.wav
+2025-05-07 17:03:20,224 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 42.45초, 샘플레이트 44100Hz
+2025-05-07 17:03:20,225 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/eleven_joker/eleven_joker_kor1.wav
+2025-05-07 17:03:20,272 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 59.17초, 샘플레이트 44100Hz
+2025-05-07 17:03:20,272 - main - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 17:03:25,460 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\eleven_joker\audio_comparison.png에 저장되었습니다.
+2025-05-07 17:03:25,464 - main - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 17:03:25,465 - core.aligner - INFO - 세그먼트 정렬 시작: en -> kr, 소스 세그먼트 12개, 타겟 세그먼트 19개
+2025-05-07 17:03:25,465 - core.aligner - INFO - 전처리 후 타겟 세그먼트: 19개 (원래: 19개)
+2025-05-07 17:03:34,875 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\eleven_joker\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 17:03:34,876 - core.aligner - INFO - 정렬 통계가 data\output\eleven_joker\alignment\alignment_stats.json에 저장되었습니다.
+2025-05-07 17:03:34,876 - core.aligner - INFO - 매핑 타입: 1:1 = 7, N:M = 5, 대체 매칭 = 0, 누락 세그먼트 = 0
+2025-05-07 17:03:35,180 - core.aligner - INFO - 누락된 세그먼트를 포함한 정렬 시각화가 data\output\eleven_joker\alignment\segment_alignment_with_missing.png에 저장되었습니다.
+2025-05-07 17:03:35,180 - core.aligner - INFO - 상세 텍스트 정보가 data\output\eleven_joker\alignment\alignment_text.txt에 저장되었습니다.
+2025-05-07 17:03:35,180 - core.aligner - INFO - 세그먼트 정렬 완료: 12개 세그먼트 쌍
+2025-05-07 17:03:35,180 - main - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 17:03:35,762 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 0.6157
+2025-05-07 17:03:35,762 - core.analyzer - INFO -   - pause_similarity: 0.7795
+2025-05-07 17:03:35,763 - core.analyzer - INFO -   - pitch_similarity: 0.4895
+2025-05-07 17:03:35,763 - core.analyzer - INFO -   - energy_similarity: 0.5018
+2025-05-07 17:03:35,763 - core.analyzer - INFO -   - rhythm_similarity: 0.6271
+2025-05-07 17:03:35,763 - core.analyzer - INFO -   - vowel_similarity: 0.5766
+2025-05-07 17:03:35,764 - core.analyzer - INFO - 분석 결과가 data\output\eleven_joker\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 17:03:35,946 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\eleven_joker\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 17:03:47,347 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\eleven_joker\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 17:03:47,350 - main - INFO - 5. 종합 평가 중...
+2025-05-07 17:03:47,353 - core.evaluator - INFO - 평가 결과가 data\output\eleven_joker\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 17:03:47,353 - core.evaluator - INFO - 평가 보고서가 data\output\eleven_joker\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 17:03:47,561 - core.evaluator - INFO - 평가 시각화가 data\output\eleven_joker\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 17:03:47,561 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 0.4471, 등급 F
+2025-05-07 17:03:47,561 - main - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 17:03:47,754 - utils.visualizer - INFO - 점수 시각화가 data\output\eleven_joker\similarity_scores.png에 저장되었습니다.
+2025-05-07 17:03:47,909 - utils.visualizer - INFO - 레이더 차트가 data\output\eleven_joker\similarity_radar.png에 저장되었습니다.
+2025-05-07 17:03:47,911 - utils.visualizer - INFO - 요약 보고서가 data\output\eleven_joker\summary_report.txt에 저장되었습니다.
+2025-05-07 17:03:47,911 - main - INFO - 유사도 분석 완료
+2025-05-07 17:03:47,911 - main - INFO - 최종 점수: 0.4471, 등급: F
+2025-05-07 17:07:00,040 - core.processor - INFO - TextGrid 프로세서 초기화: 단어 계층 'words', 음소 계층 'phones'
+2025-05-07 17:07:00,040 - core.processor - INFO - 오디오 프로세서 초기화: 샘플링 레이트 22050Hz
+2025-05-07 17:07:00,993 - core.aligner - INFO - LASER 임베딩 모델을 사용합니다.
+2025-05-07 17:07:00,994 - core.aligner - INFO - 세그먼트 정렬기 초기화: 최소 무음 구간 0.3초, 유사도 임계값 0.3
+2025-05-07 17:07:00,994 - core.aligner - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 17:07:00,994 - core.analyzer - INFO - 프로소디 분석기 초기화
+2025-05-07 17:07:00,994 - core.evaluator - INFO - 유사도 평가기 초기화
+2025-05-07 17:07:00,994 - main - INFO - 프로소디 유사도 분석기 초기화 완료 (임베딩 모델: laser, 임계값: 0.3)
+2025-05-07 17:07:00,994 - main - INFO - N:M 매핑: 활성화, 최소 세그먼트 길이: 0.5초
+2025-05-07 17:07:00,995 - main - INFO - 유사도 분석 시작
+2025-05-07 17:07:00,995 - main - INFO - 원본 오디오: data/input/en/eleven_joker2/eleven_joker_eng2.wav (언어: en)
+2025-05-07 17:07:00,995 - main - INFO - 원본 TextGrid: data/input/text_grid/eleven_joker_eng2.TextGrid
+2025-05-07 17:07:00,996 - main - INFO - 합성 오디오: data/input/kr/eleven_joker/eleven_joker_kor1.wav (언어: kr)
+2025-05-07 17:07:00,996 - main - INFO - 합성 TextGrid: data/input/text_grid/eleven_joker_kor1.TextGrid
+2025-05-07 17:07:00,996 - main - INFO - 출력 디렉토리: data\output\eleven_joker
+2025-05-07 17:07:00,996 - main - INFO - 1. TextGrid 파일 처리 중...
+2025-05-07 17:07:01,009 - core.processor - INFO - TextGrid에서 12개 세그먼트 추출 완료
+2025-05-07 17:07:01,021 - core.processor - INFO - TextGrid에서 19개 세그먼트 추출 완료
+2025-05-07 17:07:01,022 - main - INFO - 2. 오디오 파일 로드 중...
+2025-05-07 17:07:01,022 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/en/eleven_joker2/eleven_joker_eng2.wav
+2025-05-07 17:07:02,325 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 42.45초, 샘플레이트 44100Hz
+2025-05-07 17:07:02,325 - utils.audio_utils - INFO - 오디오 파일 로드 중: data/input/kr/eleven_joker/eleven_joker_kor1.wav
+2025-05-07 17:07:02,366 - utils.audio_utils - INFO - 오디오 파일 로드 완료: 길이 59.17초, 샘플레이트 44100Hz
+2025-05-07 17:07:02,366 - main - INFO - 오디오 비교 시각화 생성 중...
+2025-05-07 17:07:07,647 - utils.audio_utils - INFO - 오디오 비교 시각화가 data\output\eleven_joker\audio_comparison.png에 저장되었습니다.
+2025-05-07 17:07:07,650 - main - INFO - 3. 세그먼트 정렬 중...
+2025-05-07 17:07:07,651 - core.aligner - INFO - 세그먼트 정렬 시작: en -> kr, 소스 세그먼트 12개, 타겟 세그먼트 19개
+2025-05-07 17:07:07,651 - core.aligner - INFO - 전처리 후 타겟 세그먼트: 19개 (원래: 19개)
+2025-05-07 17:07:17,170 - core.aligner - INFO - 세그먼트 정렬 결과가 data\output\eleven_joker\alignment\segment_alignment.json에 저장되었습니다.
+2025-05-07 17:07:17,171 - core.aligner - INFO - 정렬 통계가 data\output\eleven_joker\alignment\alignment_stats.json에 저장되었습니다.
+2025-05-07 17:07:17,171 - core.aligner - INFO - 매핑 타입: 1:1 = 7, N:M = 5, 대체 매칭 = 0, 누락 세그먼트 = 0
+2025-05-07 17:07:17,486 - core.aligner - INFO - 누락된 세그먼트를 포함한 정렬 시각화가 data\output\eleven_joker\alignment\segment_alignment_with_missing.png에 저장되었습니다.
+2025-05-07 17:07:17,486 - core.aligner - INFO - 상세 텍스트 정보가 data\output\eleven_joker\alignment\alignment_text.txt에 저장되었습니다.
+2025-05-07 17:07:17,486 - core.aligner - INFO - 세그먼트 정렬 완료: 12개 세그먼트 쌍
+2025-05-07 17:07:17,486 - main - INFO - 4. 프로소디 유사도 분석 중...
+2025-05-07 17:07:18,049 - core.analyzer - INFO - 프로소디 분석 완료: 전체 유사도 0.6157
+2025-05-07 17:07:18,049 - core.analyzer - INFO -   - pause_similarity: 0.7795
+2025-05-07 17:07:18,050 - core.analyzer - INFO -   - pitch_similarity: 0.4895
+2025-05-07 17:07:18,050 - core.analyzer - INFO -   - energy_similarity: 0.5018
+2025-05-07 17:07:18,050 - core.analyzer - INFO -   - rhythm_similarity: 0.6271
+2025-05-07 17:07:18,050 - core.analyzer - INFO -   - vowel_similarity: 0.5766
+2025-05-07 17:07:18,051 - core.analyzer - INFO - 분석 결과가 data\output\eleven_joker\prosody\similarity_scores.json에 저장되었습니다.
+2025-05-07 17:07:18,272 - core.analyzer - INFO - 유사도 점수 시각화가 data\output\eleven_joker\prosody\similarity_scores.png에 저장되었습니다.
+2025-05-07 17:07:29,759 - core.analyzer - INFO - 오디오 비교 시각화가 data\output\eleven_joker\prosody\audio_comparison.png에 저장되었습니다.
+2025-05-07 17:07:29,761 - main - INFO - 5. 종합 평가 중...
+2025-05-07 17:07:29,763 - core.evaluator - INFO - 평가 결과가 data\output\eleven_joker\evaluation\evaluation_results.json에 저장되었습니다.
+2025-05-07 17:07:29,763 - core.evaluator - INFO - 평가 보고서가 data\output\eleven_joker\evaluation\evaluation_report.txt에 저장되었습니다.
+2025-05-07 17:07:29,962 - core.evaluator - INFO - 평가 시각화가 data\output\eleven_joker\evaluation\evaluation_radar.png에 저장되었습니다.
+2025-05-07 17:07:29,962 - core.evaluator - INFO - 종합 평가 완료: 최종 점수 0.6157, 등급 C
+2025-05-07 17:07:29,962 - main - INFO - 6. 요약 보고서 및 시각화 생성 중...
+2025-05-07 17:07:30,162 - utils.visualizer - INFO - 점수 시각화가 data\output\eleven_joker\similarity_scores.png에 저장되었습니다.
+2025-05-07 17:07:30,324 - utils.visualizer - INFO - 레이더 차트가 data\output\eleven_joker\similarity_radar.png에 저장되었습니다.
+2025-05-07 17:07:30,325 - utils.visualizer - INFO - 요약 보고서가 data\output\eleven_joker\summary_report.txt에 저장되었습니다.
+2025-05-07 17:07:30,326 - main - INFO - 유사도 분석 완료
+2025-05-07 17:07:30,326 - main - INFO - 최종 점수: 0.6157, 등급: C

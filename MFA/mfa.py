@@ -112,11 +112,42 @@ def process_mfa_results(mfa_output_dir, txt_root, output_dir):
         os.makedirs(output_dir, exist_ok=True)  # 출력 디렉토리가 없으면 생성
         batch_visualize(tg_file, txt_root, output_dir)  # 시각화 작업
 
+# 경로 확인 코드 추가
+def check_corpus_directory(corpus_dir):
+    if not os.path.exists(corpus_dir):
+        print(f"Error: Directory {corpus_dir} does not exist!")
+        return False
+    
+    wav_files = list(pathlib.Path(corpus_dir).glob("*.wav"))
+    txt_files = list(pathlib.Path(corpus_dir).glob("*.txt"))
+    
+    print(f"Found {len(wav_files)} WAV files and {len(txt_files)} TXT files in {corpus_dir}")
+    
+    # 파일 이름 매칭 확인
+    wav_basenames = [os.path.splitext(os.path.basename(w))[0] for w in wav_files]
+    txt_basenames = [os.path.splitext(os.path.basename(t))[0] for t in txt_files]
+    
+    matched = set(wav_basenames).intersection(set(txt_basenames))
+    print(f"Found {len(matched)} matching WAV-TXT pairs")
+    
+    return len(matched) > 0
+
 if __name__ == "__main__":
     # MFA 실행을 위한 경로 설정
-    corpus_directory = "../data/input/kr"  # 음성 및 텍스트 파일이 포함된 디렉토리
-    dictionary_path = "C:/Users/SSAFY/Documents/MFA/pretrained_models/dictionary/korean_mfa.dict"  # 사전 파일 경로
-    acoustic_model_path = "C:/Users/SSAFY/Documents/MFA/pretrained_models/acoustic/korean_mfa.zip"  # 음향 모델 경로
+    corpus_directory = "../data/input/en/eleven_joker2"  # 음성 및 텍스트 파일이 포함된 디렉토리
+    
+    # 경로 확인
+    if not check_corpus_directory(corpus_directory):
+        # 절대 경로로 변환하여 재시도
+        abs_corpus_directory = os.path.abspath(corpus_directory)
+        print(f"Trying absolute path: {abs_corpus_directory}")
+        if not check_corpus_directory(abs_corpus_directory):
+            print("Failed to find matching files. Please check your directory structure.")
+            exit(1)
+        else:
+            corpus_directory = abs_corpus_directory
+    dictionary_path = "C:/Users/SSAFY/Documents/MFA/pretrained_models/dictionary/english_mfa.dict"  # 사전 파일 경로
+    acoustic_model_path = "C:/Users/SSAFY/Documents/MFA/pretrained_models/acoustic/english_mfa.zip"  # 음향 모델 경로
     output_directory = "../data/input/text_grid"  # 결과를 저장할 디렉토리 경로
 
     # MFA 실행: 음성 정렬

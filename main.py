@@ -1,535 +1,364 @@
-# main_improved.py
-from pathlib import Path
-import json
-import logging
-from typing import Dict, List, Tuple, Optional, Union, Any
-import numpy as np
+# main.py
+"""
+음성 유사도 평가 시스템 메인 모듈
+"""
 import os
-# Import modules
-from embedder import SentenceEmbedder
-from matcher import SentenceMatcher
-from aligner import ProsodicAligner
-from evaluator import DubbingEvaluator
-from renderer import AudioRenderer
-from utils import TextGridProcessor
-from tts import TextToSpeech
-from tts_optimizer import TTSOptimizer
-from prosody_analyzer import ProsodyAnalyzer
-from tts_feedback_loop import TTSFeedbackLoop
-from config import DEFAULT_CONFIG, MATCHER_CONFIG, ALIGNER_CONFIG, EMBEDDER_CONFIG, TTS_CONFIG
+import logging
+import argparse
+from pathlib import Path
+from typing import Dict, Any, Optional, List, Tuple
 
-# Configure logging
+# 설정 파일 로드
+from config import INPUT_DIR, OUTPUT_DIR
+
+# 핵심 모듈 로드
+from core.processor import TextGridProcessor, AudioProcessor
+from core.analyzer import ProsodyAnalyzer
+from core.aligner import SegmentAligner
+from core.evaluator import SimilarityEvaluator
+
+# 유틸리티 모듈 로드
+from utils.audio_utils import load_audio, plot_audio_comparison
+from utils.text_utils import read_text_file, extract_text_from_textgrid
+from utils.visualizer import visualize_scores, visualize_radar_chart, create_summary_report
+
+# 로깅 설정
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('prosodic_similarity.log', encoding='utf-8')
+    ]
 )
+
 logger = logging.getLogger(__name__)
 
-class AutomaticDubbingPipeline:
-    """Main pipeline for automatic dubbing with advanced feedback mechanism."""
+class ProsodySimilarityAnalyzer:
+    """
+    원본 음성과 합성 음성의 프로소디 유사도를 분석하는 통합 클래스
+    """
     
-    def __init__(
-        self, 
-        src_lang: str = None, 
-        tgt_lang: str = None,
-        embedding_model: str = None,
-        use_relaxation: bool = None,
-        min_silence: float = None,
-        config: Optional[Dict] = None,
-        enable_feedback: bool = True,  # 피드백 루프 활성화 여부
-        feedback_iterations: int = 3   # 피드백 루프 최대 반복 횟수
-    ):
+    def __init__(self):
         """
-        Initialize the automatic dubbing pipeline.
-        
-        Args:
-            src_lang: Source language code (overrides config)
-            tgt_lang: Target language code (overrides config)
-            embedding_model: Model for embeddings (overrides config)
-            use_relaxation: Whether to use relaxation (overrides config)
-            min_silence: Minimum silence duration (overrides config)
-            config: Configuration dictionary (if None, uses defaults from config.py)
-            enable_feedback: Whether to enable feedback loop mechanism
-            feedback_iterations: Maximum number of feedback iterations
+        프로소디 유사도 분석기 초기화
         """
-        # Load configuration
-        self.config = config or {
-            **DEFAULT_CONFIG,
-            "matcher": MATCHER_CONFIG,
-            "aligner": ALIGNER_CONFIG,
-            "embedder": EMBEDDER_CONFIG,
-            "tts": TTS_CONFIG
-        }
-        
-        # Override config with any provided parameters
-        self.src_lang = src_lang or self.config.get("src_lang")
-        self.tgt_lang = tgt_lang or self.config.get("tgt_lang")
-        self.min_silence = min_silence or self.config.get("aligner", {}).get("min_silence")
-        self.use_relaxation = use_relaxation if use_relaxation is not None else self.config.get("aligner", {}).get("use_relaxation")
-        self.enable_feedback = enable_feedback
-        
-        # Initialize components
-        self.embedder = SentenceEmbedder(model_name=embedding_model or self.config.get("embedder", {}).get("model_name"))
-        self.matcher = SentenceMatcher(config=self.config.get("matcher"))
-        self.aligner = ProsodicAligner(
-            src_lang=self.src_lang,
-            tgt_lang=self.tgt_lang,
-            min_silence=self.min_silence,
-            use_relaxation=self.use_relaxation,
-            feature_weights=self.config.get("aligner", {}).get("feature_weights")
-        )
-        self.renderer = AudioRenderer()
-        self.evaluator = DubbingEvaluator()
+        # 각 컴포넌트 초기화
         self.textgrid_processor = TextGridProcessor()
+        self.audio_processor = AudioProcessor()
+        self.segment_aligner = SegmentAligner()
+        self.prosody_analyzer = ProsodyAnalyzer()
+        self.evaluator = SimilarityEvaluator()
         
-        # Initialize feedback components if enabled
-        if self.enable_feedback:
-            self.feedback_loop = TTSFeedbackLoop(
-                max_iterations=feedback_iterations,
-                improvement_threshold=0.05,
-                similarity_threshold=0.85
-            )
-        
-        logger.info(f"Automatic Dubbing Pipeline initialized: {self.src_lang} → {self.tgt_lang}")
-        logger.info(f"Feedback loop: {'Enabled' if self.enable_feedback else 'Disabled'}")
+        logger.info("프로소디 유사도 분석기 초기화 완료")
     
-    def process_with_text(
-        self, 
+    def analyze(
+        self,
         src_audio_path: str,
         src_textgrid_path: str,
-        tgt_text: List[str],
-        output_dir: Path,
-        on_screen_segments: Optional[List[bool]] = None,
-        use_tts: bool = True,
-        use_feedback: Optional[bool] = None  # 피드백 메커니즘 사용 여부 (None이면 클래스 설정 사용)
-    ) -> Dict:
+        tgt_audio_path: str,
+        tgt_textgrid_path: Optional[str] = None,
+        output_dir: Optional[str] = None
+    ) -> Dict[str, Any]:
         """
-        Process the dubbing pipeline with target text (using TTS).
+        원본 음성과 합성 음성의 프로소디 유사도 분석 실행
         
         Args:
-            src_audio_path: Path to source audio file
-            src_textgrid_path: Path to source TextGrid file
-            tgt_text: List of target language sentences
-            output_dir: Directory to save outputs
-            on_screen_segments: List indicating whether each segment is on-screen
-            use_tts: Whether to use TTS for synthesis (if False, only alignment is performed)
-            use_feedback: Whether to use feedback mechanism (None to use class default)
-        
+            src_audio_path: 원본 오디오 파일 경로
+            src_textgrid_path: 원본 TextGrid 파일 경로
+            tgt_audio_path: 합성 오디오 파일 경로
+            tgt_textgrid_path: 합성 TextGrid 파일 경로 (없으면 원본 정보 사용)
+            output_dir: 결과 저장 디렉토리
+            
         Returns:
-            Dict containing results and evaluation metrics
+            분석 결과 및 유사도 점수를 포함한 딕셔너리
         """
-        output_dir = Path(output_dir)
-        output_dir.mkdir(exist_ok=True, parents=True)
-        
-        # Process source TextGrid to get timing information
-        src_segments = self.textgrid_processor.process_textgrid(src_textgrid_path)
-        src_text = [seg['text'] for seg in src_segments]
-        
-        logger.info(f"Source segments: {len(src_segments)}")
-        logger.info(f"Target sentences: {len(tgt_text)}")
-        
-        # If on_screen_segments not provided, use default from config
-        if on_screen_segments is None:
-            default_on_screen = self.config.get("default_on_screen", False)
-            on_screen_segments = [default_on_screen] * len(src_segments)
-        
-        # Generate embeddings for source and target sentences
-        src_embeddings = self.embedder.encode_sentences(src_text, lang=self.src_lang)
-        tgt_embeddings = self.embedder.encode_sentences(tgt_text, lang=self.tgt_lang)
-        
-        # Match sentences based on semantic similarity
-        matches = self.matcher.match_sentences(
-            src_embeddings=src_embeddings,
-            tgt_embeddings=tgt_embeddings,
-            src_texts=src_text,
-            tgt_texts=tgt_text
-        )
-        
-        # Map target sentences to source segments
-        tgt_sentences = self._create_target_sentence_mapping(
-            src_segments=src_segments,
-            tgt_text=tgt_text,
-            matches=matches
-        )
-        
-        # Perform prosodic alignment for all segments
-        aligned_segments = []
-        for i, (src_segment, tgt_sentence) in enumerate(zip(src_segments, tgt_sentences)):
-            is_on_screen = on_screen_segments[i] if i < len(on_screen_segments) else False
-            
-            if tgt_sentence:
-                # Apply alignment for segments with matched text
-                aligned_segment = self.aligner.align_from_text_segment(
-                    src_segment=src_segment,
-                    tgt_sentence=tgt_sentence,
-                    is_on_screen=is_on_screen
-                )
-                aligned_segments.append(aligned_segment)
-            else:
-                # Create placeholder for segments without matched text
-                logger.warning(f"Source segment {i} has no matching target text, creating placeholder")
-                aligned_segments.append({
-                    "text": "",
-                    "start": src_segment["start"],
-                    "end": src_segment["end"],
-                    "duration": src_segment["end"] - src_segment["start"],
-                    "on_screen": is_on_screen
-                })
-        
-        # 텍스트 검증
-        self._validate_aligned_text(aligned_segments, tgt_text)
-        
-        if use_tts:
-            # Initialize TTS engine with config parameters
-            tts_config = self.config.get("tts", {})
-            tts = TextToSpeech(
-                lang=self.tgt_lang,
-                voice_id=tts_config.get("voice_id"),
-                engine=tts_config.get("engine", "neural")
-            )
-            
-            # 피드백 루프 사용 여부 결정
-            should_use_feedback = use_feedback if use_feedback is not None else self.enable_feedback
-            
-            # 빈 세그먼트 제외
-            non_empty_segments = [seg for seg in aligned_segments if seg['text'].strip()]
-            
-            if should_use_feedback and non_empty_segments:
-                logger.info("Using feedback loop for TTS optimization")
-                try:
-                    # 피드백 루프 실행
-                    best_params, tts_results = self.feedback_loop.run(
-                        tts=tts,
-                        src_audio_path=src_audio_path,
-                        src_segments=src_segments,
-                        aligned_segments=non_empty_segments,
-                        initial_params=tts_config,
-                        output_dir=output_dir / "feedback_loop"
-                    )
-                except Exception as e:
-                    logger.error(f"피드백 루프 실행 중 오류 발생: {e}. 직접 TTS 생성으로 전환합니다.")
-                    # 직접 TTS 생성으로 전환
-                    tts_results = tts.synthesize(
-                        sentences=[seg['text'] for seg in non_empty_segments],
-                        durations=[seg['duration'] for seg in non_empty_segments]
-                    )
-                    best_params = tts_config
-                    
-                # 설정에 최적 파라미터 저장
-                self.config["tts"].update(best_params)
-                
-                # 결과 매핑
-                all_tts_results = self._map_tts_results_to_segments(
-                    tts_results=tts_results,
-                    aligned_segments=aligned_segments
-                )
-                
-                # 최종 오디오 렌더링
-                final_audio_path = output_dir / "dubbed_audio.wav"
-                valid_indices = [i for i, seg in enumerate(aligned_segments) if seg['text'].strip()]
-                
-                self.renderer.render(
-                    src_audio_path=src_audio_path,
-                    tts_audio_paths=[all_tts_results[i]['audio_path'] for i in valid_indices if all_tts_results[i]['audio_path']],
-                    segment_timings=[(aligned_segments[i]['start'], aligned_segments[i]['end']) for i in valid_indices],
-                    output_path=final_audio_path
-                )
-                
-                # 최종 평가
-                evaluation = self.evaluator.evaluate(
-                    src_audio_path=src_audio_path,
-                    src_segments=src_segments,
-                    tgt_audio_path=final_audio_path,
-                    aligned_segments=non_empty_segments,
-                    tts_results=[all_tts_results[i] for i in valid_indices]
-                )
-                
-                # 프로소디 분석 결과 추가
-                prosody_analyzer = ProsodyAnalyzer()
-                similarity_scores = prosody_analyzer.analyze(
-                    src_audio_path=src_audio_path,
-                    tgt_audio_path=str(final_audio_path),
-                    src_segments=src_segments,
-                    tgt_segments=non_empty_segments,
-                    output_dir=output_dir / "prosody_analysis"
-                )
-                
-                # 분석 결과 평가에 추가
-                evaluation["prosody_similarity"] = similarity_scores
-                
-            else:
-                # 피드백 없이 TTS 생성
-                logger.info("Generating TTS without feedback loop")
-                tts_results = tts.synthesize(
-                    sentences=[seg['text'] for seg in non_empty_segments],
-                    durations=[seg['duration'] for seg in non_empty_segments]
-                )
-                
-                # 결과 매핑
-                all_tts_results = self._map_tts_results_to_segments(
-                    tts_results=tts_results,
-                    aligned_segments=aligned_segments
-                )
-                
-                # 최종 오디오 렌더링
-                final_audio_path = output_dir / "dubbed_audio.wav"
-                valid_indices = [i for i, seg in enumerate(aligned_segments) if seg['text'].strip()]
-                
-                self.renderer.render(
-                    src_audio_path=src_audio_path,
-                    tts_audio_paths=[all_tts_results[i]['audio_path'] for i in valid_indices if all_tts_results[i]['audio_path']],
-                    segment_timings=[(aligned_segments[i]['start'], aligned_segments[i]['end']) for i in valid_indices],
-                    output_path=final_audio_path
-                )
-                
-                # 평가
-                evaluation = self.evaluator.evaluate(
-                    src_audio_path=src_audio_path,
-                    src_segments=src_segments,
-                    tgt_audio_path=final_audio_path,
-                    aligned_segments=non_empty_segments,
-                    tts_results=[all_tts_results[i] for i in valid_indices]
-                )
+        # 출력 디렉토리 설정
+        if output_dir:
+            output_path = Path(output_dir)
         else:
-            # TTS 없이 정렬 결과만 반환
-            evaluation = {
-                "aligned": {
-                    "isochrony": 0.0,
-                    "smoothness": 0.0,
-                    "fluency": 0.0,
-                    "intelligibility": 0.0,
-                    "overall": 0.0
-                }
-            }
+            output_path = Path(OUTPUT_DIR)
         
-        # 결과 저장
-        results = {
-            "alignment": [
-                {
-                    "src_idx": match['src_idx'],
-                    "tgt_idx": match['tgt_idx'],
-                    "similarity": match['similarity'],
-                    "src_text": src_text[match['src_idx']],
-                    "tgt_text": tgt_text[match['tgt_idx']] if match['tgt_idx'] < len(tgt_text) else ""
-                }
-                for match in matches
-            ],
-            "segments": [
-                {
-                    "start": seg['start'],
-                    "end": seg['end'],
-                    "text": seg['text'],
-                    "on_screen": seg.get('on_screen', False)
-                }
-                for seg in aligned_segments
-            ],
-            "evaluation": evaluation,
-            "complete_text": " ".join(tgt_text)
-        }
+        output_path.mkdir(exist_ok=True, parents=True)
         
-        # 피드백 루프 결과 추가
-        if use_tts and 'should_use_feedback' in locals() and should_use_feedback:
-            feedback_history = self.feedback_loop.history
-            
-            if feedback_history:
-                results["feedback_loop"] = {
-                    "iterations": len(feedback_history),
-                    "initial_score": feedback_history[0]["overall_score"] if feedback_history else 0.0,
-                    "final_score": feedback_history[-1]["overall_score"] if feedback_history else 0.0,
-                    "best_params": best_params,
-                    "improvement": feedback_history[-1]["overall_score"] - feedback_history[0]["overall_score"] 
-                        if len(feedback_history) > 1 else 0.0
-                }
+        logger.info("유사도 분석 시작")
+        logger.info(f"원본 오디오: {src_audio_path}")
+        logger.info(f"원본 TextGrid: {src_textgrid_path}")
+        logger.info(f"합성 오디오: {tgt_audio_path}")
+        logger.info(f"합성 TextGrid: {tgt_textgrid_path}")
+        logger.info(f"출력 디렉토리: {output_path}")
         
-        # JSON 파일로 저장
-        with open(output_dir / "results.json", "w", encoding="utf-8") as f:
-            json.dump(results, f, ensure_ascii=False, indent=2)
+        # 1. TextGrid 처리
+        logger.info("1. TextGrid 파일 처리 중...")
+        src_segments = self.textgrid_processor.process_textgrid(src_textgrid_path)
         
-        logger.info(f"Processing completed. Results saved to {output_dir}")
-        return results
+        # 합성 TextGrid가 있으면 처리, 없으면 원본 사용
+        if tgt_textgrid_path and os.path.exists(tgt_textgrid_path):
+            tgt_segments = self.textgrid_processor.process_textgrid(tgt_textgrid_path)
+        else:
+            logger.warning("합성 TextGrid가 없습니다. 원본 세그먼트 정보를 사용합니다.")
+            tgt_segments = src_segments.copy()
+        
+        # 2. 오디오 파일 로드
+        logger.info("2. 오디오 파일 로드 중...")
+        src_audio, src_sr = load_audio(src_audio_path)
+        tgt_audio, tgt_sr = load_audio(tgt_audio_path)
+        
+        # 오디오 비교 시각화
+        logger.info("오디오 비교 시각화 생성 중...")
+        plot_audio_comparison(
+            src_audio, src_sr, tgt_audio, tgt_sr,
+            title="원본 vs 합성 오디오 비교",
+            file_path=str(output_path / "audio_comparison.png")
+        )
+        
+        # 3. 세그먼트 정렬
+        logger.info("3. 세그먼트 정렬 중...")
+        aligned_segments = self.segment_aligner.align_segments(
+            src_segments, tgt_segments,
+            output_dir=output_path / "alignment"
+        )
+        
+        # 4. 프로소디 분석
+        logger.info("4. 프로소디 유사도 분석 중...")
+        prosody_scores = self.prosody_analyzer.analyze(
+            src_audio, src_sr, src_segments,
+            tgt_audio, tgt_sr, tgt_segments,
+            output_dir=output_path / "prosody"
+        )
+        
+        # 5. 종합 평가
+        logger.info("5. 종합 평가 중...")
+        evaluation_results = self.evaluator.evaluate(
+            prosody_scores, aligned_segments,
+            output_dir=output_path / "evaluation"
+        )
+        
+        # 6. 요약 보고서 및 시각화 생성
+        logger.info("6. 요약 보고서 및 시각화 생성 중...")
+        
+        # 유사도 점수 시각화
+        visualize_scores(
+            evaluation_results,
+            title="음성 유사도 평가 결과",
+            file_path=str(output_path / "similarity_scores.png")
+        )
+        
+        # 레이더 차트 시각화
+        visualize_radar_chart(
+            evaluation_results,
+            title="음성 유사도 레이더 차트",
+            file_path=str(output_path / "similarity_radar.png")
+        )
+        
+        # 요약 보고서 생성
+        create_summary_report(
+            evaluation_results,
+            file_path=str(output_path / "summary_report.txt")
+        )
+        
+        logger.info("유사도 분석 완료")
+        logger.info(f"최종 점수: {evaluation_results.get('final_score', 0):.4f}, 등급: {evaluation_results.get('grade', 'N/A')}")
+        
+        return evaluation_results
     
-    def _create_target_sentence_mapping(
+    def analyze_batch(
         self,
-        src_segments: List[Dict[str, Any]],
-        tgt_text: List[str],
-        matches: List[Dict[str, Any]]
-    ) -> List[str]:
-        """
-        매칭 결과를 기반으로 원본 세그먼트에 대응하는 타겟 문장 매핑을 생성합니다.
-        
-        Args:
-            src_segments: 원본 세그먼트 목록
-            tgt_text: 타겟 문장 목록
-            matches: 매칭 결과 목록
-            
-        Returns:
-            원본 세그먼트에 대응하는 타겟 문장 목록
-        """
-        # 빈 매핑 초기화
-        tgt_sentences = [""] * len(src_segments)
-        
-        # 매칭된 문장 매핑
-        for match in matches:
-            src_idx = match['src_idx']
-            tgt_idx = match['tgt_idx']
-            
-            if src_idx < len(tgt_sentences) and tgt_idx < len(tgt_text):
-                tgt_sentences[src_idx] = tgt_text[tgt_idx]
-        
-        # 사용된 타겟 인덱스 확인
-        used_tgt_indices = set(match['tgt_idx'] for match in matches if match['tgt_idx'] < len(tgt_text))
-        
-        # 미사용 타겟 문장 처리
-        unused_tgt_indices = [i for i in range(len(tgt_text)) if i not in used_tgt_indices]
-        
-        if unused_tgt_indices:
-            # 빈 슬롯 찾기
-            empty_slots = [i for i, sentence in enumerate(tgt_sentences) if not sentence]
-            
-            # 빈 슬롯에 미사용 문장 배치
-            for slot_idx, tgt_idx in zip(empty_slots, unused_tgt_indices):
-                if tgt_idx < len(tgt_text):
-                    tgt_sentences[slot_idx] = tgt_text[tgt_idx]
-            
-            # 여전히 미사용 문장이 있으면 마지막 세그먼트에 결합
-            remaining_unused = [i for i in unused_tgt_indices if i >= len(empty_slots)]
-            if remaining_unused:
-                remaining_text = " ".join([tgt_text[i] for i in remaining_unused])
-                if tgt_sentences[-1]:
-                    tgt_sentences[-1] += " " + remaining_text
-                else:
-                    tgt_sentences[-1] = remaining_text
-        
-        # 타겟 텍스트가 모두 포함되었는지 확인
-        used_text = set(" ".join(tgt_sentences).replace(" ", "").lower())
-        expected_text = set(" ".join(tgt_text).replace(" ", "").lower())
-        
-        # 누락된 텍스트가 있으면 첫 번째 세그먼트에 모든 텍스트 배치
-        if used_text != expected_text and src_segments:
-            logger.warning("Not all target text was mapped. Placing all text in first segment.")
-            tgt_sentences[0] = " ".join(tgt_text)
-            for i in range(1, len(tgt_sentences)):
-                tgt_sentences[i] = ""
-        
-        return tgt_sentences
-    
-    def _validate_aligned_text(self, aligned_segments: List[Dict[str, Any]], tgt_text: List[str]) -> None:
-        """
-        정렬된 세그먼트의 텍스트가 원본 타겟 텍스트를 모두 포함하는지 확인합니다.
-        
-        Args:
-            aligned_segments: 정렬된 세그먼트 목록
-            tgt_text: 원본 타겟 텍스트 목록
-        """
-        if not aligned_segments:
-            return
-            
-        # 정렬된 텍스트와 원본 텍스트 비교
-        aligned_text = " ".join([seg["text"] for seg in aligned_segments]).replace(" ", "").lower()
-        original_text = " ".join(tgt_text).replace(" ", "").lower()
-        
-        if aligned_text != original_text:
-            logger.warning("Text mismatch after alignment. Forcing full text in first segment.")
-            
-            # 첫 번째 세그먼트에 모든 텍스트 배치
-            aligned_segments[0]["text"] = " ".join(tgt_text)
-            for i in range(1, len(aligned_segments)):
-                aligned_segments[i]["text"] = ""
-    
-    def _map_tts_results_to_segments(
-        self,
-        tts_results: List[Dict[str, Any]],
-        aligned_segments: List[Dict[str, Any]]
+        src_dir: str,
+        tgt_dir: str,
+        output_dir: Optional[str] = None,
+        pattern: str = "*.wav"
     ) -> List[Dict[str, Any]]:
         """
-        TTS 결과를 모든 세그먼트에 매핑합니다.
+        여러 음성 파일에 대한 일괄 분석 실행
         
         Args:
-            tts_results: TTS 결과 목록
-            aligned_segments: 정렬된 세그먼트 목록
+            src_dir: 원본 오디오 파일 디렉토리
+            tgt_dir: 합성 오디오 파일 디렉토리
+            output_dir: 결과 저장 디렉토리
+            pattern: 오디오 파일 검색 패턴
             
         Returns:
-            모든 세그먼트에 대응하는 TTS 결과 목록
+            각 파일 쌍의 분석 결과 목록
         """
-        all_tts_results = []
-        tts_idx = 0
+        # 출력 디렉토리 설정
+        if output_dir:
+            output_path = Path(output_dir)
+        else:
+            output_path = Path(OUTPUT_DIR) / "batch"
         
-        for seg in aligned_segments:
-            if seg['text'].strip():
-                # 해당 세그먼트에 TTS 결과 매핑
-                if tts_idx < len(tts_results):
-                    all_tts_results.append(tts_results[tts_idx])
-                    tts_idx += 1
-                else:
-                    # 예상치 못한 경우에 대한 예비 처리
-                    logger.warning(f"Missing TTS result for segment '{seg['text']}'")
-                    all_tts_results.append({
-                        'text': seg['text'],
-                        'audio_path': '',
-                        'duration': seg['duration'],
-                        'target_duration': seg['duration']
-                    })
-            else:
-                # 빈 세그먼트를 위한 무음 처리
-                all_tts_results.append({
-                    'text': '',
-                    'audio_path': '',
-                    'duration': seg['duration'],
-                    'target_duration': seg['duration']
-                })
+        output_path.mkdir(exist_ok=True, parents=True)
         
-        return all_tts_results
+        logger.info(f"일괄 분석 시작: {src_dir} -> {tgt_dir}")
+        
+        # 원본 디렉토리에서 오디오 파일 검색
+        src_files = list(Path(src_dir).glob(pattern))
+        
+        if not src_files:
+            logger.warning(f"'{pattern}' 패턴과 일치하는 원본 파일이 없습니다.")
+            return []
+        
+        results = []
+        
+        # 각 원본 파일에 대해 처리
+        for src_audio_path in src_files:
+            # 파일 이름에서 기본 이름 추출
+            base_name = src_audio_path.stem
+            
+            # 원본 TextGrid 파일 경로
+            src_textgrid_path = src_audio_path.with_suffix('.TextGrid')
+            if not src_textgrid_path.exists():
+                logger.warning(f"'{src_textgrid_path}' 파일이 없습니다. 이 파일을 건너뜁니다.")
+                continue
+            
+            # 대응하는 합성 오디오 파일 경로
+            tgt_audio_path = Path(tgt_dir) / src_audio_path.name
+            if not tgt_audio_path.exists():
+                logger.warning(f"'{tgt_audio_path}' 파일이 없습니다. 이 파일을 건너뜁니다.")
+                continue
+            
+            # 합성 TextGrid 파일 경로
+            tgt_textgrid_path = tgt_audio_path.with_suffix('.TextGrid')
+            
+            # 개별 파일 분석
+            logger.info(f"파일 분석 중: {base_name}")
+            try:
+                result = self.analyze(
+                    str(src_audio_path),
+                    str(src_textgrid_path),
+                    str(tgt_audio_path),
+                    str(tgt_textgrid_path) if tgt_textgrid_path.exists() else None,
+                    str(output_path / base_name)
+                )
+                
+                # 결과에 파일 정보 추가
+                result["file_info"] = {
+                    "base_name": base_name,
+                    "src_audio": str(src_audio_path),
+                    "tgt_audio": str(tgt_audio_path)
+                }
+                
+                results.append(result)
+                
+            except Exception as e:
+                logger.error(f"'{base_name}' 파일 분석 중 오류 발생: {e}")
+        
+        # 일괄 분석 결과 요약
+        if results:
+            self._summarize_batch_results(results, output_path)
+        
+        logger.info(f"일괄 분석 완료: {len(results)}개 파일 처리됨")
+        return results
+    
+    def _summarize_batch_results(self, results: List[Dict[str, Any]], output_dir: Path) -> None:
+        """
+        일괄 분석 결과 요약
+        
+        Args:
+            results: 분석 결과 목록
+            output_dir: 결과 저장 디렉토리
+        """
+        if not results:
+            return
+        
+        # 결과 요약 파일 생성
+        summary_path = output_dir / "batch_summary.txt"
+        
+        try:
+            with open(summary_path, 'w', encoding='utf-8') as f:
+                f.write("=== 일괄 분석 결과 요약 ===\n\n")
+                
+                # 전체 평균 점수 계산
+                avg_final_score = sum(r.get('final_score', 0) for r in results) / len(results)
+                avg_prosody_score = sum(r.get('overall', 0) for r in results) / len(results)
+                
+                f.write(f"분석된 파일 수: {len(results)}\n")
+                f.write(f"평균 최종 점수: {avg_final_score:.4f}\n")
+                f.write(f"평균 프로소디 점수: {avg_prosody_score:.4f}\n\n")
+                
+                f.write("== 개별 파일 점수 ==\n")
+                
+                # 점수별로 정렬
+                sorted_results = sorted(results, key=lambda r: r.get('final_score', 0), reverse=True)
+                
+                for i, result in enumerate(sorted_results, 1):
+                    base_name = result.get('file_info', {}).get('base_name', f"파일 {i}")
+                    final_score = result.get('final_score', 0)
+                    grade = result.get('grade', 'N/A')
+                    
+                    f.write(f"{i}. {base_name}: {final_score:.4f} (등급: {grade})\n")
+            
+            logger.info(f"일괄 분석 요약이 {summary_path}에 저장되었습니다.")
+            
+        except Exception as e:
+            logger.error(f"일괄 분석 요약 생성 중 오류 발생: {e}")
+
+def main():
+    """메인 실행 함수"""
+    parser = argparse.ArgumentParser(description="원본 음성과 합성 음성 간의 프로소디 유사도 분석")
+    
+    # 단일 파일 분석 모드
+    parser.add_argument("--src-audio", help="원본 오디오 파일 경로")
+    parser.add_argument("--src-textgrid", help="원본 TextGrid 파일 경로")
+    parser.add_argument("--tgt-audio", help="합성 오디오 파일 경로")
+    parser.add_argument("--tgt-textgrid", help="합성 TextGrid 파일 경로 (선택적)")
+    
+    # 일괄 분석 모드
+    parser.add_argument("--batch", action="store_true", help="일괄 분석 모드 활성화")
+    parser.add_argument("--src-dir", help="원본 오디오 파일 디렉토리")
+    parser.add_argument("--tgt-dir", help="합성 오디오 파일 디렉토리")
+    parser.add_argument("--pattern", default="*.wav", help="오디오 파일 검색 패턴 (기본: *.wav)")
+    
+    # 공통 옵션
+    parser.add_argument("--output-dir", help="결과 저장 디렉토리 (기본: ./output)")
+    
+    args = parser.parse_args()
+    
+    # 분석기 초기화
+    analyzer = ProsodySimilarityAnalyzer()
+    
+    # 실행 모드 결정
+    if args.batch:
+        # 일괄 분석 모드
+        if not args.src_dir or not args.tgt_dir:
+            parser.error("일괄 분석 모드에서는 --src-dir과 --tgt-dir이 필요합니다.")
+        
+        # 일괄 분석 실행
+        results = analyzer.analyze_batch(
+            args.src_dir,
+            args.tgt_dir,
+            args.output_dir,
+            args.pattern
+        )
+        
+        # 분석 완료 메시지
+        if results:
+            print(f"\n=== 일괄 분석 완료: {len(results)}개 파일 처리됨 ===")
+            print(f"평균 최종 점수: {sum(r.get('final_score', 0) for r in results) / len(results):.4f}")
+        
+    else:
+        # 단일 파일 분석 모드
+        if not args.src_audio or not args.src_textgrid or not args.tgt_audio:
+            parser.error("단일 파일 분석 모드에서는 --src-audio, --src-textgrid, --tgt-audio가 필요합니다.")
+        
+        # 단일 파일 분석 실행
+        result = analyzer.analyze(
+            args.src_audio,
+            args.src_textgrid,
+            args.tgt_audio,
+            args.tgt_textgrid,
+            args.output_dir
+        )
+        
+        # 분석 완료 메시지
+        print("\n=== 유사도 분석 완료 ===")
+        print(f"최종 점수: {result.get('final_score', 0):.4f}")
+        print(f"등급: {result.get('grade', 'N/A')}")
+        print(f"결과가 '{args.output_dir or OUTPUT_DIR}'에 저장되었습니다.")
 
 if __name__ == "__main__":
-    # Google TTS 테스트
-    test_tts = TextToSpeech(
-    lang="en-US",
-    engine="google",
-    voice_id="en-US-Wavenet-F"
-    )
-    test_result = test_tts.synthesize(["This is a direct test of Google TTS."])
-    print(f"직접 호출 테스트 결과: {test_result}")
-
-    pipeline = AutomaticDubbingPipeline(
-        src_lang="ko",
-        tgt_lang="en",
-        embedding_model="LASER", # LASER, SBERT
-        use_relaxation=True,
-        enable_feedback=True,   # 피드백 루프 활성화
-        feedback_iterations=5    # 최대 2회 반복
-    )
-    
-    # 현재 디렉토리 가져오기
-    current_directory = os.getcwd()
-    
-    # 피드백 루프를 활용한 자동 더빙 실행
-    results = pipeline.process_with_text(
-        src_audio_path=os.path.join(current_directory, 'input/윤장목소리1.wav'),
-        src_textgrid_path=os.path.join(current_directory, 'input/윤장목소리1.TextGrid'),
-        tgt_text=["Hello.", "My name is Jo Yoon-jang.", "Nice to meet you.", "Please take care of me."],
-        output_dir=Path("output/improved_dubbing"),
-        use_feedback=True  # 명시적으로 피드백 사용 설정
-    )
-    
-    # 결과 출력
-    if "feedback_loop" in results:
-        print(f"=== 피드백 루프 결과 ===")
-        print(f"반복 횟수: {results['feedback_loop']['iterations']}")
-        print(f"초기 점수: {results['feedback_loop']['initial_score']:.4f}")
-        print(f"최종 점수: {results['feedback_loop']['final_score']:.4f}")
-        print(f"개선도: {results['feedback_loop']['improvement']:.4f}")
-        print(f"최적 파라미터: {results['feedback_loop']['best_params']}")
-    
-    print(f"\n=== 평가 결과 ===")
-    print(f"전체 점수: {results['evaluation']['aligned']['overall']}")
-    print(f"등시성: {results['evaluation']['aligned']['isochrony']}")
-    print(f"매끄러움: {results['evaluation']['aligned']['smoothness']}")
-    print(f"유창성: {results['evaluation']['aligned']['fluency']}")
-    print(f"명료성: {results['evaluation']['aligned']['intelligibility']}")
-    
-    if "prosody_similarity" in results['evaluation']:
-        print(f"\n=== 프로소디 유사도 ===")
-        for key, value in results['evaluation']['prosody_similarity'].items():
-            print(f"{key}: {value:.4f}")
-    
-    print(f"\n최종 결과는 output/improved_dubbing 폴더에 저장되었습니다.")
+    try:
+        main()
+    except Exception as e:
+        logger.error(f"실행 중 오류 발생: {e}", exc_info=True)
+        print(f"오류가 발생했습니다: {e}")

@@ -2,6 +2,9 @@
 from pathlib import Path
 from main import ProsodySimilarityAnalyzer
 from config import EVAL_CONFIG, SEMANTIC_CONFIG
+from core.alignment_to_ssml import AlignmentToSSML  # SSML 변환 클래스 임포트
+import json
+import os
 
 def main():
     # config.py에서 설정 가져오기
@@ -19,12 +22,19 @@ def main():
     print(f"분석 시작: {src_lang} -> {tgt_lang}")
     print(f"임베딩 모델: {default_model}, 유사도 임계값: {similarity_threshold}")
     
+    # SSML 생성 활성화 옵션 추가
+    generate_ssml = True
+    
     # 분석기 초기화 (config.py 설정 활용)
     analyzer = ProsodySimilarityAnalyzer(
         embedding_model=default_model,
-        similarity_threshold=similarity_threshold
-        # enable_n_to_m_mapping 파라미터 제거 (또는 ProsodySimilarityAnalyzer 클래스 수정 후 활성화)
+        similarity_threshold=similarity_threshold,
+        generate_ssml=generate_ssml  # SSML 생성 옵션 추가
     )
+    
+    # 결과 저장 디렉토리
+    output_dir = "data/output/eleven_joker2"
+    os.makedirs(output_dir, exist_ok=True)
     
     # 단일 파일 분석 실행
     result = analyzer.analyze(
@@ -34,7 +44,7 @@ def main():
         tgt_textgrid_path="data/input/text_grid/eleven_joker_kor1.TextGrid",
         src_lang=src_lang,  # 소스 언어 코드
         tgt_lang=tgt_lang,  # 타겟 언어 코드
-        output_dir="data/output/eleven_joker",  # 결과 저장 디렉토리
+        output_dir=output_dir,  # 결과 저장 디렉토리
     )
     
     # 결과 출력
@@ -58,6 +68,49 @@ def main():
     print(f"- 타겟 언어({tgt_lang}) 속도 계수: {tgt_coef}")
     print(f"- 언어간 속도 비율: {speed_ratio:.2f}")
     print(f"  → 즉, {tgt_lang}는 {src_lang}보다 약 {abs(speed_ratio-1)*100:.1f}% {'빠름' if speed_ratio > 1 else '느림'}")
+    
+    # SSML 정보 출력 (추가)
+    if generate_ssml:
+        if "ssml_path" in result:
+            print(f"\nSSML 파일이 생성되었습니다: {result['ssml_path']}")
+        else:
+            # SSML이 생성되지 않았다면, alignment 파일 기반으로 직접 생성
+            alignment_file = os.path.join(output_dir, "alignment", "segment_alignment.json")
+            if os.path.exists(alignment_file):
+                print(f"\nAlignment 파일에서 직접 SSML 생성 중...")
+                
+                # Alignment 파일을 로드하여 SSML 수동 생성
+                try:
+                    with open(alignment_file, 'r', encoding='utf-8') as f:
+                        aligned_segments = json.load(f)
+                    
+                    # SSML 변환기 초기화
+                    ssml_converter = AlignmentToSSML()
+                    
+                    # SSML 변환
+                    ssml_output_path = os.path.join(output_dir, "manual_tts_output.ssml")
+                    ssml = ssml_converter.convert_to_ssml(
+                        aligned_segments, 
+                        src_lang=src_lang, 
+                        tgt_lang=tgt_lang
+                    )
+                    
+                    # SSML 저장
+                    ssml_converter.save_ssml(ssml, ssml_output_path)
+                    
+                    print(f"SSML 파일이 수동으로 생성되었습니다: {ssml_output_path}")
+                    
+                    # SSML 텍스트 미리보기 출력 (처음 200자)
+                    preview_length = 200
+                    print(f"\nSSML 미리보기 (처음 {preview_length}자):")
+                    print("-" * 50)
+                    print(ssml[:preview_length] + "..." if len(ssml) > preview_length else ssml)
+                    print("-" * 50)
+                    
+                except Exception as e:
+                    print(f"SSML 수동 생성 중 오류 발생: {e}")
+            else:
+                print(f"\nAlignment 파일을 찾을 수 없어 SSML을 생성할 수 없습니다.")
 
 if __name__ == "__main__":
     main()

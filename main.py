@@ -1,4 +1,4 @@
-# main.py
+# main.py (SSML 생성 기능 추가)
 """
 음성 유사도 평가 시스템 메인 모듈
 """
@@ -16,6 +16,9 @@ from core.processor import TextGridProcessor, AudioProcessor
 from core.analyzer import ProsodyAnalyzer
 from core.aligner import SegmentAligner
 from core.evaluator import SimilarityEvaluator
+
+# 새로 추가한 SSML 모듈 로드
+from core.alignment_to_ssml import AlignmentToSSML
 
 # 유틸리티 모듈 로드
 from utils.audio_utils import load_audio, plot_audio_comparison
@@ -42,8 +45,9 @@ class ProsodySimilarityAnalyzer:
     def __init__(self, 
                  embedding_model: str = "laser", 
                  similarity_threshold: float = 0.3,
-                 enable_n_to_m_mapping: bool = True,  # N:M 매핑 활성화 추가
-                 min_segment_duration: float = 0.5):  # 최소 세그먼트 길이 추가
+                 enable_n_to_m_mapping: bool = True,
+                 min_segment_duration: float = 0.5,
+                 generate_ssml: bool = True):  # SSML 생성 활성화 옵션 추가
         """
         프로소디 유사도 분석기 초기화
         
@@ -52,6 +56,7 @@ class ProsodySimilarityAnalyzer:
             similarity_threshold: 의미 유사도 임계값
             enable_n_to_m_mapping: N:M 매핑 활성화 여부
             min_segment_duration: 최소 세그먼트 길이 (초)
+            generate_ssml: SSML 생성 활성화 여부
         """
         # 각 컴포넌트 초기화
         self.textgrid_processor = TextGridProcessor()
@@ -65,13 +70,18 @@ class ProsodySimilarityAnalyzer:
         self.prosody_analyzer = ProsodyAnalyzer()
         self.evaluator = SimilarityEvaluator()
         
+        # SSML 변환기 초기화 (새로 추가)
+        self.ssml_converter = AlignmentToSSML()
+        
         self.embedding_model = embedding_model
         self.similarity_threshold = similarity_threshold
         self.enable_n_to_m_mapping = enable_n_to_m_mapping
         self.min_segment_duration = min_segment_duration
+        self.generate_ssml = generate_ssml  # SSML 생성 옵션 저장
         
         logger.info(f"프로소디 유사도 분석기 초기화 완료 (임베딩 모델: {embedding_model}, 임계값: {similarity_threshold})")
         logger.info(f"N:M 매핑: {'활성화' if enable_n_to_m_mapping else '비활성화'}, 최소 세그먼트 길이: {min_segment_duration}초")
+        logger.info(f"SSML 생성: {'활성화' if generate_ssml else '비활성화'}")
 
     def analyze(
         self,
@@ -166,8 +176,27 @@ class ProsodySimilarityAnalyzer:
             "tgt_lang": tgt_lang
         }
         
-        # 6. 요약 보고서 및 시각화 생성
-        logger.info("6. 요약 보고서 및 시각화 생성 중...")
+        # 6. SSML 생성 (새로 추가된 부분)
+        if self.generate_ssml:
+            logger.info("6. 정렬 결과를 SSML로 변환 중...")
+            
+            # SSML 생성
+            ssml = self.ssml_converter.convert_to_ssml(
+                aligned_segments, 
+                src_lang=src_lang, 
+                tgt_lang=tgt_lang
+            )
+            
+            # SSML 저장
+            ssml_path = output_path / "tts_output.ssml"
+            self.ssml_converter.save_ssml(ssml, str(ssml_path))
+            
+            # 결과에 SSML 경로 추가
+            evaluation_results["ssml_path"] = str(ssml_path)
+            logger.info(f"SSML이 {ssml_path}에 저장되었습니다.")
+        
+        # 7. 요약 보고서 및 시각화 생성
+        logger.info("7. 요약 보고서 및 시각화 생성 중...")
         
         # 유사도 점수 시각화
         visualize_scores(
@@ -284,6 +313,10 @@ class ProsodySimilarityAnalyzer:
         # 일괄 분석 결과 요약
         if results:
             self._summarize_batch_results(results, output_path, src_lang, tgt_lang)
+            
+            # 일괄 SSML 결과 생성 (새로 추가)
+            if self.generate_ssml:
+                self._create_batch_ssml(results, output_path, src_lang, tgt_lang)
         
         logger.info(f"일괄 분석 완료: {len(results)}개 파일 처리됨")
         return results
@@ -388,6 +421,56 @@ class ProsodySimilarityAnalyzer:
             
         except Exception as e:
             logger.error(f"일괄 분석 요약 생성 중 오류 발생: {e}")
+    
+    def _create_batch_ssml(
+        self,
+        results: List[Dict[str, Any]],
+        output_dir: Path,
+        src_lang: str,
+        tgt_lang: str
+    ) -> None:
+        """
+        모든 분석 결과에 대한 SSML 병합 파일 생성 (새로 추가)
+        
+        Args:
+            results: 분석 결과 목록
+            output_dir: 결과 저장 디렉토리
+            src_lang: 소스 언어 코드
+            tgt_lang: 타겟 언어 코드
+        """
+        try:
+            # 각 파일별 SSML을 모아서 하나의 SSML로 합치기
+            combined_ssml = "<speak>\n"
+            
+            # 모든 결과에 대해 처리
+            for i, result in enumerate(results):
+                base_name = result.get('file_info', {}).get('base_name', f"파일 {i}")
+                ssml_path = result.get("ssml_path")
+                
+                if ssml_path and os.path.exists(ssml_path):
+                    # SSML 파일 내용 읽기
+                    with open(ssml_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    
+                    # <speak> 태그 제거하고 내용만 추출
+                    content = content.replace("<speak>", "").replace("</speak>", "").strip()
+                    
+                    # 파일별 구분 주석 추가
+                    combined_ssml += f"\n  <!-- 파일: {base_name} -->\n"
+                    combined_ssml += f"  <p>{content}</p>\n"
+                    combined_ssml += f"  <break time=\"1s\"/>\n"
+            
+            combined_ssml += "</speak>"
+            
+            # 병합된 SSML 저장
+            combined_ssml_path = output_dir / "combined_tts_output.ssml"
+            with open(combined_ssml_path, 'w', encoding='utf-8') as f:
+                f.write(combined_ssml)
+            
+            logger.info(f"병합된 SSML이 {combined_ssml_path}에 저장되었습니다.")
+            
+        except Exception as e:
+            logger.error(f"SSML 병합 중 오류 발생: {e}")
 
 def main():
     """메인 실행 함수"""
@@ -413,6 +496,10 @@ def main():
     parser.add_argument("--similarity-threshold", type=float, default=0.3,
                        help="의미 유사도 임계값 (0.0 ~ 1.0, 기본: 0.3)")
     
+    # SSML 생성 관련 옵션 (새로 추가)
+    parser.add_argument("--generate-ssml", action="store_true", default=True,
+                      help="정렬 결과를 SSML로 변환 (기본: True)")
+    
     # 공통 옵션
     parser.add_argument("--output-dir", help="결과 저장 디렉토리 (기본: ./output)")
     
@@ -421,7 +508,8 @@ def main():
     # 분석기 초기화
     analyzer = ProsodySimilarityAnalyzer(
         embedding_model=args.embedding_model,
-        similarity_threshold=args.similarity_threshold
+        similarity_threshold=args.similarity_threshold,
+        generate_ssml=args.generate_ssml  # SSML 생성 옵션 추가
     )
     
     # 실행 모드 결정
@@ -445,6 +533,9 @@ def main():
             print(f"\n=== 일괄 분석 완료: {len(results)}개 파일 처리됨 ===")
             print(f"평균 최종 점수: {sum(r.get('final_score', 0) for r in results) / len(results):.4f}")
             print(f"언어 방향: {args.src_lang} -> {args.tgt_lang}")
+            
+            if args.generate_ssml:
+                print(f"병합된 SSML 파일: {os.path.join(args.output_dir or OUTPUT_DIR, 'batch', 'combined_tts_output.ssml')}")
         
     else:
         # 단일 파일 분석 모드
@@ -467,6 +558,11 @@ def main():
         print(f"최종 점수: {result.get('final_score', 0):.4f}")
         print(f"등급: {result.get('grade', 'N/A')}")
         print(f"언어 방향: {args.src_lang} -> {args.tgt_lang}")
+        
+        # SSML 경로 출력 (새로 추가)
+        if args.generate_ssml and "ssml_path" in result:
+            print(f"SSML 파일: {result['ssml_path']}")
+        
         print(f"결과가 '{args.output_dir or OUTPUT_DIR}'에 저장되었습니다.")
 
 if __name__ == "__main__":

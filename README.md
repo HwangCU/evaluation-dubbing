@@ -201,11 +201,9 @@ final_score = (0.7 * prosody_overall) + (0.3 * alignment_score)
 **커맨드 라인에서 실행**
 ```bash 
 # 단일 파일 분석
-python main.py --src-audio data/input/kr/윤장목소리1.wav --src-textgrid data/input/text_grid/윤장목소리1.TextGrid --tgt-audio data/input/en/mine_en.wav --tgt-textgrid data/input/text_grid/mine_en.TextGrid --output-dir data/output/cli_example
-
-# 일괄 파일 분석
-python main.py --batch --src-dir data/input/originals --tgt-dir data/input/synthesized --output-dir data/output/cli_batch
+python main.py --src-audio source.wav --src-textgrid source.TextGrid --tgt-audio target.wav --src-lang ko --tgt-lang en --generate-ssml
 ```
+
 **.py로 실행**
 example_*.py 참고
 

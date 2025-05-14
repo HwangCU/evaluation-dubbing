@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "what do we do",
+    "tgt_text": "어떻게 하 죠",
+    "src_start": 0.0,
+    "src_end": 1.79588,
+    "src_duration": 1.79588,
+    "tgt_start": 0.0,
+    "tgt_end": 1.33805,
+    "tgt_duration": 1.33805,
+    "text_similarity": 0.518501877784729,
+    "temporal_similarity": 0.8980265942045125,
+    "speaking_rate_similarity": 0.9934219806817085,
+    "overall_similarity": 0.7273433132900599,
+    "mapping_type": "one_to_one"
+  }
+]

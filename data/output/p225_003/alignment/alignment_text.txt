@@ -1,0 +1,13 @@
+세그먼트 정렬 상세 정보
+==================================================
+
+### 세그먼트 1 ###
+원본: six spoons of fresh snow peas five thick slabs of blue cheese and maybe a snack for her brother bob
+합성: 신선 한 스노우 피 6 스푼 파란 치즈 5 슬 램프 그리고 그녀 의 형 밥 을 위한 간식
+텍스트 유사도: 0.7493
+시간 유사도: 0.9538
+발화 속도 유사도: 0.9309
+종합 유사도: 0.8470
+매핑 타입: one_to_one
+대체 매칭: False
+

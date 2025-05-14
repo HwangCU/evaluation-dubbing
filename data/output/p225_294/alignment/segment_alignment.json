@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 1,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "we had no failures in our side",
+    "tgt_text": "하지만 우린 실패 한 적 이 없 었 어",
+    "src_start": 2.72,
+    "src_end": 4.6089,
+    "src_duration": 1.8889,
+    "tgt_start": 0.0,
+    "tgt_end": 2.51633,
+    "tgt_duration": 2.51633,
+    "text_similarity": 0.5379571318626404,
+    "temporal_similarity": 0.0,
+    "speaking_rate_similarity": 0.9638702125281616,
+    "overall_similarity": 0.46175260843695254,
+    "mapping_type": "one_to_one"
+  }
+]

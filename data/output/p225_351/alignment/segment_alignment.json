@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "after the match do you",
+    "tgt_text": "경기 끝 나 고 말 이 죠",
+    "src_start": 0.0,
+    "src_end": 2.98965,
+    "src_duration": 2.98965,
+    "tgt_start": 0.0,
+    "tgt_end": 1.6261,
+    "tgt_duration": 1.6261,
+    "text_similarity": 0.45831498503685,
+    "temporal_similarity": 0.8175639288879969,
+    "speaking_rate_similarity": 0.388507015871423,
+    "overall_similarity": 0.5521280743591087,
+    "mapping_type": "one_to_one"
+  }
+]

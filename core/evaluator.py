@@ -146,7 +146,7 @@ class SimilarityEvaluator:
         prosody_overall = prosody_scores.get("overall", 0.7)
         
         # 가중 평균 계산 (프로소디 70%, 정렬 30%)
-        final_score = prosody_overall
+        final_score = 0.7 * prosody_overall + 0.3 * alignment_score
         
         return final_score
     
@@ -160,15 +160,15 @@ class SimilarityEvaluator:
         Returns:
             등급 (A+, A, B, C, D)
         """
-        if score >= 0.9:
+        if score >= 0.85:
             return "A+"
-        elif score >= 0.8:
+        elif score >= 0.75:
             return "A"
-        elif score >= 0.7:
-            return "B"
         elif score >= 0.6:
+            return "B"
+        elif score >= 0.4:
             return "C"
-        elif score >= 0.5:
+        elif score >= 0.3:
             return "D"
         else:
             return "F"
@@ -186,28 +186,28 @@ class SimilarityEvaluator:
         suggestions = []
         
         # 낮은 점수의 특성에 따른 제안사항
-        if scores.get("pause_similarity", 1.0) < 0.7:
+        if scores.get("pause_similarity", 1.0) < 0.6:
             suggestions.append("휴지(일시정지) 패턴 개선: 원본 음성의 문장 구분과 쉼표 위치에 맞춰 일시정지 패턴을 조정하세요.")
         
-        if scores.get("pitch_similarity", 1.0) < 0.7:
+        if scores.get("pitch_similarity", 1.0) < 0.6:
             suggestions.append("음높이(피치) 패턴 개선: 원본 음성의 억양 패턴을 모방하여 자연스러운 음높이 변화를 추가하세요.")
         
-        if scores.get("energy_similarity", 1.0) < 0.7:
+        if scores.get("energy_similarity", 1.0) < 0.6:
             suggestions.append("에너지(강세) 패턴 개선: 원본 음성에서 강조된 단어나 구문에 맞게 합성 음성의 볼륨과 강세를 조정하세요.")
         
-        if scores.get("rhythm_similarity", 1.0) < 0.7:
+        if scores.get("rhythm_similarity", 1.0) < 0.6:
             suggestions.append("리듬 패턴 개선: 원본 음성의 말하기 속도 변화와 단어 간격을 더 정확히 모방하세요.")
         
-        if scores.get("vowel_similarity", 1.0) < 0.7:
+        if scores.get("vowel_similarity", 1.0) < 0.6:
             suggestions.append("모음 길이 패턴 개선: 중요한 모음의 길이를 원본과 유사하게 조정하여 자연스러운 발음을 구현하세요.")
         
-        if scores.get("alignment_score", 1.0) < 0.7:
+        if scores.get("alignment_score", 1.0) < 0.6:
             suggestions.append("시간 정렬 개선: 원본 음성과 합성 음성의 시작/종료 시간을 더 정확히 일치시키세요.")
         
         # 최종 점수에 따른 일반적 제안사항
-        if scores.get("final_score", 0) < 0.6:
+        if scores.get("final_score", 0) < 0.5:
             suggestions.append("전반적인 프로소디 개선이 필요합니다. 다른 TTS 엔진이나 음성 합성 방식을 시도해보세요.")
-        elif scores.get("final_score", 0) < 0.8:
+        elif scores.get("final_score", 0) < 0.7:
             suggestions.append("세부적인 조정을 통해 더 자연스러운 합성 음성을 만들 수 있습니다.")
         
         return suggestions

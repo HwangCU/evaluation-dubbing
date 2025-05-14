@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "he was asked to quit",
+    "tgt_text": "그만두 라고 했 어요",
+    "src_start": 0.0,
+    "src_end": 3.27,
+    "src_duration": 3.27,
+    "tgt_start": 0.0,
+    "tgt_end": 1.69,
+    "tgt_duration": 1.69,
+    "text_similarity": 0.4611429274082184,
+    "temporal_similarity": 0.8067278287461773,
+    "speaking_rate_similarity": 0.6460244648318043,
+    "overall_similarity": 0.6017947052943232,
+    "mapping_type": "one_to_one"
+  }
+]

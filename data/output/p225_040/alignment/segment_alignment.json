@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "you'd better believe it",
+    "tgt_text": "믿 어야지",
+    "src_start": 0.0,
+    "src_end": 2.52133,
+    "src_duration": 2.52133,
+    "tgt_start": 0.0,
+    "tgt_end": 0.84061,
+    "tgt_duration": 0.84061,
+    "text_similarity": 0.618164598941803,
+    "temporal_similarity": 0.5133518420833448,
+    "speaking_rate_similarity": 0.6667988720238922,
+    "overall_similarity": 0.5964476265006834,
+    "mapping_type": "one_to_one"
+  }
+]

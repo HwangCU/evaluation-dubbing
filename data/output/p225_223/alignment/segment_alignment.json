@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the police have an awful lot to explain",
+    "tgt_text": "경찰 이 설명 할 게 엄청 많 아",
+    "src_start": 0.0,
+    "src_end": 2.94683,
+    "src_duration": 2.94683,
+    "tgt_start": 0.0,
+    "tgt_end": 2.17592,
+    "tgt_duration": 2.17592,
+    "text_similarity": 0.49685779213905334,
+    "temporal_similarity": 0.8953573840364053,
+    "speaking_rate_similarity": 0.7383934600910131,
+    "overall_similarity": 0.6647148032986508,
+    "mapping_type": "one_to_one"
+  }
+]

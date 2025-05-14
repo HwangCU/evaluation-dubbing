@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "he has not created a festival resource",
+    "tgt_text": "그 는 축제 자원 을 만들 지 못했 어요",
+    "src_start": 0.0,
+    "src_end": 5.68,
+    "src_duration": 5.68,
+    "tgt_start": 0.0,
+    "tgt_end": 2.35921,
+    "tgt_duration": 2.35921,
+    "text_similarity": 0.5432115197181702,
+    "temporal_similarity": 0.5362990845070422,
+    "speaking_rate_similarity": 0.32305301251956187,
+    "overall_similarity": 0.4971060877151101,
+    "mapping_type": "one_to_one"
+  }
+]

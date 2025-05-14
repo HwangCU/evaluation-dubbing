@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it was at the royal concert hall in glasgow",
+    "tgt_text": "글래스고 의 로열 콘서트 홀 에 있 었 어요",
+    "src_start": 0.0,
+    "src_end": 4.73719,
+    "src_duration": 4.73719,
+    "tgt_start": 0.0,
+    "tgt_end": 2.59483,
+    "tgt_duration": 2.59483,
+    "text_similarity": 0.6374927163124084,
+    "temporal_similarity": 0.8191028858880476,
+    "speaking_rate_similarity": 0.5477572147201188,
+    "overall_similarity": 0.6740286668666422,
+    "mapping_type": "one_to_one"
+  }
+]

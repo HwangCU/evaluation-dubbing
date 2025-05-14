@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "cast away now on general release",
+    "tgt_text": "이제 총격전 을 시작 하 겠 습니다",
+    "src_start": 0.0,
+    "src_end": 3.54627,
+    "src_duration": 3.54627,
+    "tgt_start": 0.0,
+    "tgt_end": 2.75193,
+    "tgt_duration": 2.75193,
+    "text_similarity": 0.4193321168422699,
+    "temporal_similarity": 0.9104027612110753,
+    "speaking_rate_similarity": 0.665148774023733,
+    "overall_similarity": 0.6158166415892041,
+    "mapping_type": "one_to_one"
+  }
+]

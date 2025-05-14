@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i did not have a bet on myself",
+    "tgt_text": "난 내기 하 지 않 았 어",
+    "src_start": 0.0,
+    "src_end": 3.52,
+    "src_duration": 3.52,
+    "tgt_start": 0.0,
+    "tgt_end": 1.49517,
+    "tgt_duration": 1.49517,
+    "text_similarity": 0.6033673286437988,
+    "temporal_similarity": 0.5389339772727273,
+    "speaking_rate_similarity": 0.48544480519480526,
+    "overall_similarity": 0.5604528185426786,
+    "mapping_type": "one_to_one"
+  }
+]

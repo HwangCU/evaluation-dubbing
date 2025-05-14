@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the problem was he thought you were a big man",
+    "tgt_text": "문제 는 그 가 당신 이 덩치 큰 사람 이 라고 생각 했 다",
+    "src_start": 0.0,
+    "src_end": 3.06,
+    "src_duration": 3.06,
+    "tgt_start": 0.0,
+    "tgt_end": 3.77308,
+    "tgt_duration": 3.77308,
+    "text_similarity": 0.4707774519920349,
+    "temporal_similarity": 0.9067869281045752,
+    "speaking_rate_similarity": 0.8807376283846873,
+    "overall_similarity": 0.6835723301043275,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "russell did not appeal the committee 's decision",
+    "tgt_text": "러셀 은 위원회 의 결정 을 항소 하 지 않 았 어요",
+    "src_start": 0.0,
+    "src_end": 3.89496,
+    "src_duration": 3.89496,
+    "tgt_start": 0.0,
+    "tgt_end": 2.96141,
+    "tgt_duration": 2.96141,
+    "text_similarity": 0.5942294597625732,
+    "temporal_similarity": 0.9041273851336086,
+    "speaking_rate_similarity": 0.5068789752226809,
+    "overall_similarity": 0.6697287404659054,
+    "mapping_type": "one_to_one"
+  }
+]

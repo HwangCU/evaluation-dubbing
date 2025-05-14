@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "sadly the revival could not be sustained",
+    "tgt_text": "유감 스럽 게 도 재활 은 지속 될 수 없 었 어요",
+    "src_start": 0.0,
+    "src_end": 4.95056,
+    "src_duration": 4.95056,
+    "tgt_start": 0.0,
+    "tgt_end": 3.19707,
+    "tgt_duration": 3.19707,
+    "text_similarity": 0.6605663895606995,
+    "temporal_similarity": 0.8583198668433469,
+    "speaking_rate_similarity": 0.37671647247988105,
+    "overall_similarity": 0.66312244932933,
+    "mapping_type": "one_to_one"
+  }
+]

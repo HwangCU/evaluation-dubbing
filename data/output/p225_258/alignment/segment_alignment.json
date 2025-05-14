@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "we were not allowed to go to help them",
+    "tgt_text": "우린 그 들 을 도울 수 없 었 어요",
+    "src_start": 0.0,
+    "src_end": 3.62773,
+    "src_duration": 3.62773,
+    "tgt_start": 0.0,
+    "tgt_end": 1.94032,
+    "tgt_duration": 1.94032,
+    "text_similarity": 0.4845443665981293,
+    "temporal_similarity": 0.8139431545346538,
+    "speaking_rate_similarity": 0.5348578863366348,
+    "overall_similarity": 0.5934267069267878,
+    "mapping_type": "one_to_one"
+  }
+]

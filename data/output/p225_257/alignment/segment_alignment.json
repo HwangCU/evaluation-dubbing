@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "my son was too young to die",
+    "tgt_text": "내 아들 은 죽 기 엔 너무 어렸었 어",
+    "src_start": 0.0,
+    "src_end": 3.16121,
+    "src_duration": 3.16121,
+    "tgt_start": 0.0,
+    "tgt_end": 2.17592,
+    "tgt_duration": 2.17592,
+    "text_similarity": 0.4596180319786072,
+    "temporal_similarity": 0.8753274853616179,
+    "speaking_rate_similarity": 0.5353589993142569,
+    "overall_similarity": 0.5994790614606403,
+    "mapping_type": "one_to_one"
+  }
+]

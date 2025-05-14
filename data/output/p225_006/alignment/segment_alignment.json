@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "when the sunlight strikes raindrops in the air they act as a prism and form a rainbow",
+    "tgt_text": "햇빛 이 뜨 면 무지개 를 형성 하 죠",
+    "src_start": 0.0,
+    "src_end": 6.46,
+    "src_duration": 6.46,
+    "tgt_start": 0.0,
+    "tgt_end": 2.28066,
+    "tgt_duration": 2.28066,
+    "text_similarity": 0.6141433119773865,
+    "temporal_similarity": 0.5188521362229103,
+    "speaking_rate_similarity": 0.666859649122807,
+    "overall_similarity": 0.5960992266801277,
+    "mapping_type": "one_to_one"
+  }
+]

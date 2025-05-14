@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the pain was almost too much to bear",
+    "tgt_text": "고통 을 견디 기 엔 너무 힘들 었 어요",
+    "src_start": 0.0,
+    "src_end": 3.75806,
+    "src_duration": 3.75806,
+    "tgt_start": 0.0,
+    "tgt_end": 2.33304,
+    "tgt_duration": 2.33304,
+    "text_similarity": 0.4763118326663971,
+    "temporal_similarity": 0.8483238692304008,
+    "speaking_rate_similarity": 0.5518308205120017,
+    "overall_similarity": 0.6030192412047191,
+    "mapping_type": "one_to_one"
+  }
+]

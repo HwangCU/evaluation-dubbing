@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "these take the shape of a long round arch with its path high above and its two ends apparently beyond the horizon",
+    "tgt_text": "이건 길 고 둥근 궤양 의 모양 이 에요 위쪽 으로 가 는 길 이 에요 그리고 그 둘 은 분명히 지평선 너머 로 끝납니다",
+    "src_start": 0.0,
+    "src_end": 8.06623,
+    "src_duration": 8.06623,
+    "tgt_start": 0.0,
+    "tgt_end": 8.2241,
+    "tgt_duration": 8.2241,
+    "text_similarity": 0.6977508664131165,
+    "temporal_similarity": 0.9921713117528262,
+    "speaking_rate_similarity": 0.8972231141437822,
+    "overall_similarity": 0.8259714495611625,
+    "mapping_type": "one_to_one"
+  }
+]

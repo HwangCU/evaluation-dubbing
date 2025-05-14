@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "there is a contract in existence for allan",
+    "tgt_text": "알란 을 위한 계약 이 있 어요",
+    "src_start": 0.0,
+    "src_end": 4.22,
+    "src_duration": 4.22,
+    "tgt_start": 0.0,
+    "tgt_end": 1.86177,
+    "tgt_duration": 1.86177,
+    "text_similarity": 0.5608381628990173,
+    "temporal_similarity": 0.5435297630331754,
+    "speaking_rate_similarity": 0.5042031144211239,
+    "overall_similarity": 0.544318633243686,
+    "mapping_type": "one_to_one"
+  }
+]

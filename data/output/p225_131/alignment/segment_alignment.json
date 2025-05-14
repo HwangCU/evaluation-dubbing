@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "another high street retailer was not so lucky",
+    "tgt_text": "다른 하이 스트리트 상인 은 운 이 좋 지 않 았 어요",
+    "src_start": 0.0,
+    "src_end": 3.18975,
+    "src_duration": 3.18975,
+    "tgt_start": 0.0,
+    "tgt_end": 2.93521,
+    "tgt_duration": 2.93521,
+    "text_similarity": 0.6313135027885437,
+    "temporal_similarity": 0.9680802570734384,
+    "speaking_rate_similarity": 0.6134670951223973,
+    "overall_similarity": 0.7287742475407828,
+    "mapping_type": "one_to_one"
+  }
+]

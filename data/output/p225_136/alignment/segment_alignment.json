@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "but the commission is on a collision course with the government",
+    "tgt_text": "하지만 위원회 는 정부 와 충돌 중 입니다",
+    "src_start": 0.0,
+    "src_end": 3.886,
+    "src_duration": 3.886,
+    "tgt_start": 0.0,
+    "tgt_end": 2.93521,
+    "tgt_duration": 2.93521,
+    "text_similarity": 0.5033315420150757,
+    "temporal_similarity": 0.9021317550180133,
+    "speaking_rate_similarity": 0.961422092125579,
+    "overall_similarity": 0.7145897159380576,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it is a court case",
+    "tgt_text": "이건 법정 사건 이 야",
+    "src_start": 0.0,
+    "src_end": 2.30702,
+    "src_duration": 2.30702,
+    "tgt_start": 0.0,
+    "tgt_end": 1.39043,
+    "tgt_duration": 1.39043,
+    "text_similarity": 0.524043083190918,
+    "temporal_similarity": 0.8410781007533528,
+    "speaking_rate_similarity": 0.6026952518833819,
+    "overall_similarity": 0.6348840221981411,
+    "mapping_type": "one_to_one"
+  }
+]

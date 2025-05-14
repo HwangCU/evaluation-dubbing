@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "inside the atmosphere was quiet",
+    "tgt_text": "내부 는 조용 했어요",
+    "src_start": 0.0,
+    "src_end": 3.79917,
+    "src_duration": 3.79917,
+    "tgt_start": 0.0,
+    "tgt_end": 1.44279,
+    "tgt_duration": 1.44279,
+    "text_similarity": 0.38338688015937805,
+    "temporal_similarity": 0.5263340677042616,
+    "speaking_rate_similarity": 0.47470565939402554,
+    "overall_similarity": 0.4445347922697726,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it's very difficult to find a buyer",
+    "tgt_text": "구매자 를 찾 는 건 매우 어려워요",
+    "src_start": 0.0,
+    "src_end": 3.41567,
+    "src_duration": 3.41567,
+    "tgt_start": 0.0,
+    "tgt_end": 2.17592,
+    "tgt_duration": 2.17592,
+    "text_similarity": 0.4910992681980133,
+    "temporal_similarity": 0.8548161854043277,
+    "speaking_rate_similarity": 0.6370404635108193,
+    "overall_similarity": 0.6294025824224689,
+    "mapping_type": "one_to_one"
+  }
+]

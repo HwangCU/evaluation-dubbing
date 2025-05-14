@@ -1,0 +1,20 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": 0,
+    "src_text": "innocent people have a right to live in safety",
+    "tgt_text": "무고 한 사람 들 은 안 전하 게 살 권리 가 있 어",
+    "src_start": 0.0,
+    "src_end": 4.82667,
+    "src_duration": 4.82667,
+    "tgt_start": 0.0,
+    "tgt_end": 2.88286,
+    "tgt_duration": 2.88286,
+    "text_similarity": 0.2,
+    "temporal_similarity": 0.7382301876863344,
+    "speaking_rate_similarity": 0.5972772118251299,
+    "overall_similarity": 0.4409244986709263,
+    "is_fallback": true,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i was very pleased with them today though",
+    "tgt_text": "그래도 오늘 은 정말 기어 요",
+    "src_start": 0.0,
+    "src_end": 2.83,
+    "src_duration": 2.83,
+    "tgt_start": 0.0,
+    "tgt_end": 1.70465,
+    "tgt_duration": 1.70465,
+    "text_similarity": 0.38099732995033264,
+    "temporal_similarity": 0.8409399293286219,
+    "speaking_rate_similarity": 0.8031330977620731,
+    "overall_similarity": 0.6034072633261676,
+    "mapping_type": "one_to_one"
+  }
+]

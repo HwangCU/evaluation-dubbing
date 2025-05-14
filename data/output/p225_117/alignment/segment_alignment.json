@@ -1,0 +1,20 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": 0,
+    "src_text": "we have no influence on the government 's policy on the euro",
+    "tgt_text": "우리 는 정부 의 유로 정책 에 영향 을 미치 지 않 습니다",
+    "src_start": 0.0,
+    "src_end": 5.89271,
+    "src_duration": 5.89271,
+    "tgt_start": 0.0,
+    "tgt_end": 3.77308,
+    "tgt_duration": 3.77308,
+    "text_similarity": 0.2,
+    "temporal_similarity": 0.7661925497776065,
+    "speaking_rate_similarity": 0.640296230427087,
+    "overall_similarity": 0.45791701101869936,
+    "is_fallback": true,
+    "mapping_type": "one_to_one"
+  }
+]

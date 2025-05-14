@@ -1,0 +1,108 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.207188 
+tiers? <exists> 
+size = 2 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 1.207188 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.03 
+            text = "" 
+        intervals [2]:
+            xmin = 0.03 
+            xmax = 0.31 
+            text = "이름" 
+        intervals [3]:
+            xmin = 0.31 
+            xmax = 0.37 
+            text = "이" 
+        intervals [4]:
+            xmin = 0.37 
+            xmax = 0.71 
+            text = "중요" 
+        intervals [5]:
+            xmin = 0.71 
+            xmax = 1.12 
+            text = "해요" 
+        intervals [6]:
+            xmin = 1.12 
+            xmax = 1.207188 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 1.207188 
+        intervals: size = 16 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.03 
+            text = "" 
+        intervals [2]:
+            xmin = 0.03 
+            xmax = 0.14 
+            text = "i" 
+        intervals [3]:
+            xmin = 0.14 
+            xmax = 0.19 
+            text = "ɾ" 
+        intervals [4]:
+            xmin = 0.19 
+            xmax = 0.25 
+            text = "ɨ" 
+        intervals [5]:
+            xmin = 0.25 
+            xmax = 0.31 
+            text = "m" 
+        intervals [6]:
+            xmin = 0.31 
+            xmax = 0.37 
+            text = "i" 
+        intervals [7]:
+            xmin = 0.37 
+            xmax = 0.5 
+            text = "tɕ" 
+        intervals [8]:
+            xmin = 0.5 
+            xmax = 0.54 
+            text = "uː" 
+        intervals [9]:
+            xmin = 0.54 
+            xmax = 0.63 
+            text = "ŋ" 
+        intervals [10]:
+            xmin = 0.63 
+            xmax = 0.64 
+            text = "j" 
+        intervals [11]:
+            xmin = 0.64 
+            xmax = 0.71 
+            text = "o" 
+        intervals [12]:
+            xmin = 0.71 
+            xmax = 0.72 
+            text = "h" 
+        intervals [13]:
+            xmin = 0.72 
+            xmax = 0.93 
+            text = "ɛː" 
+        intervals [14]:
+            xmin = 0.93 
+            xmax = 0.94 
+            text = "j" 
+        intervals [15]:
+            xmin = 0.94 
+            xmax = 1.12 
+            text = "o" 
+        intervals [16]:
+            xmin = 1.12 
+            xmax = 1.207188 
+            text = "" 

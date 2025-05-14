@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "how do you take them away",
+    "tgt_text": "어떻게 데려가 요",
+    "src_start": 0.0,
+    "src_end": 2.3075,
+    "src_duration": 2.3075,
+    "tgt_start": 0.0,
+    "tgt_end": 1.57372,
+    "tgt_duration": 1.57372,
+    "text_similarity": 0.4380209743976593,
+    "temporal_similarity": 0.8728008667388949,
+    "speaking_rate_similarity": 0.6359956663055255,
+    "overall_similarity": 0.6080498804816032,
+    "mapping_type": "one_to_one"
+  }
+]

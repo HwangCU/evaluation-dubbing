@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the court was shown a video of the house on that day",
+    "tgt_text": "그날 법정 에서 그 집 의 비디오 를 보여 줬 어요",
+    "src_start": 0.0,
+    "src_end": 4.69423,
+    "src_duration": 4.69423,
+    "tgt_start": 0.0,
+    "tgt_end": 3.24939,
+    "tgt_duration": 3.24939,
+    "text_similarity": 0.6588485836982727,
+    "temporal_similarity": 0.876883748772429,
+    "speaking_rate_similarity": 0.7551374966520794,
+    "overall_similarity": 0.743516915811281,
+    "mapping_type": "one_to_one"
+  }
+]

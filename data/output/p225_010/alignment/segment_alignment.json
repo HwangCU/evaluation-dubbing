@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "people look but no one ever finds it",
+    "tgt_text": "사람 들 은 보 지만 아무 도 찾 지 못해요",
+    "src_start": 0.0,
+    "src_end": 3.54358,
+    "src_duration": 3.54358,
+    "tgt_start": 0.0,
+    "tgt_end": 2.59483,
+    "tgt_duration": 2.59483,
+    "text_similarity": 0.5131862759590149,
+    "temporal_similarity": 0.8929049153680741,
+    "speaking_rate_similarity": 0.5858098307361482,
+    "overall_similarity": 0.6416265787371593,
+    "mapping_type": "one_to_one"
+  }
+]

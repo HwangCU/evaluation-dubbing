@@ -709,8 +709,8 @@ class SegmentAligner:
         src_duration = src_end - src_start
         tgt_duration = tgt_end - tgt_start
         
-        # 허용 가능한 relaxation 범위 계산 (±50%까지 허용)
-        max_relaxation = 0.5 * src_duration
+        # 허용 가능한 relaxation 범위 계산 (±75%까지 허용)
+        max_relaxation = 0.75 * src_duration
         
         # 시작 및 종료 시간 차이 계산
         start_diff = abs(src_start - tgt_start)

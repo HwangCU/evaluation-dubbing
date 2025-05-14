@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "she will do for me",
+    "tgt_text": "그녀 는 나 를 위해 할 거 야",
+    "src_start": 0.0,
+    "src_end": 3.37467,
+    "src_duration": 3.37467,
+    "tgt_start": 0.0,
+    "tgt_end": 2.09737,
+    "tgt_duration": 2.09737,
+    "text_similarity": 0.5880481600761414,
+    "temporal_similarity": 0.8486014928867119,
+    "speaking_rate_similarity": 0.3884398326354873,
+    "overall_similarity": 0.6262924944311818,
+    "mapping_type": "one_to_one"
+  }
+]

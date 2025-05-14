@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the commitment was not long and it was worth the risk",
+    "tgt_text": "헌신 은 길 지 않 았 고 위험 을 감수 할 가치 가 있 었 어요",
+    "src_start": 0.0,
+    "src_end": 5.03504,
+    "src_duration": 5.03504,
+    "tgt_start": 0.0,
+    "tgt_end": 3.48506,
+    "tgt_duration": 3.48506,
+    "text_similarity": 0.3087735176086426,
+    "temporal_similarity": 0.8768645333502811,
+    "speaking_rate_similarity": 0.4758609166957958,
+    "overall_similarity": 0.5126183021485649,
+    "mapping_type": "one_to_one"
+  }
+]

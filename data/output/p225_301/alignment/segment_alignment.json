@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i must do something about it",
+    "tgt_text": "뭔가 해야 겠 어",
+    "src_start": 0.0,
+    "src_end": 2.90335,
+    "src_duration": 2.90335,
+    "tgt_start": 0.0,
+    "tgt_end": 1.6261,
+    "tgt_duration": 1.6261,
+    "text_similarity": 0.47813767194747925,
+    "temporal_similarity": 0.8240308609020615,
+    "speaking_rate_similarity": 0.8401157283827303,
+    "overall_similarity": 0.6543012399209042,
+    "mapping_type": "one_to_one"
+  }
+]

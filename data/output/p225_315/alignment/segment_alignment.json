@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 1,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "but it is a difficult thing to understand",
+    "tgt_text": "자신감 은 낮 지만 이해 하 기 어렵 습니다",
+    "src_start": 3.03,
+    "src_end": 5.46608,
+    "src_duration": 2.43608,
+    "tgt_start": 0.0,
+    "tgt_end": 2.75193,
+    "tgt_duration": 2.75193,
+    "text_similarity": 0.44841548800468445,
+    "temporal_similarity": 0.0,
+    "speaking_rate_similarity": 0.9958622048536993,
+    "overall_similarity": 0.42338018497308205,
+    "mapping_type": "one_to_one"
+  }
+]

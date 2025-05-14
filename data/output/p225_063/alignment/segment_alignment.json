@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "both sides have been hit by injury",
+    "tgt_text": "양쪽 다 부상 당했 어요",
+    "src_start": 0.0,
+    "src_end": 3.15967,
+    "src_duration": 3.15967,
+    "tgt_start": 0.0,
+    "tgt_end": 1.91413,
+    "tgt_duration": 1.91413,
+    "text_similarity": 0.5096535086631775,
+    "temporal_similarity": 0.8423202423037849,
+    "speaking_rate_similarity": 0.8481208480632471,
+    "overall_similarity": 0.6771469966353736,
+    "mapping_type": "one_to_one"
+  }
+]

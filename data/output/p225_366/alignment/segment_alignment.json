@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it is linked to the row over proposed changes at scottish ballet",
+    "tgt_text": "스코틀랜드 발레 에서 제안 된 변화 와 연관 이 있 어요",
+    "src_start": 0.0,
+    "src_end": 4.39,
+    "src_duration": 4.39,
+    "tgt_start": 0.0,
+    "tgt_end": 3.53742,
+    "tgt_duration": 3.53742,
+    "text_similarity": 0.5449228882789612,
+    "temporal_similarity": 0.922316173120729,
+    "speaking_rate_similarity": 0.879044108511079,
+    "overall_similarity": 0.7249651177779151,
+    "mapping_type": "one_to_one"
+  }
+]

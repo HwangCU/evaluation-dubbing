@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i didn't feel under any pressure",
+    "tgt_text": "어떤 압박감 도 느껴 지 지 않 았 어요",
+    "src_start": 0.0,
+    "src_end": 2.5645,
+    "src_duration": 2.5645,
+    "tgt_start": 0.0,
+    "tgt_end": 2.33304,
+    "tgt_duration": 2.33304,
+    "text_similarity": 0.5339978337287903,
+    "temporal_similarity": 0.9638978358354455,
+    "speaking_rate_similarity": 0.6064963930590759,
+    "overall_similarity": 0.677467546226844,
+    "mapping_type": "one_to_one"
+  }
+]

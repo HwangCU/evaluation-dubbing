@@ -1,0 +1,20 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": 0,
+    "src_text": "the rainbow is a division of white light into many beautiful colors",
+    "tgt_text": "무지개 는 하얀 빛 과 아름다운 색 으로 나뉘 어 져 있 습니다",
+    "src_start": 0.0,
+    "src_end": 5.25,
+    "src_duration": 5.25,
+    "tgt_start": 0.0,
+    "tgt_end": 3.61596,
+    "tgt_duration": 3.61596,
+    "text_similarity": 0.2,
+    "temporal_similarity": 0.7976902857142856,
+    "speaking_rate_similarity": 0.6887542857142857,
+    "overall_similarity": 0.47705794285714287,
+    "is_fallback": true,
+    "mapping_type": "one_to_one"
+  }
+]

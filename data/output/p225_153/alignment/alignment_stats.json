@@ -1,0 +1,24 @@
+{
+  "alignment_count": 1,
+  "text_similarity": {
+    "mean": 0.501602053642273,
+    "min": 0.501602053642273,
+    "max": 0.501602053642273
+  },
+  "temporal_similarity": {
+    "mean": 0.8491770586916588,
+    "min": 0.8491770586916588,
+    "max": 0.8491770586916588
+  },
+  "overall_similarity": {
+    "mean": 0.6799780855127953,
+    "min": 0.6799780855127953,
+    "max": 0.6799780855127953
+  },
+  "mapping_types": {
+    "one_to_one": 1,
+    "n_to_m": 0
+  },
+  "fallback_count": 0,
+  "missing_segments_count": 0
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "everything happened so quickly that we were taken by surprise",
+    "tgt_text": "모든 일 은 너무 빨리 일어났 어 우린 놀라움 에 빠졌 지",
+    "src_start": 0.0,
+    "src_end": 6.74258,
+    "src_duration": 6.74258,
+    "tgt_start": 0.0,
+    "tgt_end": 3.43268,
+    "tgt_duration": 3.43268,
+    "text_similarity": 0.474568247795105,
+    "temporal_similarity": 0.803641929350486,
+    "speaking_rate_similarity": 0.42425401948017916,
+    "overall_similarity": 0.5632275065987341,
+    "mapping_type": "one_to_one"
+  }
+]

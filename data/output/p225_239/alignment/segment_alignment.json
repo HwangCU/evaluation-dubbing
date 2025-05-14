@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "in fact he is not even in the squad for the game",
+    "tgt_text": "사실 그 는 경기 에 적합 하 지 도 않 아요",
+    "src_start": 0.0,
+    "src_end": 7.1,
+    "src_duration": 7.1,
+    "tgt_start": 0.0,
+    "tgt_end": 2.88286,
+    "tgt_duration": 2.88286,
+    "text_similarity": 0.5708704590797424,
+    "temporal_similarity": 0.5336902535211268,
+    "speaking_rate_similarity": 0.4429490396927017,
+    "overall_similarity": 0.5341321135347495,
+    "mapping_type": "one_to_one"
+  }
+]

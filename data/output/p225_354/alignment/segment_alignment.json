@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "this action reflects a slump in bookings",
+    "tgt_text": "이 행동 은 예약 의 흐름 을 반영 합니다",
+    "src_start": 0.0,
+    "src_end": 3.83,
+    "src_duration": 3.83,
+    "tgt_start": 0.0,
+    "tgt_end": 3.24939,
+    "tgt_duration": 3.24939,
+    "text_similarity": 0.49173229932785034,
+    "temporal_similarity": 0.9393618798955614,
+    "speaking_rate_similarity": 0.6598703220191471,
+    "overall_similarity": 0.6596487780364231,
+    "mapping_type": "one_to_one"
+  }
+]

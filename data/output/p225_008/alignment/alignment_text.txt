@@ -1,0 +1,13 @@
+세그먼트 정렬 상세 정보
+==================================================
+
+### 세그먼트 1 ###
+원본: these take the shape of a long round arch with its path high above and its two ends apparently beyond the horizon
+합성: 이건 길 고 둥근 궤양 의 모양 이 에요 위쪽 으로 가 는 길 이 에요 그리고 그 둘 은 분명히 지평선 너머 로 끝납니다
+텍스트 유사도: 0.6978
+시간 유사도: 0.9922
+발화 속도 유사도: 0.8972
+종합 유사도: 0.8260
+매핑 타입: one_to_one
+대체 매칭: False
+

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "please call stella",
+    "tgt_text": "제발 스텔라 한테 전화 해",
+    "src_start": 0.0,
+    "src_end": 2.05152,
+    "src_duration": 2.05152,
+    "tgt_start": 0.0,
+    "tgt_end": 1.86177,
+    "tgt_duration": 1.86177,
+    "text_similarity": 0.4374321401119232,
+    "temporal_similarity": 0.9630030416471689,
+    "speaking_rate_similarity": 0.5445045624707534,
+    "overall_similarity": 0.6165178950442629,
+    "mapping_type": "one_to_one"
+  }
+]

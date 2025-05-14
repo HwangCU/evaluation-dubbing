@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i said he was set to retire",
+    "tgt_text": "은퇴 한다고 했잖아",
+    "src_start": 0.0,
+    "src_end": 3.50042,
+    "src_duration": 3.50042,
+    "tgt_start": 0.0,
+    "tgt_end": 1.33805,
+    "tgt_duration": 1.33805,
+    "text_similarity": 0.47143998742103577,
+    "temporal_similarity": 0.5270311562612486,
+    "speaking_rate_similarity": 0.891926302177072,
+    "overall_similarity": 0.5722146010243069,
+    "mapping_type": "one_to_one"
+  }
+]

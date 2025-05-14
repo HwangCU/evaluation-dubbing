@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i have made that offer",
+    "tgt_text": "내 가 그 제안 을 했 어",
+    "src_start": 0.0,
+    "src_end": 3.15888,
+    "src_duration": 3.15888,
+    "tgt_start": 0.0,
+    "tgt_end": 1.86177,
+    "tgt_duration": 1.86177,
+    "text_similarity": 0.5119110941886902,
+    "temporal_similarity": 0.8357506457985109,
+    "speaking_rate_similarity": 0.4209832960687694,
+    "overall_similarity": 0.5908774000476522,
+    "mapping_type": "one_to_one"
+  }
+]

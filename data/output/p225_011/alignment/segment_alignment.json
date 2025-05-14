@@ -1,0 +1,20 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": 0,
+    "src_text": "when a man looks for something beyond his reach his friends say he is looking for the pot of gold at the end of the rainbow",
+    "tgt_text": "남자 가 뭔가 를 찾 는다면 친구 들 이 말 하 길 무지개 끝 에 있 는 금덩이 를 찾 고 있 다고 하 더군요",
+    "src_start": 0.0,
+    "src_end": 9.34658,
+    "src_duration": 9.34658,
+    "tgt_start": 0.0,
+    "tgt_end": 5.99857,
+    "tgt_duration": 5.99857,
+    "text_similarity": 0.2,
+    "temporal_similarity": 0.7671654765700395,
+    "speaking_rate_similarity": 0.641793040876984,
+    "overall_similarity": 0.45850825114640864,
+    "is_fallback": true,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "does it matter",
+    "tgt_text": "무슨 상관 이 야",
+    "src_start": 0.0,
+    "src_end": 1.88017,
+    "src_duration": 1.88017,
+    "tgt_start": 0.0,
+    "tgt_end": 1.25957,
+    "tgt_duration": 1.25957,
+    "text_similarity": 0.38226762413978577,
+    "temporal_similarity": 0.8679693857470335,
+    "speaking_rate_similarity": 0.5024425982756879,
+    "overall_similarity": 0.5520131474491405,
+    "mapping_type": "one_to_one"
+  }
+]

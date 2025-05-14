@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "he said that healthy eating was high on the council agenda",
+    "tgt_text": "건강 한 식사 는 의회 의견 에 중요 하 다고 했 어요",
+    "src_start": 0.0,
+    "src_end": 5.84612,
+    "src_duration": 5.84612,
+    "tgt_start": 0.0,
+    "tgt_end": 3.48506,
+    "tgt_duration": 3.48506,
+    "text_similarity": 0.5283716917037964,
+    "temporal_similarity": 0.8384528542007348,
+    "speaking_rate_similarity": 0.5464544575433505,
+    "overall_similarity": 0.6250125936207886,
+    "mapping_type": "one_to_one"
+  }
+]

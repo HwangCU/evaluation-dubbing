@@ -1,4 +1,4 @@
-# main.py (SSML 생성 기능 추가)
+# main.py (SSML 생성 기능 및 별도 TextGrid 디렉토리 추가)
 """
 음성 유사도 평가 시스템 메인 모듈
 """
@@ -227,6 +227,8 @@ class ProsodySimilarityAnalyzer:
         self,
         src_dir: str,
         tgt_dir: str,
+        src_textgrid_dir: Optional[str] = None,  # 원본 TextGrid 디렉토리 추가
+        tgt_textgrid_dir: Optional[str] = None,  # 합성 TextGrid 디렉토리 추가
         src_lang: str = "ko",  # 소스 언어 코드 (ISO 639-1)
         tgt_lang: str = "en",  # 타겟 언어 코드 (ISO 639-1)
         output_dir: Optional[str] = None,
@@ -238,6 +240,8 @@ class ProsodySimilarityAnalyzer:
         Args:
             src_dir: 원본 오디오 파일 디렉토리
             tgt_dir: 합성 오디오 파일 디렉토리
+            src_textgrid_dir: 원본 TextGrid 파일 디렉토리 (None이면 src_dir 사용)
+            tgt_textgrid_dir: 합성 TextGrid 파일 디렉토리 (None이면 tgt_dir 사용)
             src_lang: 소스 언어 코드 (ISO 639-1)
             tgt_lang: 타겟 언어 코드 (ISO 639-1)
             output_dir: 결과 저장 디렉토리
@@ -254,7 +258,13 @@ class ProsodySimilarityAnalyzer:
         
         output_path.mkdir(exist_ok=True, parents=True)
         
+        # TextGrid 디렉토리 설정 (기본값은 오디오 디렉토리와 동일)
+        src_textgrid_dir = src_textgrid_dir or src_dir
+        tgt_textgrid_dir = tgt_textgrid_dir or tgt_dir
+        
         logger.info(f"일괄 분석 시작: {src_dir}({src_lang}) -> {tgt_dir}({tgt_lang})")
+        logger.info(f"원본 TextGrid 디렉토리: {src_textgrid_dir}")
+        logger.info(f"합성 TextGrid 디렉토리: {tgt_textgrid_dir}")
         
         # 원본 디렉토리에서 오디오 파일 검색
         src_files = list(Path(src_dir).glob(pattern))
@@ -270,8 +280,8 @@ class ProsodySimilarityAnalyzer:
             # 파일 이름에서 기본 이름 추출
             base_name = src_audio_path.stem
             
-            # 원본 TextGrid 파일 경로
-            src_textgrid_path = src_audio_path.with_suffix('.TextGrid')
+            # 원본 TextGrid 파일 경로 (별도 디렉토리에서 찾기)
+            src_textgrid_path = Path(src_textgrid_dir) / f"{base_name}.TextGrid"
             if not src_textgrid_path.exists():
                 logger.warning(f"'{src_textgrid_path}' 파일이 없습니다. 이 파일을 건너뜁니다.")
                 continue
@@ -282,8 +292,8 @@ class ProsodySimilarityAnalyzer:
                 logger.warning(f"'{tgt_audio_path}' 파일이 없습니다. 이 파일을 건너뜁니다.")
                 continue
             
-            # 합성 TextGrid 파일 경로
-            tgt_textgrid_path = tgt_audio_path.with_suffix('.TextGrid')
+            # 합성 TextGrid 파일 경로 (별도 디렉토리에서 찾기)
+            tgt_textgrid_path = Path(tgt_textgrid_dir) / f"{base_name}.TextGrid"
             
             # 개별 파일 분석
             logger.info(f"파일 분석 중: {base_name}")
@@ -488,6 +498,8 @@ def main():
     parser.add_argument("--batch", action="store_true", help="일괄 분석 모드 활성화")
     parser.add_argument("--src-dir", help="원본 오디오 파일 디렉토리")
     parser.add_argument("--tgt-dir", help="합성 오디오 파일 디렉토리")
+    parser.add_argument("--src-textgrid-dir", help="원본 TextGrid 파일 디렉토리 (기본값: src-dir)")
+    parser.add_argument("--tgt-textgrid-dir", help="합성 TextGrid 파일 디렉토리 (기본값: tgt-dir)")
     parser.add_argument("--pattern", default="*.wav", help="오디오 파일 검색 패턴 (기본: *.wav)")
     
     # 임베딩 모델 선택
@@ -522,6 +534,8 @@ def main():
         results = analyzer.analyze_batch(
             args.src_dir,
             args.tgt_dir,
+            src_textgrid_dir=args.src_textgrid_dir,  # 별도 TextGrid 디렉토리 지정
+            tgt_textgrid_dir=args.tgt_textgrid_dir,  # 별도 TextGrid 디렉토리 지정
             src_lang=args.src_lang,
             tgt_lang=args.tgt_lang,
             output_dir=args.output_dir,

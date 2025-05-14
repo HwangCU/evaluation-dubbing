@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the early goal was a shock to the system for hearts",
+    "tgt_text": "초기 목표 는 하트 스 의 시스템 에 충격 을 줬 어요",
+    "src_start": 0.0,
+    "src_end": 4.18321,
+    "src_duration": 4.18321,
+    "tgt_start": 0.0,
+    "tgt_end": 3.06615,
+    "tgt_duration": 3.06615,
+    "text_similarity": 0.6108783483505249,
+    "temporal_similarity": 0.8931863329835221,
+    "speaking_rate_similarity": 0.6718853464205716,
+    "overall_similarity": 0.7077721433544334,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "western countries condemned the conduct of the poll",
+    "tgt_text": "서부 국가 들 은 이 심문 에 대한 혐의 를 받 았 습니다",
+    "src_start": 0.0,
+    "src_end": 4.3996,
+    "src_duration": 4.3996,
+    "tgt_start": 0.0,
+    "tgt_end": 3.30175,
+    "tgt_duration": 3.30175,
+    "text_similarity": 0.5454378724098206,
+    "temporal_similarity": 0.9001863805800527,
+    "speaking_rate_similarity": 0.46182520089238877,
+    "overall_similarity": 0.6351398905574038,
+    "mapping_type": "one_to_one"
+  }
+]

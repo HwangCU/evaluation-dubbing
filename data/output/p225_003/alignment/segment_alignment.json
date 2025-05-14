@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "six spoons of fresh snow peas five thick slabs of blue cheese and maybe a snack for her brother bob",
+    "tgt_text": "신선 한 스노우 피 6 스푼 파란 치즈 5 슬 램프 그리고 그녀 의 형 밥 을 위한 간식",
+    "src_start": 0.0,
+    "src_end": 6.99,
+    "src_duration": 6.99,
+    "tgt_start": 0.0,
+    "tgt_end": 6.18186,
+    "tgt_duration": 6.18186,
+    "text_similarity": 0.7493410706520081,
+    "temporal_similarity": 0.9537545064377683,
+    "speaking_rate_similarity": 0.9309329116783374,
+    "overall_similarity": 0.8469834695930019,
+    "mapping_type": "one_to_one"
+  }
+]

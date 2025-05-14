@@ -202,6 +202,8 @@ final_score = (0.7 * prosody_overall) + (0.3 * alignment_score)
 ```bash 
 # 단일 파일 분석
 python main.py --src-audio source.wav --src-textgrid source.TextGrid --tgt-audio target.wav --src-lang ko --tgt-lang en --generate-ssml
+# 배치 파일 분석(예시시)
+python main.py --batch --src-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\data\p225_en" --tgt-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\data\p225_kr" --src-textgrid-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\data\input\p225_en\text_grid" --tgt-textgrid-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\data\input\p225_kr\text_grid" --src-lang "en" --tgt-lang "kr" --generate-ssml --output-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\data\output"
 ```
 
 **.py로 실행**

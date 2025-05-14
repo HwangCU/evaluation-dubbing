@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it could take some time",
+    "tgt_text": "시간 이 좀 걸릴 수 도 있 어요",
+    "src_start": 0.0,
+    "src_end": 1.80325,
+    "src_duration": 1.80325,
+    "tgt_start": 0.0,
+    "tgt_end": 1.75703,
+    "tgt_duration": 1.75703,
+    "text_similarity": 0.5037481784820557,
+    "temporal_similarity": 0.9897474005268265,
+    "speaking_rate_similarity": 0.6089803133231665,
+    "overall_similarity": 0.6705943720637091,
+    "mapping_type": "one_to_one"
+  }
+]

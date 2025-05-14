@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "he would discuss the peace process in northern ireland",
+    "tgt_text": "그 는 북 아일랜드 의 평화 에 대해 논의 할 겁니다",
+    "src_start": 0.0,
+    "src_end": 6.14827,
+    "src_duration": 6.14827,
+    "tgt_start": 0.0,
+    "tgt_end": 3.06615,
+    "tgt_duration": 3.06615,
+    "text_similarity": 0.5610740184783936,
+    "temporal_similarity": 0.5596363529903533,
+    "speaking_rate_similarity": 0.40802830419259106,
+    "overall_similarity": 0.5300335759748209,
+    "mapping_type": "one_to_one"
+  }
+]

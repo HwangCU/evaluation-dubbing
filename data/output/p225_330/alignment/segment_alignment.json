@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "we are a peaceful people",
+    "tgt_text": "우린 평화 로운 사람 들 이 야",
+    "src_start": 0.0,
+    "src_end": 3.51,
+    "src_duration": 3.51,
+    "tgt_start": 0.0,
+    "tgt_end": 1.6261,
+    "tgt_duration": 1.6261,
+    "text_similarity": 0.44494009017944336,
+    "temporal_similarity": 0.5497173789173789,
+    "speaking_rate_similarity": 0.330911680911681,
+    "overall_similarity": 0.45356759494727156,
+    "mapping_type": "one_to_one"
+  }
+]

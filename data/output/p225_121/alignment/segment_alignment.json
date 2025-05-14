@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "you get a lot for your money",
+    "tgt_text": "돈 을 많이 벌 잖아",
+    "src_start": 0.0,
+    "src_end": 2.352,
+    "src_duration": 2.352,
+    "tgt_start": 0.0,
+    "tgt_end": 1.33805,
+    "tgt_duration": 1.33805,
+    "text_similarity": 0.5893833637237549,
+    "temporal_similarity": 0.8275595238095238,
+    "speaking_rate_similarity": 0.7964583333333335,
+    "overall_similarity": 0.7022512056714013,
+    "mapping_type": "one_to_one"
+  }
+]

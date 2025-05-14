@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "she can scoop these things into three red bags and we will go meet her wednesday at the train station",
+    "tgt_text": "빨간 가방 세 개 에 넣 어서 기차역 에서 수요일 에 만나 자",
+    "src_start": 0.0,
+    "src_end": 5.8,
+    "src_duration": 5.8,
+    "tgt_start": 0.0,
+    "tgt_end": 3.5898,
+    "tgt_duration": 3.5898,
+    "text_similarity": 0.619018018245697,
+    "temporal_similarity": 0.8475724137931034,
+    "speaking_rate_similarity": 0.9522015915119365,
+    "overall_similarity": 0.7542210515631669,
+    "mapping_type": "one_to_one"
+  }
+]

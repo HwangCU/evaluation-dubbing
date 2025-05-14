@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "shareholders will be asked to approve a new replacement scheme",
+    "tgt_text": "주주 들 이 새로운 교체 계획 을 승인 하 도록 요청 할 겁니다",
+    "src_start": 0.0,
+    "src_end": 4.38,
+    "src_duration": 4.38,
+    "tgt_start": 0.0,
+    "tgt_end": 3.38032,
+    "tgt_duration": 3.38032,
+    "text_similarity": 0.475215345621109,
+    "temporal_similarity": 0.9087050228310503,
+    "speaking_rate_similarity": 0.5936635054443274,
+    "overall_similarity": 0.6289518807487351,
+    "mapping_type": "one_to_one"
+  }
+]

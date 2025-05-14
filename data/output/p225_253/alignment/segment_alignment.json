@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "clearly the need for a personal loan is written in the stars",
+    "tgt_text": "분명히 개인 대출 의 요구사항 은 별 에 적혀 있 습니다",
+    "src_start": 0.0,
+    "src_end": 5.50683,
+    "src_duration": 5.50683,
+    "tgt_start": 0.0,
+    "tgt_end": 3.90395,
+    "tgt_duration": 3.90395,
+    "text_similarity": 0.4822273552417755,
+    "temporal_similarity": 0.8835714921288654,
+    "speaking_rate_similarity": 0.7733767967150875,
+    "overall_similarity": 0.660860484602565,
+    "mapping_type": "one_to_one"
+  }
+]

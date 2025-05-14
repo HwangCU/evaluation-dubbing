@@ -9,13 +9,13 @@ OUTPUT_DIR = "data/output"      # 출력 파일 디렉토리
 
 # 평가 매개변수 설정
 EVAL_CONFIG = {
-    "min_silence": 0.3,         # 최소 무음 구간 (초)
+    "min_silence": 0.4,         # 최소 무음 구간 (초)
     "feature_weights": {        # 평가 특성 가중치
-        "pause": 0.25,          # 휴지(일시정지) 유사도 가중치
-        "pitch": 0.15,          # 음높이 유사도 가중치
-        "energy": 0.15,         # 에너지 유사도 가중치
-        "rhythm": 0.25,         # 리듬 유사도 가중치
-        "vowel": 0.20           # 모음 길이 유사도 가중치
+        "pause": 0.3,          # 휴지(일시정지) 유사도 가중치
+        "pitch": 0.1,          # 음높이 유사도 가중치
+        "energy": 0.2,         # 에너지 유사도 가중치
+        "rhythm": 0.1,         # 리듬 유사도 가중치
+        "vowel": 0.3           # 모음 길이 유사도 가중치
     },
     # 언어별 발화 속도 계수 (영어 기준)
     "language_speed_coefficients": {

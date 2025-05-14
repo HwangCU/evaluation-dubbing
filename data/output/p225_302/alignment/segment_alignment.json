@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "three hours later the man was free",
+    "tgt_text": "3 시간 후 에 그 남자 는 자유 로워졌 어요",
+    "src_start": 0.0,
+    "src_end": 4.35612,
+    "src_duration": 4.35612,
+    "tgt_start": 0.0,
+    "tgt_end": 2.33304,
+    "tgt_duration": 2.33304,
+    "text_similarity": 0.6190963983535767,
+    "temporal_similarity": 0.8142310129197543,
+    "speaking_rate_similarity": 0.37490427260957004,
+    "overall_similarity": 0.6287983575746287,
+    "mapping_type": "one_to_one"
+  }
+]

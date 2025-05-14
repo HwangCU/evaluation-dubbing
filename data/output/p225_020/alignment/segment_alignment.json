@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "many complicated ideas about the rainbow have been formed",
+    "tgt_text": "무지개 에 대한 복잡 한 생각 들 이 많이 생겼 습니다",
+    "src_start": 0.0,
+    "src_end": 5.15,
+    "src_duration": 5.15,
+    "tgt_start": 0.0,
+    "tgt_end": 3.5898,
+    "tgt_duration": 3.5898,
+    "text_similarity": 0.45961397886276245,
+    "temporal_similarity": 0.8788194174757281,
+    "speaking_rate_similarity": 0.5703124448367166,
+    "overall_similarity": 0.6075153036414429,
+    "mapping_type": "one_to_one"
+  }
+]

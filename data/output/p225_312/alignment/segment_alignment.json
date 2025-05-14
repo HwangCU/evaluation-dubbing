@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "do they think anyone else wants them",
+    "tgt_text": "다른 사람 이 원한다고 생각 해요",
+    "src_start": 0.0,
+    "src_end": 2.90546,
+    "src_duration": 2.90546,
+    "tgt_start": 0.0,
+    "tgt_end": 2.09737,
+    "tgt_duration": 2.09737,
+    "text_similarity": 0.3804776072502136,
+    "temporal_similarity": 0.8887487695580045,
+    "speaking_rate_similarity": 0.8421839112108468,
+    "overall_similarity": 0.6253002167346775,
+    "mapping_type": "one_to_one"
+  }
+]

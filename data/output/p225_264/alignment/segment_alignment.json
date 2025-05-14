@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "that should be the subject matter of a public debate",
+    "tgt_text": "그건 공공 논쟁 의 주제 야",
+    "src_start": 0.0,
+    "src_end": 4.48317,
+    "src_duration": 4.48317,
+    "tgt_start": 0.0,
+    "tgt_end": 2.09737,
+    "tgt_duration": 2.09737,
+    "text_similarity": 0.46901610493659973,
+    "temporal_similarity": 0.550992935802122,
+    "speaking_rate_similarity": 0.7797198559650129,
+    "overall_similarity": 0.555749904401939,
+    "mapping_type": "one_to_one"
+  }
+]

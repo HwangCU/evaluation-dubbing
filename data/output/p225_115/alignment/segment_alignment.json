@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "overall it was a promising day for the scots",
+    "tgt_text": "전부 스코틀랜드 에겐 아주 좋 은 날 이 었 어",
+    "src_start": 0.0,
+    "src_end": 4.48146,
+    "src_duration": 4.48146,
+    "tgt_start": 0.0,
+    "tgt_end": 3.35413,
+    "tgt_duration": 3.35413,
+    "text_similarity": 0.5470356941223145,
+    "temporal_similarity": 0.8993783275985952,
+    "speaking_rate_similarity": 0.673601237096839,
+    "overall_similarity": 0.6780515927601036,
+    "mapping_type": "one_to_one"
+  }
+]

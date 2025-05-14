@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "ms anderson yesterday put a brave face on the departure",
+    "tgt_text": "어제 앤더슨 부인 이 떠날 때 용감 한 표정 을 했 어요",
+    "src_start": 0.0,
+    "src_end": 5.84819,
+    "src_duration": 5.84819,
+    "tgt_start": 0.0,
+    "tgt_end": 3.43268,
+    "tgt_duration": 3.43268,
+    "text_similarity": 0.6001063585281372,
+    "temporal_similarity": 0.8347858055227344,
+    "speaking_rate_similarity": 0.48913709483903,
+    "overall_similarity": 0.648316339888695,
+    "mapping_type": "one_to_one"
+  }
+]

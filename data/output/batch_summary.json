@@ -1,0 +1,1633 @@
+{
+  "analysis_info": {
+    "src_lang": "en",
+    "tgt_lang": "kr",
+    "embedding_model": "laser",
+    "similarity_threshold": 0.3,
+    "file_count": 231
+  },
+  "average_scores": {
+    "final_score": 0.5436954357718418,
+    "prosody_score": 0.43633739494698975,
+    "alignment_score": 0.7941975310298298
+  },
+  "file_results": [
+    {
+      "file_name": "p225_365",
+      "final_score": 0.743092613754418,
+      "alignment_score": 0.7635813301837622,
+      "prosody_score": 0.7343117352846993,
+      "grade": "B"
+    },
+    {
+      "file_name": "p225_019",
+      "final_score": 0.7282288544530326,
+      "alignment_score": 0.9521009399492372,
+      "prosody_score": 0.6322836749546594,
+      "grade": "B"
+    },
+    {
+      "file_name": "p225_366",
+      "final_score": 0.7183849818670056,
+      "alignment_score": 0.9028952164009112,
+      "prosody_score": 0.6393091670667606,
+      "grade": "B"
+    },
+    {
+      "file_name": "p225_024",
+      "final_score": 0.7132494609198973,
+      "alignment_score": 0.899527149321267,
+      "prosody_score": 0.6334161658907389,
+      "grade": "B"
+    },
+    {
+      "file_name": "p225_004",
+      "final_score": 0.7086221470283338,
+      "alignment_score": 0.9744077129365787,
+      "prosody_score": 0.5947140473533719,
+      "grade": "B"
+    },
+    {
+      "file_name": "p225_126",
+      "final_score": 0.7059851087757145,
+      "alignment_score": 0.930272575450316,
+      "prosody_score": 0.6098619087723138,
+      "grade": "B"
+    },
+    {
+      "file_name": "p225_253",
+      "final_score": 0.7006085183785776,
+      "alignment_score": 0.8544643651610818,
+      "prosody_score": 0.6346702983289331,
+      "grade": "B"
+    },
+    {
+      "file_name": "p225_008",
+      "final_score": 0.6934617530596257,
+      "alignment_score": 0.9902141396910328,
+      "prosody_score": 0.5662821587890227,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_060",
+      "final_score": 0.688366538707907,
+      "alignment_score": 0.9603569164631419,
+      "prosody_score": 0.5717992339556636,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_023",
+      "final_score": 0.6778995072170911,
+      "alignment_score": 0.8992216726618706,
+      "prosody_score": 0.5830471505979,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_001",
+      "final_score": 0.6769915121823626,
+      "alignment_score": 0.9537538020589611,
+      "prosody_score": 0.558379102235249,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_103",
+      "final_score": 0.6733259022818188,
+      "alignment_score": 0.9504950140537444,
+      "prosody_score": 0.5545391400938506,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_083",
+      "final_score": 0.6709382378704647,
+      "alignment_score": 0.8752329757250659,
+      "prosody_score": 0.5833833502184927,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_017",
+      "final_score": 0.6700891631438938,
+      "alignment_score": 0.9385864332603938,
+      "prosody_score": 0.5550189045225367,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_003",
+      "final_score": 0.6662087734601457,
+      "alignment_score": 0.9421931330472103,
+      "prosody_score": 0.5479297622085466,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_225",
+      "final_score": 0.665801447354796,
+      "alignment_score": 0.8235559336452574,
+      "prosody_score": 0.5981923818017411,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_094",
+      "final_score": 0.664075268826342,
+      "alignment_score": 0.9284072492435866,
+      "prosody_score": 0.5507901343618087,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_174",
+      "final_score": 0.6628419986575824,
+      "alignment_score": 0.950352538211852,
+      "prosody_score": 0.539623195991467,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_171",
+      "final_score": 0.6563252976448823,
+      "alignment_score": 0.8059689265536724,
+      "prosody_score": 0.5921923138268296,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_084",
+      "final_score": 0.650097041727068,
+      "alignment_score": 0.8615754031379133,
+      "prosody_score": 0.5594634582652772,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_133",
+      "final_score": 0.6485867592915135,
+      "alignment_score": 0.9688045626235086,
+      "prosody_score": 0.5113505578635158,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_018",
+      "final_score": 0.6485355694161298,
+      "alignment_score": 0.9631875515737357,
+      "prosody_score": 0.513684719920013,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_219",
+      "final_score": 0.6482183302964972,
+      "alignment_score": 0.8591883419469626,
+      "prosody_score": 0.5578026110177263,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_257",
+      "final_score": 0.6473973098501803,
+      "alignment_score": 0.8441593567020224,
+      "prosody_score": 0.5630707183422481,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_124",
+      "final_score": 0.6449855531096197,
+      "alignment_score": 0.9379879414298019,
+      "prosody_score": 0.5194131009723988,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_319",
+      "final_score": 0.643308575463741,
+      "alignment_score": 0.8322465753424657,
+      "prosody_score": 0.5623351469442875,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_359",
+      "final_score": 0.6430831141022346,
+      "alignment_score": 0.9764244013611814,
+      "prosody_score": 0.500222562419829,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_221",
+      "final_score": 0.6384887042034861,
+      "alignment_score": 0.9341379843363562,
+      "prosody_score": 0.5117818698608276,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_274",
+      "final_score": 0.6364628344701073,
+      "alignment_score": 0.8096064016192233,
+      "prosody_score": 0.5622584485490576,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_122",
+      "final_score": 0.635987886607836,
+      "alignment_score": 0.9548722947943069,
+      "prosody_score": 0.4993231402422057,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_349",
+      "final_score": 0.6306278950991601,
+      "alignment_score": 0.8410010834236186,
+      "prosody_score": 0.5404679572458208,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_169",
+      "final_score": 0.6297007310826547,
+      "alignment_score": 0.9318308170184982,
+      "prosody_score": 0.5002164085387217,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_220",
+      "final_score": 0.6280160814033976,
+      "alignment_score": 0.7493506303399167,
+      "prosody_score": 0.5760155604306038,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_309",
+      "final_score": 0.6275859862726919,
+      "alignment_score": 0.7798076173144417,
+      "prosody_score": 0.5623481443976563,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_237",
+      "final_score": 0.6256677774049927,
+      "alignment_score": 0.8041357788242716,
+      "prosody_score": 0.5491814910824446,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_128",
+      "final_score": 0.6250714528095753,
+      "alignment_score": 0.9302054342474221,
+      "prosody_score": 0.49429974647906966,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_011",
+      "final_score": 0.6217645691285322,
+      "alignment_score": 0.8208965204384919,
+      "prosody_score": 0.5364223042814067,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_334",
+      "final_score": 0.6209955583507563,
+      "alignment_score": 0.9826016022040029,
+      "prosody_score": 0.4660215395565078,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_039",
+      "final_score": 0.6204418454356087,
+      "alignment_score": 0.8660814376492998,
+      "prosody_score": 0.5151677344868838,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_030",
+      "final_score": 0.6202413861260774,
+      "alignment_score": 0.8966323046836155,
+      "prosody_score": 0.5017881353157039,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_082",
+      "final_score": 0.6170354014277695,
+      "alignment_score": 0.9817872400410159,
+      "prosody_score": 0.4607131848792353,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_149",
+      "final_score": 0.6153731666029962,
+      "alignment_score": 0.8858812785388128,
+      "prosody_score": 0.49944111863050344,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_131",
+      "final_score": 0.6135949365187778,
+      "alignment_score": 0.9601003213417979,
+      "prosody_score": 0.4650926287374837,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_021",
+      "final_score": 0.6114203236049564,
+      "alignment_score": 0.8293416437300237,
+      "prosody_score": 0.5180254721227847,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_165",
+      "final_score": 0.6091029868989436,
+      "alignment_score": 0.8438833940655908,
+      "prosody_score": 0.508482812398952,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_073",
+      "final_score": 0.6082636371764456,
+      "alignment_score": 0.9955610859402575,
+      "prosody_score": 0.44227901627766913,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_089",
+      "final_score": 0.6056658715893951,
+      "alignment_score": 0.9198765638496476,
+      "prosody_score": 0.4710041463350012,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_051",
+      "final_score": 0.6053219077718297,
+      "alignment_score": 0.9529833952873952,
+      "prosody_score": 0.4563241274080161,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_347",
+      "final_score": 0.6052766255470567,
+      "alignment_score": 0.7641134466020739,
+      "prosody_score": 0.5372037022377637,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_179",
+      "final_score": 0.6050048940104634,
+      "alignment_score": 0.8405214714088708,
+      "prosody_score": 0.5040692179825745,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_182",
+      "final_score": 0.6026813889783906,
+      "alignment_score": 0.8696892796721234,
+      "prosody_score": 0.48824943582393365,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_072",
+      "final_score": 0.6026598485712679,
+      "alignment_score": 0.7765636197609636,
+      "prosody_score": 0.5281296609185412,
+      "grade": "C"
+    },
+    {
+      "file_name": "p225_325",
+      "final_score": 0.599494247288792,
+      "alignment_score": 0.8461046859655363,
+      "prosody_score": 0.493804059284473,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_153",
+      "final_score": 0.5976237142436616,
+      "alignment_score": 0.8114713233645735,
+      "prosody_score": 0.505974738906128,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_173",
+      "final_score": 0.5911054598459968,
+      "alignment_score": 0.8497443860270415,
+      "prosody_score": 0.4802602057684062,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_201",
+      "final_score": 0.5910161213115404,
+      "alignment_score": 0.8664829162294028,
+      "prosody_score": 0.4729589234895992,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_298",
+      "final_score": 0.5899773555882197,
+      "alignment_score": 0.9227240155648244,
+      "prosody_score": 0.44737164416967484,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_063",
+      "final_score": 0.5898031362245465,
+      "alignment_score": 0.8029003028797311,
+      "prosody_score": 0.49847577908661034,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_291",
+      "final_score": 0.5889212863539166,
+      "alignment_score": 0.7255236559139785,
+      "prosody_score": 0.5303774136853188,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_036",
+      "final_score": 0.588642983846452,
+      "alignment_score": 0.8859133064516129,
+      "prosody_score": 0.4612414170156687,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_287",
+      "final_score": 0.5869989714557671,
+      "alignment_score": 0.7633665011046695,
+      "prosody_score": 0.5114128873205233,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_110",
+      "final_score": 0.5853970247888929,
+      "alignment_score": 0.7869989353910739,
+      "prosody_score": 0.49899620595938665,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_322",
+      "final_score": 0.5838241142608505,
+      "alignment_score": 0.8496612054810149,
+      "prosody_score": 0.4698939323093515,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_293",
+      "final_score": 0.5837563963616601,
+      "alignment_score": 0.8404443574184008,
+      "prosody_score": 0.47374727019448554,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_280",
+      "final_score": 0.583671998813672,
+      "alignment_score": 0.8228998335541837,
+      "prosody_score": 0.4811457839248813,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_312",
+      "final_score": 0.5821855142140451,
+      "alignment_score": 0.8609359619475058,
+      "prosody_score": 0.46272103661399056,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_295",
+      "final_score": 0.5787448153493342,
+      "alignment_score": 0.8486971691633042,
+      "prosody_score": 0.46305094942906133,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_009",
+      "final_score": 0.5773969939288894,
+      "alignment_score": 0.7952847450896922,
+      "prosody_score": 0.4840165291456883,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_108",
+      "final_score": 0.5772964217003529,
+      "alignment_score": 0.9409552007492095,
+      "prosody_score": 0.421442659250843,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_071",
+      "final_score": 0.5772340990106434,
+      "alignment_score": 0.8241211811325578,
+      "prosody_score": 0.4714253495298229,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_104",
+      "final_score": 0.5770196787837538,
+      "alignment_score": 0.9078190020035805,
+      "prosody_score": 0.43524854026097115,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_308",
+      "final_score": 0.5770025311440589,
+      "alignment_score": 0.8731756769929621,
+      "prosody_score": 0.4500711829231004,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_202",
+      "final_score": 0.5767345834562481,
+      "alignment_score": 0.7818815866510539,
+      "prosody_score": 0.48881443922990275,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_316",
+      "final_score": 0.5754676937659635,
+      "alignment_score": 0.8132740920359391,
+      "prosody_score": 0.473550665935974,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_310",
+      "final_score": 0.5751791781023657,
+      "alignment_score": 0.8783915440676213,
+      "prosody_score": 0.4452310212601134,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_254",
+      "final_score": 0.5738008970076326,
+      "alignment_score": 0.8726690415266001,
+      "prosody_score": 0.44571454935664656,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_346",
+      "final_score": 0.5725187336425384,
+      "alignment_score": 0.7989799377484669,
+      "prosody_score": 0.47546393188285485,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_145",
+      "final_score": 0.5724773812827609,
+      "alignment_score": 0.7416393491551054,
+      "prosody_score": 0.49997939505175615,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_109",
+      "final_score": 0.5716991123602548,
+      "alignment_score": 0.8071248468005714,
+      "prosody_score": 0.47080236902869055,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_337",
+      "final_score": 0.571461062036418,
+      "alignment_score": 0.7455522212482619,
+      "prosody_score": 0.4968505652313421,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_014",
+      "final_score": 0.5713493627275589,
+      "alignment_score": 0.8481456558773424,
+      "prosody_score": 0.45272237994908027,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_025",
+      "final_score": 0.5683198829129995,
+      "alignment_score": 0.7369648574929833,
+      "prosody_score": 0.4960434652358636,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_191",
+      "final_score": 0.5677136483213019,
+      "alignment_score": 0.930963486551462,
+      "prosody_score": 0.4120351462226619,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_081",
+      "final_score": 0.5674333005253971,
+      "alignment_score": 0.8866747691903142,
+      "prosody_score": 0.4306155282404326,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_320",
+      "final_score": 0.5670186174838954,
+      "alignment_score": 0.7617542648653979,
+      "prosody_score": 0.4835604828918229,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_299",
+      "final_score": 0.5669980928554315,
+      "alignment_score": 0.8501413427561838,
+      "prosody_score": 0.44565098575510903,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_203",
+      "final_score": 0.5662232169227472,
+      "alignment_score": 0.8671815474887244,
+      "prosody_score": 0.4372410752516141,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_177",
+      "final_score": 0.5658037598786234,
+      "alignment_score": 0.8566163214975915,
+      "prosody_score": 0.44116980489906565,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_061",
+      "final_score": 0.5650739030162203,
+      "alignment_score": 0.8873129330254041,
+      "prosody_score": 0.42697146158371296,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_013",
+      "final_score": 0.5645789882418647,
+      "alignment_score": 0.8842516896993429,
+      "prosody_score": 0.42757640190294555,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_243",
+      "final_score": 0.5644687494799908,
+      "alignment_score": 0.8242513368983957,
+      "prosody_score": 0.453133354872103,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_199",
+      "final_score": 0.5643861169267135,
+      "alignment_score": 0.7595921663638199,
+      "prosody_score": 0.48072638145366786,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_142",
+      "final_score": 0.5643564484456318,
+      "alignment_score": 0.817042303536754,
+      "prosody_score": 0.4560625105494366,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_059",
+      "final_score": 0.5633496276817487,
+      "alignment_score": 0.8371837131766106,
+      "prosody_score": 0.4459921624696651,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_222",
+      "final_score": 0.5625650421219949,
+      "alignment_score": 0.9001465073609615,
+      "prosody_score": 0.41788727130529496,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_144",
+      "final_score": 0.5624854054143814,
+      "alignment_score": 0.8107518661083899,
+      "prosody_score": 0.4560854936883778,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_266",
+      "final_score": 0.5621089592589977,
+      "alignment_score": 0.7831314031180401,
+      "prosody_score": 0.46738505474797964,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_070",
+      "final_score": 0.5614510522468027,
+      "alignment_score": 0.699238522474185,
+      "prosody_score": 0.5023992792922103,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_265",
+      "final_score": 0.561010887711367,
+      "alignment_score": 0.8361178756476684,
+      "prosody_score": 0.4431078928815235,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_116",
+      "final_score": 0.5599925942576198,
+      "alignment_score": 0.7946640646780039,
+      "prosody_score": 0.4594191069345982,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_282",
+      "final_score": 0.5597826902077023,
+      "alignment_score": 0.7738786073600594,
+      "prosody_score": 0.46802729714240654,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_012",
+      "final_score": 0.5593024677976358,
+      "alignment_score": 0.8904047231270359,
+      "prosody_score": 0.417401501227893,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_159",
+      "final_score": 0.5577707434008501,
+      "alignment_score": 0.8386643087093684,
+      "prosody_score": 0.43738778684005664,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_027",
+      "final_score": 0.5574193115337573,
+      "alignment_score": 0.7312363569924321,
+      "prosody_score": 0.4829262920514682,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_354",
+      "final_score": 0.5571901030494129,
+      "alignment_score": 0.9242023498694517,
+      "prosody_score": 0.3998991401265392,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_210",
+      "final_score": 0.5552787274452401,
+      "alignment_score": 0.8141360946745562,
+      "prosody_score": 0.44433985577553325,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_248",
+      "final_score": 0.5535985729114677,
+      "alignment_score": 0.830154918887478,
+      "prosody_score": 0.43507442463603474,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_297",
+      "final_score": 0.5532774524149646,
+      "alignment_score": 0.798638605912565,
+      "prosody_score": 0.4481226723445645,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_279",
+      "final_score": 0.5529538391360092,
+      "alignment_score": 0.7545524116881075,
+      "prosody_score": 0.4665544508993956,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_052",
+      "final_score": 0.5491077902006631,
+      "alignment_score": 0.9154720627643294,
+      "prosody_score": 0.3920945305305206,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_016",
+      "final_score": 0.5483247500585805,
+      "alignment_score": 0.8436228456592254,
+      "prosody_score": 0.42176842337258985,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_318",
+      "final_score": 0.5478849001125601,
+      "alignment_score": 0.8834836601307189,
+      "prosody_score": 0.4040568601047778,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_127",
+      "final_score": 0.5478663986371306,
+      "alignment_score": 0.9921145001210361,
+      "prosody_score": 0.3574743551440283,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_136",
+      "final_score": 0.5478619093384689,
+      "alignment_score": 0.8776646937725168,
+      "prosody_score": 0.4065178588667341,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_305",
+      "final_score": 0.5465045570613609,
+      "alignment_score": 0.8880034515138442,
+      "prosody_score": 0.40014788801029677,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_045",
+      "final_score": 0.5430705093936676,
+      "alignment_score": 0.8408908432642198,
+      "prosody_score": 0.41543322344914524,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_324",
+      "final_score": 0.542689277450313,
+      "alignment_score": 0.7952071447166955,
+      "prosody_score": 0.43446733433614915,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_236",
+      "final_score": 0.5423847873869122,
+      "alignment_score": 0.7313246187363834,
+      "prosody_score": 0.4614105739514246,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_120",
+      "final_score": 0.5420627063634733,
+      "alignment_score": 0.8182565452683925,
+      "prosody_score": 0.42369391826136515,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_029",
+      "final_score": 0.540278340071644,
+      "alignment_score": 0.8725332427556407,
+      "prosody_score": 0.39788338177850247,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_224",
+      "final_score": 0.5386845129364296,
+      "alignment_score": 0.7980660677509186,
+      "prosody_score": 0.4275209894445058,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_118",
+      "final_score": 0.5381195345391003,
+      "alignment_score": 0.8537050853413527,
+      "prosody_score": 0.402868584195278,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_175",
+      "final_score": 0.5378589901720238,
+      "alignment_score": 0.7347101880005792,
+      "prosody_score": 0.45349419110264294,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_285",
+      "final_score": 0.5376560789831393,
+      "alignment_score": 0.7334270057608543,
+      "prosody_score": 0.4537542532212614,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_040",
+      "final_score": 0.5370557241583646,
+      "alignment_score": 0.666699718005973,
+      "prosody_score": 0.4814940125093895,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_314",
+      "final_score": 0.5356448738378714,
+      "alignment_score": 0.962007556675063,
+      "prosody_score": 0.35291800976478926,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_115",
+      "final_score": 0.5338030182155766,
+      "alignment_score": 0.8742229094982439,
+      "prosody_score": 0.38790877909443366,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_172",
+      "final_score": 0.5337466533733688,
+      "alignment_score": 0.8784690525790168,
+      "prosody_score": 0.386008482285234,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_240",
+      "final_score": 0.5327445524002907,
+      "alignment_score": 0.7411700203595177,
+      "prosody_score": 0.44341935184633635,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_062",
+      "final_score": 0.5327073363416167,
+      "alignment_score": 0.8011749116607774,
+      "prosody_score": 0.4176498040619765,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_351",
+      "final_score": 0.5325844166654652,
+      "alignment_score": 0.7719549111099961,
+      "prosody_score": 0.4299970619035233,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_064",
+      "final_score": 0.5297118244426056,
+      "alignment_score": 0.9871842506585332,
+      "prosody_score": 0.33365221320720806,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_157",
+      "final_score": 0.5287058008282,
+      "alignment_score": 0.7584097859327217,
+      "prosody_score": 0.4302612357834049,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_301",
+      "final_score": 0.5283894701800924,
+      "alignment_score": 0.7800385761275768,
+      "prosody_score": 0.4205398533454564,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_238",
+      "final_score": 0.5283306217333548,
+      "alignment_score": 0.8098231756332285,
+      "prosody_score": 0.407690955776266,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_166",
+      "final_score": 0.5280489494973388,
+      "alignment_score": 0.790225324422136,
+      "prosody_score": 0.41568764595814006,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_352",
+      "final_score": 0.5279125687111015,
+      "alignment_score": 0.741412140297099,
+      "prosody_score": 0.4364127523171026,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_117",
+      "final_score": 0.5278820500279439,
+      "alignment_score": 0.8201481152135435,
+      "prosody_score": 0.4026251649484013,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_355",
+      "final_score": 0.5274705209745671,
+      "alignment_score": 0.6006073619631902,
+      "prosody_score": 0.49612616055087155,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_121",
+      "final_score": 0.5272311119199069,
+      "alignment_score": 0.7844494047619048,
+      "prosody_score": 0.4169947007019078,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_022",
+      "final_score": 0.527213972613833,
+      "alignment_score": 0.8441908809891808,
+      "prosody_score": 0.39136672616725526,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_141",
+      "final_score": 0.5268526315458358,
+      "alignment_score": 0.9188969949626542,
+      "prosody_score": 0.35883361865291374,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_053",
+      "final_score": 0.5262866290351431,
+      "alignment_score": 0.7946883072481385,
+      "prosody_score": 0.41125733837243084,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_275",
+      "final_score": 0.5261784700381877,
+      "alignment_score": 0.8821337719298246,
+      "prosody_score": 0.3736261977989149,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_058",
+      "final_score": 0.5260118611001627,
+      "alignment_score": 0.8361169871794872,
+      "prosody_score": 0.3931096642090238,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_143",
+      "final_score": 0.5240013769684737,
+      "alignment_score": 0.8801592314170107,
+      "prosody_score": 0.3713622964905292,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_326",
+      "final_score": 0.5227425939016336,
+      "alignment_score": 0.7951129717868914,
+      "prosody_score": 0.4060124319508088,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_218",
+      "final_score": 0.5220346396921296,
+      "alignment_score": 0.8387503800547278,
+      "prosody_score": 0.3862993223938732,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_242",
+      "final_score": 0.5219726089069547,
+      "alignment_score": 0.7285481508057524,
+      "prosody_score": 0.4334402338074701,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_286",
+      "final_score": 0.5215220395727573,
+      "alignment_score": 0.7057976073069202,
+      "prosody_score": 0.4425467962581162,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_356",
+      "final_score": 0.5198747988901711,
+      "alignment_score": 0.6911270647522297,
+      "prosody_score": 0.4464809706635746,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_135",
+      "final_score": 0.5189819681783271,
+      "alignment_score": 0.8147376346508415,
+      "prosody_score": 0.39222953969010665,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_010",
+      "final_score": 0.5188606958441068,
+      "alignment_score": 0.8661311442100926,
+      "prosody_score": 0.37003050368725576,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_150",
+      "final_score": 0.517551444962842,
+      "alignment_score": 0.8953378520229134,
+      "prosody_score": 0.35564298479424,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_290",
+      "final_score": 0.5173437137521675,
+      "alignment_score": 0.6956934475573049,
+      "prosody_score": 0.44090811354996573,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_264",
+      "final_score": 0.5169344824913632,
+      "alignment_score": 0.7339159567895038,
+      "prosody_score": 0.4239424220778744,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_090",
+      "final_score": 0.515338835221188,
+      "alignment_score": 0.7123821022727272,
+      "prosody_score": 0.4308917207705283,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_223",
+      "final_score": 0.5133222925323664,
+      "alignment_score": 0.8691967300455066,
+      "prosody_score": 0.3608046764553064,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_357",
+      "final_score": 0.5124137622219649,
+      "alignment_score": 0.764559670781893,
+      "prosody_score": 0.4043512299819958,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_046",
+      "final_score": 0.5118404835009026,
+      "alignment_score": 0.7792196009645854,
+      "prosody_score": 0.3972494331593243,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_028",
+      "final_score": 0.5116581725072714,
+      "alignment_score": 0.8029501606444772,
+      "prosody_score": 0.3868187490198975,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_049",
+      "final_score": 0.5114438646274405,
+      "alignment_score": 0.8070819014638198,
+      "prosody_score": 0.38474184884042084,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_176",
+      "final_score": 0.5112724211329263,
+      "alignment_score": 0.7414700430960963,
+      "prosody_score": 0.4126162974344249,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_152",
+      "final_score": 0.5099498302420196,
+      "alignment_score": 0.7508665296928643,
+      "prosody_score": 0.40669981619165757,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_276",
+      "final_score": 0.5094712965621995,
+      "alignment_score": 0.8220086705202312,
+      "prosody_score": 0.3755267077230431,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_065",
+      "final_score": 0.5086064932412948,
+      "alignment_score": 0.7500426445650756,
+      "prosody_score": 0.4051338569596744,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_086",
+      "final_score": 0.5081602945169725,
+      "alignment_score": 0.7837304770563234,
+      "prosody_score": 0.39005878771439373,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_056",
+      "final_score": 0.5057467325836278,
+      "alignment_score": 0.7247272519563603,
+      "prosody_score": 0.4118979385667425,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_002",
+      "final_score": 0.5048802032360249,
+      "alignment_score": 0.7561268221574344,
+      "prosody_score": 0.3972030808411351,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_057",
+      "final_score": 0.5045120381989026,
+      "alignment_score": 0.86363256227758,
+      "prosody_score": 0.3506032421651837,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_358",
+      "final_score": 0.503397252772646,
+      "alignment_score": 0.8460806666878515,
+      "prosody_score": 0.35653293252327223,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_348",
+      "final_score": 0.5020047143933741,
+      "alignment_score": 0.8349617321837919,
+      "prosody_score": 0.35930884962605225,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_335",
+      "final_score": 0.5008262379106182,
+      "alignment_score": 0.7658985804620402,
+      "prosody_score": 0.38722380538858026,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_208",
+      "final_score": 0.50077699238042,
+      "alignment_score": 0.7849241803278688,
+      "prosody_score": 0.37899962611722765,
+      "grade": "D"
+    },
+    {
+      "file_name": "p225_244",
+      "final_score": 0.497963754193867,
+      "alignment_score": 0.7375298988902281,
+      "prosody_score": 0.395292549323998,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_331",
+      "final_score": 0.4976429700600045,
+      "alignment_score": 0.793482256903418,
+      "prosody_score": 0.3708547042699702,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_156",
+      "final_score": 0.4974193739363496,
+      "alignment_score": 0.6814132921832597,
+      "prosody_score": 0.41856483754481677,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_330",
+      "final_score": 0.49739306777682546,
+      "alignment_score": 0.7316381766381767,
+      "prosody_score": 0.3970023068362464,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_038",
+      "final_score": 0.49712300395166964,
+      "alignment_score": 0.7495761763517981,
+      "prosody_score": 0.38892878720875756,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_033",
+      "final_score": 0.4956710539534483,
+      "alignment_score": 0.763470640569395,
+      "prosody_score": 0.38089980254661404,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_020",
+      "final_score": 0.4952185174095013,
+      "alignment_score": 0.8485242718446602,
+      "prosody_score": 0.343801765508719,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_147",
+      "final_score": 0.4935871088084235,
+      "alignment_score": 0.7174803631908915,
+      "prosody_score": 0.3976328569302229,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_054",
+      "final_score": 0.4916647876086049,
+      "alignment_score": 0.7332169511016793,
+      "prosody_score": 0.38814243182585884,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_289",
+      "final_score": 0.49086980716701845,
+      "alignment_score": 0.8203493827160494,
+      "prosody_score": 0.3496642747888624,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_067",
+      "final_score": 0.4905269198648903,
+      "alignment_score": 0.8285750878120427,
+      "prosody_score": 0.34564913360182503,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_363",
+      "final_score": 0.48942288702665715,
+      "alignment_score": 0.7728999131772258,
+      "prosody_score": 0.36793273296212775,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_066",
+      "final_score": 0.4879166216562353,
+      "alignment_score": 0.7227017088787331,
+      "prosody_score": 0.387294441418022,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_268",
+      "final_score": 0.4865217431227103,
+      "alignment_score": 0.7469472580871095,
+      "prosody_score": 0.3749108081379678,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_151",
+      "final_score": 0.48497140994155596,
+      "alignment_score": 0.8705600706713781,
+      "prosody_score": 0.3197191267716323,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_195",
+      "final_score": 0.48432140966588405,
+      "alignment_score": 0.7588799414649385,
+      "prosody_score": 0.3666534674662893,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_353",
+      "final_score": 0.4829872139099084,
+      "alignment_score": 0.810404836538001,
+      "prosody_score": 0.3426653756407259,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_197",
+      "final_score": 0.4829112660418041,
+      "alignment_score": 0.750514450867052,
+      "prosody_score": 0.36822418683098357,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_200",
+      "final_score": 0.4814023660002563,
+      "alignment_score": 0.8728354078737792,
+      "prosody_score": 0.31364534805446087,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_258",
+      "final_score": 0.4809354582439493,
+      "alignment_score": 0.7674289431683173,
+      "prosody_score": 0.35815253613350584,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_114",
+      "final_score": 0.4789105313878792,
+      "alignment_score": 0.6672649580118318,
+      "prosody_score": 0.39818720569189947,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_277",
+      "final_score": 0.4777624369569702,
+      "alignment_score": 0.7124071441531423,
+      "prosody_score": 0.3772004195871822,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_300",
+      "final_score": 0.47715510660087035,
+      "alignment_score": 0.7465862714412839,
+      "prosody_score": 0.36168460738355035,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_113",
+      "final_score": 0.4755425793924526,
+      "alignment_score": 0.7673573915372255,
+      "prosody_score": 0.35047908847326426,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_005",
+      "final_score": 0.47501370790953,
+      "alignment_score": 0.8094655172413793,
+      "prosody_score": 0.3316772181958804,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_211",
+      "final_score": 0.474675059162628,
+      "alignment_score": 0.777569371220519,
+      "prosody_score": 0.34486321113781754,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_235",
+      "final_score": 0.4745561074459096,
+      "alignment_score": 0.7358741209563995,
+      "prosody_score": 0.36256267308427104,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_332",
+      "final_score": 0.4741998649145043,
+      "alignment_score": 0.792595685110628,
+      "prosody_score": 0.33774451340187994,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_302",
+      "final_score": 0.47383462252720593,
+      "alignment_score": 0.7677887661496928,
+      "prosody_score": 0.3478542752604259,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_007",
+      "final_score": 0.4702797189432995,
+      "alignment_score": 0.8443771428571428,
+      "prosody_score": 0.3099522515516524,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_035",
+      "final_score": 0.46763742306722955,
+      "alignment_score": 0.7721230366492147,
+      "prosody_score": 0.3371435886749503,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_111",
+      "final_score": 0.46546061215486867,
+      "alignment_score": 0.7546192159383034,
+      "prosody_score": 0.3415354962476824,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_296",
+      "final_score": 0.4583932516104594,
+      "alignment_score": 0.7077325997539343,
+      "prosody_score": 0.35153353097754164,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_123",
+      "final_score": 0.45674910647396144,
+      "alignment_score": 0.8031356749196159,
+      "prosody_score": 0.3082977199972524,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_273",
+      "final_score": 0.45530878303908157,
+      "alignment_score": 0.7076769366197183,
+      "prosody_score": 0.3471510029330944,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_044",
+      "final_score": 0.4534727549694477,
+      "alignment_score": 0.7667070796460177,
+      "prosody_score": 0.3192294729652035,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_158",
+      "final_score": 0.4497924350471751,
+      "alignment_score": 0.6898822637576102,
+      "prosody_score": 0.34689679417127434,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_323",
+      "final_score": 0.44801160691458985,
+      "alignment_score": 0.801347625941691,
+      "prosody_score": 0.29658188447440365,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_026",
+      "final_score": 0.4414536276624036,
+      "alignment_score": 0.7712769485903814,
+      "prosody_score": 0.30010077583612743,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_336",
+      "final_score": 0.4387476785444989,
+      "alignment_score": 0.7608932870001779,
+      "prosody_score": 0.30068527492063657,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_239",
+      "final_score": 0.4297604764496039,
+      "alignment_score": 0.7030183098591549,
+      "prosody_score": 0.31264997641693926,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_303",
+      "final_score": 0.42948559863859426,
+      "alignment_score": 0.6978917889505201,
+      "prosody_score": 0.3144543742191975,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_006",
+      "final_score": 0.4291051622174883,
+      "alignment_score": 0.6765216718266254,
+      "prosody_score": 0.3230695152421439,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_317",
+      "final_score": 0.4286900647613488,
+      "alignment_score": 0.7292589686098654,
+      "prosody_score": 0.2998748202548417,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_328",
+      "final_score": 0.4191260814051082,
+      "alignment_score": 0.695944448456445,
+      "prosody_score": 0.3004896383831067,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_092",
+      "final_score": 0.41829906196831523,
+      "alignment_score": 0.7205888625592417,
+      "prosody_score": 0.2887462902864897,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_193",
+      "final_score": 0.4074592188629049,
+      "alignment_score": 0.8185202317554097,
+      "prosody_score": 0.23129021333754574,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_281",
+      "final_score": 0.4070114085737865,
+      "alignment_score": 0.6463815141715641,
+      "prosody_score": 0.30442422046045325,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_329",
+      "final_score": 0.4036961977741923,
+      "alignment_score": 0.7090101652742892,
+      "prosody_score": 0.27284735455986514,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_241",
+      "final_score": 0.3699088605782062,
+      "alignment_score": 0.2783656542056075,
+      "prosody_score": 0.40914166330932,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_192",
+      "final_score": 0.3354110952594629,
+      "alignment_score": 0.0679833125670255,
+      "prosody_score": 0.45002300212765034,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_037",
+      "final_score": 0.3262445559416678,
+      "alignment_score": 0.0,
+      "prosody_score": 0.46606365134523975,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_294",
+      "final_score": 0.30626587513319053,
+      "alignment_score": 0.0,
+      "prosody_score": 0.4375226787617008,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_315",
+      "final_score": 0.25760090073315994,
+      "alignment_score": 0.0,
+      "prosody_score": 0.3680012867616571,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_196",
+      "final_score": 0.23215203333723744,
+      "alignment_score": 0.0,
+      "prosody_score": 0.33164576191033923,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_350",
+      "final_score": 0.2230095196626558,
+      "alignment_score": 0.0,
+      "prosody_score": 0.31858502808950834,
+      "grade": "F"
+    },
+    {
+      "file_name": "p225_212",
+      "final_score": 0.21380530921302915,
+      "alignment_score": 0.0,
+      "prosody_score": 0.30543615601861307,
+      "grade": "F"
+    }
+  ]
+}

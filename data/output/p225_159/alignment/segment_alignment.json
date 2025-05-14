@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "neither side can win this war",
+    "tgt_text": "양쪽 다 이 전쟁 에서 이길 수 없 어",
+    "src_start": 0.0,
+    "src_end": 3.71508,
+    "src_duration": 3.71508,
+    "tgt_start": 0.0,
+    "tgt_end": 2.51633,
+    "tgt_duration": 2.51633,
+    "text_similarity": 0.6239721775054932,
+    "temporal_similarity": 0.8709314469674947,
+    "speaking_rate_similarity": 0.45155241161249116,
+    "overall_similarity": 0.6635760051654933,
+    "mapping_type": "one_to_one"
+  }
+]

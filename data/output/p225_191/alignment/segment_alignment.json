@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "people will ask about us",
+    "tgt_text": "사람 들 이 우리 에 대해 물어볼 거 야",
+    "src_start": 0.0,
+    "src_end": 2.43335,
+    "src_duration": 2.43335,
+    "tgt_start": 0.0,
+    "tgt_end": 2.09737,
+    "tgt_duration": 2.09737,
+    "text_similarity": 0.410597562789917,
+    "temporal_similarity": 0.9447707892411696,
+    "speaking_rate_similarity": 0.47884831839051334,
+    "overall_similarity": 0.584499681845412,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      1
+    ],
+    "src_text": "well",
+    "tgt_text": "이 없 었 어요",
+    "src_start": 0.0,
+    "src_end": 2.14,
+    "src_duration": 2.14,
+    "tgt_start": 1.39,
+    "tgt_end": 2.64719,
+    "tgt_duration": 1.2571900000000003,
+    "text_similarity": 0.4174632430076599,
+    "temporal_similarity": 0.36083495327102805,
+    "speaking_rate_similarity": 0.14686799065420564,
+    "overall_similarity": 0.3463557056159795,
+    "mapping_type": "one_to_one"
+  },
+  {
+    "src_idx": 1,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "they were the unlucky ones",
+    "tgt_text": "그 들 은 운",
+    "src_start": 3.13,
+    "src_end": 4.52771,
+    "src_duration": 1.39771,
+    "tgt_start": 0.0,
+    "tgt_end": 0.75,
+    "tgt_duration": 0.75,
+    "text_similarity": 0.6616303324699402,
+    "temporal_similarity": 0.0,
+    "speaking_rate_similarity": 0.6707399961365377,
+    "overall_similarity": 0.46496316546227767,
+    "mapping_type": "one_to_one"
+  }
+]

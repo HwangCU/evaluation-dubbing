@@ -1,0 +1,22 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0,
+      1
+    ],
+    "src_text": "he is delighted and he has every right to be",
+    "tgt_text": "그 는 기쁘 고 그럴 권리 가 있 어요",
+    "src_start": 0.0,
+    "src_end": 4.31242,
+    "src_duration": 4.31242,
+    "tgt_start": 0.0,
+    "tgt_end": 3.11853,
+    "tgt_duration": 3.11853,
+    "text_similarity": 0.4232516884803772,
+    "temporal_similarity": 0.8892603225103306,
+    "speaking_rate_similarity": 0.8035008958620296,
+    "overall_similarity": 0.6391041201656937,
+    "mapping_type": "n_to_m"
+  }
+]

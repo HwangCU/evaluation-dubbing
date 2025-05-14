@@ -1,0 +1,13 @@
+세그먼트 정렬 상세 정보
+==================================================
+
+### 세그먼트 1 ###
+원본: when the sunlight strikes raindrops in the air they act as a prism and form a rainbow
+합성: 햇빛 이 뜨 면 무지개 를 형성 하 죠
+텍스트 유사도: 0.6141
+시간 유사도: 0.5189
+발화 속도 유사도: 0.6669
+종합 유사도: 0.5961
+매핑 타입: one_to_one
+대체 매칭: False
+

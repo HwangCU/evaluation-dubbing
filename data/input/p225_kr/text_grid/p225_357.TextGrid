@@ -1,0 +1,96 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.28576 
+tiers? <exists> 
+size = 2 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 1.28576 
+        intervals: size = 5 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.59 
+            text = "희망" 
+        intervals [2]:
+            xmin = 0.59 
+            xmax = 0.67 
+            text = "의" 
+        intervals [3]:
+            xmin = 0.67 
+            xmax = 1.04 
+            text = "표시" 
+        intervals [4]:
+            xmin = 1.04 
+            xmax = 1.23 
+            text = "야" 
+        intervals [5]:
+            xmin = 1.23 
+            xmax = 1.28576 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 1.28576 
+        intervals: size = 14 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.3 
+            text = "ç" 
+        intervals [2]:
+            xmin = 0.3 
+            xmax = 0.38 
+            text = "i" 
+        intervals [3]:
+            xmin = 0.38 
+            xmax = 0.45 
+            text = "m" 
+        intervals [4]:
+            xmin = 0.45 
+            xmax = 0.52 
+            text = "ɐ" 
+        intervals [5]:
+            xmin = 0.52 
+            xmax = 0.59 
+            text = "ŋ" 
+        intervals [6]:
+            xmin = 0.59 
+            xmax = 0.64 
+            text = "ɰ" 
+        intervals [7]:
+            xmin = 0.64 
+            xmax = 0.67 
+            text = "i" 
+        intervals [8]:
+            xmin = 0.67 
+            xmax = 0.82 
+            text = "pʲ" 
+        intervals [9]:
+            xmin = 0.82 
+            xmax = 0.85 
+            text = "o" 
+        intervals [10]:
+            xmin = 0.85 
+            xmax = 1.01 
+            text = "ɕʰ" 
+        intervals [11]:
+            xmin = 1.01 
+            xmax = 1.04 
+            text = "i" 
+        intervals [12]:
+            xmin = 1.04 
+            xmax = 1.05 
+            text = "j" 
+        intervals [13]:
+            xmin = 1.05 
+            xmax = 1.23 
+            text = "ɐ" 
+        intervals [14]:
+            xmin = 1.23 
+            xmax = 1.28576 
+            text = "" 

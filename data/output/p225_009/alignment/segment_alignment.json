@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "there is according to legend a boiling pot of gold at one end",
+    "tgt_text": "전설 에 의하 면 한쪽 에 끓 는 금덩어리 가 있 어요",
+    "src_start": 0.0,
+    "src_end": 5.59079,
+    "src_duration": 5.59079,
+    "tgt_start": 0.0,
+    "tgt_end": 3.30175,
+    "tgt_duration": 3.30175,
+    "text_similarity": 0.603502631187439,
+    "temporal_similarity": 0.8362277960717537,
+    "speaking_rate_similarity": 0.6397836143609997,
+    "overall_similarity": 0.6805763772874455,
+    "mapping_type": "one_to_one"
+  }
+]

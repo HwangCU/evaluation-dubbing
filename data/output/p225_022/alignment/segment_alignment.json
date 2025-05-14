@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the actual primary rainbow observed is said to be the effect of super imposition of a number of bows",
+    "tgt_text": "실제로 관찰 된 초기 무지개 는 수많 은 소 들 의 초인종 의 효과 라고 합니다",
+    "src_start": 0.0,
+    "src_end": 6.47,
+    "src_duration": 6.47,
+    "tgt_start": 0.0,
+    "tgt_end": 4.45383,
+    "tgt_duration": 4.45383,
+    "text_similarity": 0.5759228467941284,
+    "temporal_similarity": 0.8753527047913446,
+    "speaking_rate_similarity": 0.8174533423493044,
+    "overall_similarity": 0.7140579033043285,
+    "mapping_type": "one_to_one"
+  }
+]

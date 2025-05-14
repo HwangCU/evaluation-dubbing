@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "thankfully mr campbell was able to help",
+    "tgt_text": "다행히 캄벨 씨 가 도와 주 셨 습니다",
+    "src_start": 0.0,
+    "src_end": 3.66977,
+    "src_duration": 3.66977,
+    "tgt_start": 0.0,
+    "tgt_end": 2.41159,
+    "tgt_duration": 2.41159,
+    "text_similarity": 0.523627758026123,
+    "temporal_similarity": 0.8628600702496341,
+    "speaking_rate_similarity": 0.5750064036710747,
+    "overall_similarity": 0.6356731808221667,
+    "mapping_type": "one_to_one"
+  }
+]

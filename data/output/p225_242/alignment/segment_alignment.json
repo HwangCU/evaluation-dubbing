@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the singer is expected to be in hospital for several days",
+    "tgt_text": "가수 는 며칠 동안 병원 에 있 을 거 예요",
+    "src_start": 0.0,
+    "src_end": 6.02046,
+    "src_duration": 6.02046,
+    "tgt_start": 0.0,
+    "tgt_end": 2.75193,
+    "tgt_duration": 2.75193,
+    "text_similarity": 0.49612417817115784,
+    "temporal_similarity": 0.5479869644512213,
+    "speaking_rate_similarity": 0.5028059317726552,
+    "overall_similarity": 0.5130193647754764,
+    "mapping_type": "one_to_one"
+  }
+]

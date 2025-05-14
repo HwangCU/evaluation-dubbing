@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "we believe the world has too many refugees already",
+    "tgt_text": "우린 세계 에 이미 너무 많 은 난민 들 이 있 다고 믿 습니다",
+    "src_start": 0.0,
+    "src_end": 3.97,
+    "src_duration": 3.97,
+    "tgt_start": 0.0,
+    "tgt_end": 3.66834,
+    "tgt_duration": 3.66834,
+    "text_similarity": 0.4034290909767151,
+    "temporal_similarity": 0.9696060453400503,
+    "speaking_rate_similarity": 0.594009715725081,
+    "overall_similarity": 0.6113983022353888,
+    "mapping_type": "one_to_one"
+  }
+]

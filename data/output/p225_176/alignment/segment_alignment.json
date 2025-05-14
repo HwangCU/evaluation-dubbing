@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "treatment is not an issue with these people",
+    "tgt_text": "이 사람 들 에겐 치료 가 문제 가 아니 에요",
+    "src_start": 0.0,
+    "src_end": 4.39715,
+    "src_duration": 4.39715,
+    "tgt_start": 0.0,
+    "tgt_end": 2.12356,
+    "tgt_duration": 2.12356,
+    "text_similarity": 0.46393629908561707,
+    "temporal_similarity": 0.5552232241338139,
+    "speaking_rate_similarity": 0.3863520689537542,
+    "overall_similarity": 0.47580553057370356,
+    "mapping_type": "one_to_one"
+  }
+]

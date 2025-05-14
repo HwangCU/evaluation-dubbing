@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "in fact he should never have been in the field",
+    "tgt_text": "사실 현장 에 들어오 지 말 았 어야지",
+    "src_start": 0.0,
+    "src_end": 3.92679,
+    "src_duration": 3.92679,
+    "tgt_start": 0.0,
+    "tgt_end": 2.2283,
+    "tgt_duration": 2.2283,
+    "text_similarity": 0.4372200667858124,
+    "temporal_similarity": 0.8269843816450587,
+    "speaking_rate_similarity": 0.7093261926408083,
+    "overall_similarity": 0.6085705864145855,
+    "mapping_type": "one_to_one"
+  }
+]

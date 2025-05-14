@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "everyone deserves to share in this success",
+    "tgt_text": "모두 가 이 성공 을 공유 할 자격 이 있 어요",
+    "src_start": 0.0,
+    "src_end": 2.79285,
+    "src_duration": 2.79285,
+    "tgt_start": 0.0,
+    "tgt_end": 2.51633,
+    "tgt_duration": 2.51633,
+    "text_similarity": 0.5043020844459534,
+    "temporal_similarity": 0.9603960112429955,
+    "speaking_rate_similarity": 0.5733572906138564,
+    "overall_similarity": 0.6549413037186467,
+    "mapping_type": "one_to_one"
+  }
+]

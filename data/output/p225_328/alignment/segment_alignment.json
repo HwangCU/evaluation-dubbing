@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it is just a tax on employment",
+    "tgt_text": "일자리 세금 일 뿐 이 야",
+    "src_start": 0.0,
+    "src_end": 4.01573,
+    "src_duration": 4.01573,
+    "tgt_start": 0.0,
+    "tgt_end": 1.57372,
+    "tgt_duration": 1.57372,
+    "text_similarity": 0.5036250352859497,
+    "temporal_similarity": 0.5297288911356092,
+    "speaking_rate_similarity": 0.4572037130650385,
+    "overall_similarity": 0.5021719275966653,
+    "mapping_type": "one_to_one"
+  }
+]

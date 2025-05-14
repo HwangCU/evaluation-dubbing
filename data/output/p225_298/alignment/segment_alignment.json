@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it was deployed in the gulf war",
+    "tgt_text": "그것 은 골프 전쟁 에서 배치 되 었 다",
+    "src_start": 0.0,
+    "src_end": 3.50277,
+    "src_duration": 3.50277,
+    "tgt_start": 0.0,
+    "tgt_end": 2.96141,
+    "tgt_duration": 2.96141,
+    "text_similarity": 0.628745973110199,
+    "temporal_similarity": 0.9381792124518595,
+    "speaking_rate_similarity": 0.6575706908786156,
+    "overall_similarity": 0.7273408884663805,
+    "mapping_type": "one_to_one"
+  }
+]

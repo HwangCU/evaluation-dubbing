@@ -1,0 +1,164 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 2.044989 
+tiers? <exists> 
+size = 2 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 2.044989 
+        intervals: size = 10 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.22 
+            text = "운" 
+        intervals [2]:
+            xmin = 0.22 
+            xmax = 0.35 
+            text = "이" 
+        intervals [3]:
+            xmin = 0.35 
+            xmax = 0.53 
+            text = "좋" 
+        intervals [4]:
+            xmin = 0.53 
+            xmax = 0.66 
+            text = "았" 
+        intervals [5]:
+            xmin = 0.66 
+            xmax = 0.97 
+            text = "다는" 
+        intervals [6]:
+            xmin = 0.97 
+            xmax = 1.24 
+            text = "걸" 
+        intervals [7]:
+            xmin = 1.24 
+            xmax = 1.53 
+            text = "깨달" 
+        intervals [8]:
+            xmin = 1.53 
+            xmax = 1.76 
+            text = "았" 
+        intervals [9]:
+            xmin = 1.76 
+            xmax = 2.0 
+            text = "어요" 
+        intervals [10]:
+            xmin = 2.0 
+            xmax = 2.044989 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "phones" 
+        xmin = 0 
+        xmax = 2.044989 
+        intervals: size = 26 
+        intervals [1]:
+            xmin = 0.0 
+            xmax = 0.16 
+            text = "u" 
+        intervals [2]:
+            xmin = 0.16 
+            xmax = 0.22 
+            text = "n" 
+        intervals [3]:
+            xmin = 0.22 
+            xmax = 0.35 
+            text = "i" 
+        intervals [4]:
+            xmin = 0.35 
+            xmax = 0.44 
+            text = "tɕ" 
+        intervals [5]:
+            xmin = 0.44 
+            xmax = 0.53 
+            text = "o" 
+        intervals [6]:
+            xmin = 0.53 
+            xmax = 0.59 
+            text = "ɐ" 
+        intervals [7]:
+            xmin = 0.59 
+            xmax = 0.66 
+            text = "t̚" 
+        intervals [8]:
+            xmin = 0.66 
+            xmax = 0.71 
+            text = "t" 
+        intervals [9]:
+            xmin = 0.71 
+            xmax = 0.79 
+            text = "ɐ" 
+        intervals [10]:
+            xmin = 0.79 
+            xmax = 0.84 
+            text = "n" 
+        intervals [11]:
+            xmin = 0.84 
+            xmax = 0.86 
+            text = "ɨ" 
+        intervals [12]:
+            xmin = 0.86 
+            xmax = 0.97 
+            text = "n" 
+        intervals [13]:
+            xmin = 0.97 
+            xmax = 1.02 
+            text = "k" 
+        intervals [14]:
+            xmin = 1.02 
+            xmax = 1.12 
+            text = "ʌ" 
+        intervals [15]:
+            xmin = 1.12 
+            xmax = 1.24 
+            text = "ɭ" 
+        intervals [16]:
+            xmin = 1.24 
+            xmax = 1.32 
+            text = "k͈" 
+        intervals [17]:
+            xmin = 1.32 
+            xmax = 1.38 
+            text = "ɛː" 
+        intervals [18]:
+            xmin = 1.38 
+            xmax = 1.44 
+            text = "d" 
+        intervals [19]:
+            xmin = 1.44 
+            xmax = 1.49 
+            text = "ɐ" 
+        intervals [20]:
+            xmin = 1.49 
+            xmax = 1.53 
+            text = "ɭ" 
+        intervals [21]:
+            xmin = 1.53 
+            xmax = 1.59 
+            text = "ɐ" 
+        intervals [22]:
+            xmin = 1.59 
+            xmax = 1.76 
+            text = "t̚" 
+        intervals [23]:
+            xmin = 1.76 
+            xmax = 1.85 
+            text = "ʌ" 
+        intervals [24]:
+            xmin = 1.85 
+            xmax = 1.86 
+            text = "j" 
+        intervals [25]:
+            xmin = 1.86 
+            xmax = 2.0 
+            text = "o" 
+        intervals [26]:
+            xmin = 2.0 
+            xmax = 2.044989 
+            text = "" 

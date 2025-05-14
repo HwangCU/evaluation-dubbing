@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "the difference in the rainbow depends considerably upon the size of the drops and the width of the colored band increases as the size of the drops increases",
+    "tgt_text": "무지개 의 차이점 은 상당히 방울 의 크기 에 따라 달라요 그리고 색깔 의 밴드 의 넓이 는 방울 의 크기 가 증가 함 에 따라 증가 합니다",
+    "src_start": 0.0,
+    "src_end": 12.84335,
+    "src_duration": 12.84335,
+    "tgt_start": 0.0,
+    "tgt_end": 8.4597,
+    "tgt_duration": 8.4597,
+    "text_similarity": 0.6490253806114197,
+    "temporal_similarity": 0.863473314984019,
+    "speaking_rate_similarity": 0.6586832874600475,
+    "overall_similarity": 0.715291342292925,
+    "mapping_type": "one_to_one"
+  }
+]

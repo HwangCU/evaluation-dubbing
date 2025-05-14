@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "but he stressed that the partnership is not a construction company",
+    "tgt_text": "하지만 그 는 파트너 쉽 이 건설 회사 가 아니 라고 스트레스 를 받 았 어요",
+    "src_start": 0.0,
+    "src_end": 5.33488,
+    "src_duration": 5.33488,
+    "tgt_start": 0.0,
+    "tgt_end": 4.21816,
+    "tgt_duration": 4.21816,
+    "text_similarity": 0.4792843461036682,
+    "temporal_similarity": 0.9162702816183307,
+    "speaking_rate_similarity": 0.5435895465315059,
+    "overall_similarity": 0.6232411668436345,
+    "mapping_type": "one_to_one"
+  }
+]

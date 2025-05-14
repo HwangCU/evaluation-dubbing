@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "how are you sir",
+    "tgt_text": "잘 지내 십니까",
+    "src_start": 0.0,
+    "src_end": 2.56275,
+    "src_duration": 2.56275,
+    "tgt_start": 0.0,
+    "tgt_end": 1.39043,
+    "tgt_duration": 1.39043,
+    "text_similarity": 0.4840570390224457,
+    "temporal_similarity": 0.8170215588723051,
+    "speaking_rate_similarity": 0.7234051962410173,
+    "overall_similarity": 0.6318160264211179,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "irvine said his company was intent on supporting the scottish dairy industry",
+    "tgt_text": "어 빈 말 로 는 그 의 회사 가 스코틀랜드 유제 산업 을 지원 하 려 했 다고 했 어요",
+    "src_start": 0.0,
+    "src_end": 6.18762,
+    "src_duration": 6.18762,
+    "tgt_start": 0.0,
+    "tgt_end": 5.34401,
+    "tgt_duration": 5.34401,
+    "text_similarity": 0.6343509554862976,
+    "temporal_similarity": 0.9454646536147986,
+    "speaking_rate_similarity": 0.518196980422198,
+    "overall_similarity": 0.704454269912028,
+    "mapping_type": "one_to_one"
+  }
+]

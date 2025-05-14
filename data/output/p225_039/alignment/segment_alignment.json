@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "however the decision has been welcomed by scottish enterprise officials",
+    "tgt_text": "하지만 스코틀랜드 엔터 프라이즈 당국 이 이 결정 을 환영 합니다",
+    "src_start": 0.0,
+    "src_end": 6.4049,
+    "src_duration": 6.4049,
+    "tgt_start": 0.0,
+    "tgt_end": 4.68943,
+    "tgt_duration": 4.68943,
+    "text_similarity": 0.4940054714679718,
+    "temporal_similarity": 0.8928651501194398,
+    "speaking_rate_similarity": 0.6656026139078177,
+    "overall_similarity": 0.6479828035513813,
+    "mapping_type": "one_to_one"
+  }
+]

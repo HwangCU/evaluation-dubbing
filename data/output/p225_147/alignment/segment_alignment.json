@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "does the name matter",
+    "tgt_text": "이름 이 중요 해요",
+    "src_start": 0.0,
+    "src_end": 2.7754,
+    "src_duration": 2.7754,
+    "tgt_start": 0.0,
+    "tgt_end": 1.20719,
+    "tgt_duration": 1.20719,
+    "text_similarity": 0.43699419498443604,
+    "temporal_similarity": 0.5417890033868992,
+    "speaking_rate_similarity": 0.43496072638178285,
+    "overall_similarity": 0.46802594378464435,
+    "mapping_type": "one_to_one"
+  }
+]

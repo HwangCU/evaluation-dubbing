@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "nothing has been put into action",
+    "tgt_text": "아무것 도 행동 하 지 않 았 다",
+    "src_start": 0.0,
+    "src_end": 2.83,
+    "src_duration": 2.83,
+    "tgt_start": 0.0,
+    "tgt_end": 2.09737,
+    "tgt_duration": 2.09737,
+    "text_similarity": 0.5603070259094238,
+    "temporal_similarity": 0.8964480565371025,
+    "speaking_rate_similarity": 0.5558401060070672,
+    "overall_similarity": 0.6602559511172561,
+    "mapping_type": "one_to_one"
+  }
+]

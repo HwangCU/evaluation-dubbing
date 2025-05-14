@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "we have a clean bill of health",
+    "tgt_text": "건강 보험 은 깨끗 해요",
+    "src_start": 0.0,
+    "src_end": 2.98867,
+    "src_duration": 2.98867,
+    "tgt_start": 0.0,
+    "tgt_end": 1.86177,
+    "tgt_duration": 1.86177,
+    "text_similarity": 0.501602053642273,
+    "temporal_similarity": 0.8491770586916588,
+    "speaking_rate_similarity": 0.8721197054208059,
+    "overall_similarity": 0.6799780855127953,
+    "mapping_type": "one_to_one"
+  }
+]

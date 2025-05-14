@@ -15,6 +15,16 @@ mfa model download acoustic korean_mfa
 ## 사용법
 코드 실행: run_mfa 함수는 mfa align 명령어를 실행하여 음성 및 텍스트 파일을 정렬하고, process_mfa_results 함수는 TextGrid 파일을 읽고 시각화된 결과를 출력합니다.
 
+### CLI 사용
+```
+mfa align CORPUS_DIRECTORY DICTIONARY_PATH ACOUSTIC_MODEL_PATH OUTPUT_DIRECTORY 
+```
+**예시:**
+```
+mfa align C:\Users\SSAFY\Desktop\work\onion_PJT\data\p225_en C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\pretrained_models\dictionary\english_mfa.dict
+C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\pretrained_models\acoustic\english_mfa.zip
+C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\data\input\text_grid
+```
 
 **전체 코드 실행 예시:**
 ``` python

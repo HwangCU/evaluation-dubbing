@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "ask her to bring these things with her from the store",
+    "tgt_text": "가게 에서 이걸 가져오 라고 해",
+    "src_start": 0.0,
+    "src_end": 3.43,
+    "src_duration": 3.43,
+    "tgt_start": 0.0,
+    "tgt_end": 1.75703,
+    "tgt_duration": 1.75703,
+    "text_similarity": 0.5362408757209778,
+    "temporal_similarity": 0.8049014577259476,
+    "speaking_rate_similarity": 0.9391316812439262,
+    "overall_similarity": 0.6974172114270585,
+    "mapping_type": "one_to_one"
+  }
+]

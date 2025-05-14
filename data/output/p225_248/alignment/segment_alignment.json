@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "does that put pressure on us",
+    "tgt_text": "그게 우리 에게 압박 을 주 나요",
+    "src_start": 0.0,
+    "src_end": 2.81954,
+    "src_duration": 2.81954,
+    "tgt_start": 0.0,
+    "tgt_end": 1.86177,
+    "tgt_duration": 1.86177,
+    "text_similarity": 0.5074788331985474,
+    "temporal_similarity": 0.8641239351099824,
+    "speaking_rate_similarity": 0.5659798609499624,
+    "overall_similarity": 0.6261725693222608,
+    "mapping_type": "one_to_one"
+  }
+]

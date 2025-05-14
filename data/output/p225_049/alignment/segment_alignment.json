@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i have learned from him",
+    "tgt_text": "그 에게서 배웠 어요",
+    "src_start": 0.0,
+    "src_end": 2.26394,
+    "src_duration": 2.26394,
+    "tgt_start": 0.0,
+    "tgt_end": 1.39043,
+    "tgt_duration": 1.39043,
+    "text_similarity": 0.5021969079971313,
+    "temporal_similarity": 0.8456655211710558,
+    "speaking_rate_similarity": 0.7677047536595494,
+    "overall_similarity": 0.6583390610817923,
+    "mapping_type": "one_to_one"
+  }
+]

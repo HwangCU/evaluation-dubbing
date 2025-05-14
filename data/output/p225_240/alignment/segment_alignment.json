@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "we are in the hat",
+    "tgt_text": "우린 모자 안 에 있 어요",
+    "src_start": 0.0,
+    "src_end": 2.99123,
+    "src_duration": 2.99123,
+    "tgt_start": 0.0,
+    "tgt_end": 1.44279,
+    "tgt_duration": 1.44279,
+    "text_similarity": 0.4440927803516388,
+    "temporal_similarity": 0.5550552114013299,
+    "speaking_rate_similarity": 0.4019500339325295,
+    "overall_similarity": 0.46895296038272427,
+    "mapping_type": "one_to_one"
+  }
+]

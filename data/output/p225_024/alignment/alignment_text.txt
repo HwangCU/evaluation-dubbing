@@ -1,0 +1,13 @@
+세그먼트 정렬 상세 정보
+==================================================
+
+### 세그먼트 1 ###
+원본: this is a very common type of bow one showing mainly red and yellow with little or no green or blue
+합성: 이건 매우 흔한 종류 의 보이 에 요 주로 빨간색 과 노란색 으로 보여요 초록색 도 없 고 파란색 도 없 죠
+텍스트 유사도: 0.6546
+시간 유사도: 0.9196
+발화 속도 유사도: 0.8536
+종합 유사도: 0.7739
+매핑 타입: one_to_one
+대체 매칭: False
+

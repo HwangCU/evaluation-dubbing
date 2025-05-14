@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "we have to break that cycle",
+    "tgt_text": "그 사이클 을 끊 어야 해",
+    "src_start": 0.0,
+    "src_end": 3.20265,
+    "src_duration": 3.20265,
+    "tgt_start": 0.0,
+    "tgt_end": 1.49517,
+    "tgt_duration": 1.49517,
+    "text_similarity": 0.5736719965934753,
+    "temporal_similarity": 0.5507191232260784,
+    "speaking_rate_similarity": 0.4668540115217087,
+    "overall_similarity": 0.545422537568903,
+    "mapping_type": "one_to_one"
+  }
+]

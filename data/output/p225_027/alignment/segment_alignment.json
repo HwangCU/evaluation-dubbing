@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "so is that it then",
+    "tgt_text": "그럼 그거 야",
+    "src_start": 0.0,
+    "src_end": 3.11973,
+    "src_duration": 3.11973,
+    "tgt_start": 0.0,
+    "tgt_end": 1.44279,
+    "tgt_duration": 1.44279,
+    "text_similarity": 0.5681579113006592,
+    "temporal_similarity": 0.549492359915762,
+    "speaking_rate_similarity": 0.7707878566414401,
+    "overall_similarity": 0.6030842349533462,
+    "mapping_type": "one_to_one"
+  }
+]

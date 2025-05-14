@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "aristotle thought that the rainbow was caused by reflection of the sun 's rays by the rain",
+    "tgt_text": "아리스토텔레스 는 무지개 가 비 가 오 면 태양 광선 의 반사 로 인해 생긴다고 생각 했어요",
+    "src_start": 0.0,
+    "src_end": 6.36225,
+    "src_duration": 6.36225,
+    "tgt_start": 0.0,
+    "tgt_end": 5.89383,
+    "tgt_duration": 5.89383,
+    "text_similarity": 0.598360538482666,
+    "temporal_similarity": 0.9705500412589886,
+    "speaking_rate_similarity": 0.9263751031474714,
+    "overall_similarity": 0.7756203022485239,
+    "mapping_type": "one_to_one"
+  }
+]

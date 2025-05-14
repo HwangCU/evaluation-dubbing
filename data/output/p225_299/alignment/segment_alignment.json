@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "they had to learn to work from the consumer back",
+    "tgt_text": "그 들 은 소비자 에게서 일 하 는 법 을 배워야 했 어요",
+    "src_start": 0.0,
+    "src_end": 4.528,
+    "src_duration": 4.528,
+    "tgt_start": 0.0,
+    "tgt_end": 3.17088,
+    "tgt_duration": 3.17088,
+    "text_similarity": 0.5613754987716675,
+    "temporal_similarity": 0.880113074204947,
+    "speaking_rate_similarity": 0.5386789888556673,
+    "overall_similarity": 0.6524574694184513,
+    "mapping_type": "one_to_one"
+  }
+]

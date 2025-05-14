@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "well you can have a tree",
+    "tgt_text": "나무 를 가질 수 있 잖아",
+    "src_start": 0.0,
+    "src_end": 2.64706,
+    "src_duration": 2.64706,
+    "tgt_start": 0.0,
+    "tgt_end": 1.67846,
+    "tgt_duration": 1.67846,
+    "text_similarity": 0.4295411705970764,
+    "temporal_similarity": 0.8536338428294032,
+    "speaking_rate_similarity": 0.634084607073508,
+    "overall_similarity": 0.5976776595620608,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,13 @@
+세그먼트 정렬 상세 정보
+==================================================
+
+### 세그먼트 1 ###
+원본: since then physicists have found that it is not reflection but refraction by the raindrops which causes the rainbows
+합성: 그 이후 물리학자 들 은 그게 반사 되 는 것 이 아니 라 무지개 를 일으키 는 무지개 의 반사 라는 것 을 발견 했 습니다
+텍스트 유사도: 0.6067
+시간 유사도: 0.9617
+발화 속도 유사도: 0.8008
+종합 유사도: 0.7520
+매핑 타입: one_to_one
+대체 매칭: False
+

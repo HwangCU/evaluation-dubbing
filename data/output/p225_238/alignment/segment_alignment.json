@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "paterson can afford to be generous",
+    "tgt_text": "패터슨 은 관대 할 만 한 자격 이 있 어요",
+    "src_start": 0.0,
+    "src_end": 4.44113,
+    "src_duration": 4.44113,
+    "tgt_start": 0.0,
+    "tgt_end": 2.75193,
+    "tgt_duration": 2.75193,
+    "text_similarity": 0.5763962864875793,
+    "temporal_similarity": 0.8478585405065828,
+    "speaking_rate_similarity": 0.3717878107598742,
+    "overall_similarity": 0.6169132675477395,
+    "mapping_type": "one_to_one"
+  }
+]

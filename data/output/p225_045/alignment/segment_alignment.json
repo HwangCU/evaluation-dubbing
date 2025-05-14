@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "people were determined to change the government in the last election",
+    "tgt_text": "사람 들 은 지난 선거 에서 정부 를 바꾸 기 로 결심 했어요",
+    "src_start": 0.0,
+    "src_end": 5.38052,
+    "src_duration": 5.38052,
+    "tgt_start": 0.0,
+    "tgt_end": 3.66834,
+    "tgt_duration": 3.66834,
+    "text_similarity": 0.501166820526123,
+    "temporal_similarity": 0.8727126746113758,
+    "speaking_rate_similarity": 0.5768921962932951,
+    "overall_similarity": 0.6277756519051332,
+    "mapping_type": "one_to_one"
+  }
+]

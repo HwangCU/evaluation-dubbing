@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "funding for the science centre has come from a number of sources",
+    "tgt_text": "과학 센터 의 자금 은 여러 출처 에서 나왔 습니다",
+    "src_start": 0.0,
+    "src_end": 4.90858,
+    "src_duration": 4.90858,
+    "tgt_start": 0.0,
+    "tgt_end": 3.43268,
+    "tgt_duration": 3.43268,
+    "text_similarity": 0.5590415596961975,
+    "temporal_similarity": 0.8797289643848119,
+    "speaking_rate_similarity": 0.8391868931544358,
+    "overall_similarity": 0.7112768477944295,
+    "mapping_type": "one_to_one"
+  }
+]

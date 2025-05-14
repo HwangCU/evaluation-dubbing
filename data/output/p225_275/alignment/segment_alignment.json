@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "similar measures are expected in england and wales",
+    "tgt_text": "잉글랜드 와 웨일즈 에서 도 비슷 한 조치 가 예상 됩니다",
+    "src_start": 0.0,
+    "src_end": 4.56,
+    "src_duration": 4.56,
+    "tgt_start": 0.0,
+    "tgt_end": 3.48506,
+    "tgt_duration": 3.48506,
+    "text_similarity": 0.5240704417228699,
+    "temporal_similarity": 0.9057070175438596,
+    "speaking_rate_similarity": 0.5558309409888358,
+    "overall_similarity": 0.64491351432236,
+    "mapping_type": "one_to_one"
+  }
+]

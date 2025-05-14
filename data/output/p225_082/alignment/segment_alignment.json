@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "that view is held by many others within the industry",
+    "tgt_text": "그 전망 은 업계 내부 의 많 은 사람 들 에게 맡겨져 있 습니다",
+    "src_start": 0.0,
+    "src_end": 4.39829,
+    "src_duration": 4.39829,
+    "tgt_start": 0.0,
+    "tgt_end": 4.5585,
+    "tgt_duration": 4.5585,
+    "text_similarity": 0.4846108853816986,
+    "temporal_similarity": 0.9854297920328128,
+    "speaking_rate_similarity": 0.7403039427985487,
+    "overall_similarity": 0.6859951688604028,
+    "mapping_type": "one_to_one"
+  }
+]

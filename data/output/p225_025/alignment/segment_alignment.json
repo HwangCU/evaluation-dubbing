@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "why do you want to come to edinburgh",
+    "tgt_text": "왜 에딘 버그 에 가 고 싶 어",
+    "src_start": 0.0,
+    "src_end": 3.54158,
+    "src_duration": 3.54158,
+    "tgt_start": 0.0,
+    "tgt_end": 1.67846,
+    "tgt_duration": 1.67846,
+    "text_similarity": 0.5931049585342407,
+    "temporal_similarity": 0.5527003201960706,
+    "speaking_rate_similarity": 0.4739297149859667,
+    "overall_similarity": 0.5571485183231348,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0,
+      1
+    ],
+    "src_text": "but retail banking would be run from halifax",
+    "tgt_text": "하지만 헐리 팩스 에서 소매 은행 을 운영 할 겁니다",
+    "src_start": 0.0,
+    "src_end": 5.29385,
+    "src_duration": 5.29385,
+    "tgt_start": 0.0,
+    "tgt_end": 3.57,
+    "tgt_duration": 3.57,
+    "text_similarity": 0.46808022260665894,
+    "temporal_similarity": 0.8697469705412884,
+    "speaking_rate_similarity": 0.539493941082577,
+    "overall_similarity": 0.6028629906822314,
+    "mapping_type": "n_to_m"
+  }
+]

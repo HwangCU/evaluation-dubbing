@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 1,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "they are the future of investment",
+    "tgt_text": "사실 그건 투자 의 미래 야",
+    "src_start": 2.29,
+    "src_end": 3.97204,
+    "src_duration": 1.6820399999999998,
+    "tgt_start": 0.0,
+    "tgt_end": 1.99263,
+    "tgt_duration": 1.99263,
+    "text_similarity": 0.45263487100601196,
+    "temporal_similarity": 0.0,
+    "speaking_rate_similarity": 0.8153492188057359,
+    "overall_similarity": 0.3893872792641532,
+    "mapping_type": "one_to_one"
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "i can hardly believe it",
+    "tgt_text": "믿 을 수 가 없 어",
+    "src_start": 0.0,
+    "src_end": 2.60712,
+    "src_duration": 2.60712,
+    "tgt_start": 0.0,
+    "tgt_end": 1.28576,
+    "tgt_duration": 1.28576,
+    "text_similarity": 0.5066403150558472,
+    "temporal_similarity": 0.558088312007119,
+    "speaking_rate_similarity": 0.4109771190688064,
+    "overall_similarity": 0.5029420749438206,
+    "mapping_type": "one_to_one"
+  }
+]

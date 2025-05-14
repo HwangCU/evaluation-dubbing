@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it's difficult to predict the future",
+    "tgt_text": "미래 를 예측 하 기 어렵 습니다",
+    "src_start": 0.0,
+    "src_end": 3.62883,
+    "src_duration": 3.62883,
+    "tgt_start": 0.0,
+    "tgt_end": 2.12356,
+    "tgt_duration": 2.12356,
+    "text_similarity": 0.4134657382965088,
+    "temporal_similarity": 0.8340765480885024,
+    "speaking_rate_similarity": 0.5015926030467908,
+    "overall_similarity": 0.5572743541841633,
+    "mapping_type": "one_to_one"
+  }
+]

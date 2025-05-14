@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "it depends on the internal discussions in the ministry of defence",
+    "tgt_text": "국방부 의 내부 논의 에 따라 달라요",
+    "src_start": 0.0,
+    "src_end": 5.67681,
+    "src_duration": 5.67681,
+    "tgt_start": 0.0,
+    "tgt_end": 2.41159,
+    "tgt_duration": 2.41159,
+    "text_similarity": 0.5318596363067627,
+    "temporal_similarity": 0.5389480007257597,
+    "speaking_rate_similarity": 0.6675653101955903,
+    "overall_similarity": 0.5611272804102273,
+    "mapping_type": "one_to_one"
+  }
+]

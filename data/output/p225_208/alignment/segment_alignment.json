@@ -1,0 +1,21 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "you are a great player",
+    "tgt_text": "넌 훌륭 한 선수 야",
+    "src_start": 0.0,
+    "src_end": 2.44,
+    "src_duration": 2.44,
+    "tgt_start": 0.0,
+    "tgt_end": 1.39043,
+    "tgt_duration": 1.39043,
+    "text_similarity": 0.6232815980911255,
+    "temporal_similarity": 0.8279393442622951,
+    "speaking_rate_similarity": 0.5698483606557377,
+    "overall_similarity": 0.6739922744553988,
+    "mapping_type": "one_to_one"
+  }
+]

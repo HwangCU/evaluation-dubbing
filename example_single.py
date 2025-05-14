@@ -33,7 +33,7 @@ def main():
     )
     
     # 결과 저장 디렉토리
-    output_dir = "data/output/eleven_joker4"
+    output_dir = "data/output/eleven_joker5"
     os.makedirs(output_dir, exist_ok=True)
     
     # 단일 파일 분석 실행

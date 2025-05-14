@@ -101,6 +101,17 @@ class SegmentAligner:
         
         logger.info(f"세그먼트 정렬 시작: {src_lang} -> {tgt_lang}, 소스 세그먼트 {len(src_segments)}개, 타겟 세그먼트 {len(tgt_segments)}개")
         
+        # 순수 발화 시간 정보 추출
+        src_pure_start = src_segments[0].get("pure_start", 0) if src_segments else 0
+        src_pure_end = src_segments[0].get("pure_end", 0) if src_segments else 0
+        src_pure_duration = src_segments[0].get("pure_duration", 0) if src_segments else 0
+        
+        tgt_pure_start = tgt_segments[0].get("pure_start", 0) if tgt_segments else 0
+        tgt_pure_end = tgt_segments[0].get("pure_end", 0) if tgt_segments else 0
+        tgt_pure_duration = tgt_segments[0].get("pure_duration", 0) if tgt_segments else 0
+        
+        logger.info(f"소스 순수 발화 시간: {src_pure_duration}초, 타겟 순수 발화 시간: {tgt_pure_duration}초")
+        
         # 1. 전처리: 세그먼트 인덱스 추가 및 짧은 세그먼트 처리
         for i, seg in enumerate(src_segments):
             seg["idx"] = i
@@ -155,12 +166,17 @@ class SegmentAligner:
                     src_start, src_end, tgt_start, tgt_end
                 )
                 
-                # 발화 속도 유사도 계산
-                speaking_rate_similarity = self._calculate_speaking_rate_match(
-                    src_segment, 
-                    {"text": tgt_text, "duration": tgt_duration},  # 통합된 타겟 세그먼트
-                    src_lang, tgt_lang
-                )
+                # 발화 속도 유사도 계산 (간단한 계산으로 대체)
+                src_text = src_segment["text"]
+                src_word_count = len(src_text.split())
+                tgt_word_count = len(tgt_text.split())
+                
+                if src_duration > 0 and tgt_duration > 0 and src_word_count > 0 and tgt_word_count > 0:
+                    src_word_duration = src_duration / src_word_count
+                    tgt_word_duration = tgt_duration / tgt_word_count
+                    speaking_rate_similarity = 1.0 - min(1.0, abs(tgt_word_duration - src_word_duration) / src_word_duration)
+                else:
+                    speaking_rate_similarity = 0.5
                 
                 # 세그먼트 정보 저장
                 aligned_segment = {
@@ -207,10 +223,18 @@ class SegmentAligner:
                     src_start, src_end, tgt_start, tgt_end
                 )
                 
-                # 말하기 속도 유사도 계산
-                speaking_rate_similarity = self._calculate_speaking_rate_match(
-                    src_segment, tgt_segment, src_lang, tgt_lang
-                )
+                # 발화 속도 유사도 계산 (간단한 계산으로 대체)
+                src_text = src_segment["text"]
+                tgt_text = tgt_segment["text"]
+                src_word_count = len(src_text.split())
+                tgt_word_count = len(tgt_text.split())
+                
+                if src_duration > 0 and tgt_duration > 0 and src_word_count > 0 and tgt_word_count > 0:
+                    src_word_duration = src_duration / src_word_count
+                    tgt_word_duration = tgt_duration / tgt_word_count
+                    speaking_rate_similarity = 1.0 - min(1.0, abs(tgt_word_duration - src_word_duration) / src_word_duration)
+                else:
+                    speaking_rate_similarity = 0.5
                 
                 # 세그먼트 정보 저장
                 aligned_segment = {
@@ -290,6 +314,28 @@ class SegmentAligner:
         
         # 6. 최종 정렬 결과 정렬 (원본 세그먼트 순서대로)
         aligned_segments.sort(key=lambda x: x["src_idx"])
+        
+        # 모든 정렬된 세그먼트에 순수 발화 시간 정보 추가
+        for aligned_segment in aligned_segments:
+            # 소스 순수 발화 시간 정보 추가
+            aligned_segment["src_pure_start"] = src_pure_start
+            aligned_segment["src_pure_end"] = src_pure_end
+            aligned_segment["src_pure_duration"] = src_pure_duration
+            
+            # 타겟 순수 발화 시간 정보 추가
+            aligned_segment["tgt_pure_start"] = tgt_pure_start
+            aligned_segment["tgt_pure_end"] = tgt_pure_end
+            aligned_segment["tgt_pure_duration"] = tgt_pure_duration
+            
+            # 순수 발화 시간 기준 발화 속도 비율 계산
+            if src_pure_duration > 0 and tgt_pure_duration > 0:
+                # 순수 발화 시간 비율
+                pure_speaking_rate_ratio = src_pure_duration / tgt_pure_duration
+                aligned_segment["pure_speaking_rate_ratio"] = pure_speaking_rate_ratio
+                
+                logger.info(f"순수 발화 시간 비율: {pure_speaking_rate_ratio:.2f}")
+            else:
+                aligned_segment["pure_speaking_rate_ratio"] = 1.0
         
         # 7. 세그먼트 정렬 결과 저장 및 시각화
         if output_dir:
@@ -738,6 +784,72 @@ class SegmentAligner:
         else:
             return 0.0
     
+    def _calculate_speaking_rate(self, 
+                            segment: Dict[str, Any], 
+                            lang_ratio: float,
+                            is_off_screen: bool = False) -> float:
+        """
+        세그먼트에 대한 적절한 발화 속도 계산 (순수 발화 시간 고려)
+        
+        Args:
+            segment: 세그먼트 정보
+            lang_ratio: 언어 간 비율 계수
+            is_off_screen: 화면 밖 표시 여부
+            
+        Returns:
+            발화 속도 (1.0이 기본 속도)
+        """
+        # 발화 시간 정보 가져오기 (순수 발화 시간 사용)
+        use_pure_speech_time = True  # 순수 발화 시간 사용 여부 설정
+        
+        if use_pure_speech_time and "full_speech_duration" in segment:
+            # 순수 발화 시간 사용
+            src_duration = segment.get("full_speech_duration", 0)
+            logger.info(f"순수 발화 시간 사용: {src_duration}초")
+        else:
+            # 기존 방식 (전체 구간 사용)
+            src_duration = segment.get("src_duration", 0)
+            logger.info(f"전체 구간 시간 사용: {src_duration}초")
+        
+        tgt_duration = segment.get("tgt_duration", 0)
+        
+        # 원본/타겟 텍스트 길이 비율
+        src_text = segment.get("src_text", "")
+        tgt_text = segment.get("tgt_text", "")
+        
+        # 단어 수 비율 (근사치)
+        src_word_count = len(src_text.split())
+        tgt_word_count = len(tgt_text.split())
+        text_ratio = tgt_word_count / max(1, src_word_count)
+        
+        if src_duration <= 0 or tgt_duration <= 0:
+            # 시간 정보가 없는 경우 기본값 반환
+            return 1.0
+        
+        # 발화 속도 계산 로직
+        # 1. 세그먼트 지속 시간 비율
+        duration_ratio = src_duration / tgt_duration
+        
+        # 2. 텍스트 및 언어 특성 반영
+        adjusted_ratio = duration_ratio * (1.0 / text_ratio) * lang_ratio
+        
+        # 3. 화면 표시 여부에 따른 조정
+        # off-screen의 경우 더 자유롭게 조정 가능
+        if is_off_screen:
+            # 허용 범위 확장
+            min_rate = self.min_speaking_rate * 0.8
+            max_rate = self.max_speaking_rate * 1.2
+        else:
+            # on-screen은 좁은 범위로 유지
+            min_rate = self.min_speaking_rate
+            max_rate = self.max_speaking_rate
+        
+        # 4. 최종 속도 제한
+        final_rate = max(min_rate, min(adjusted_ratio, max_rate))
+        
+        logger.info(f"계산된 발화 속도: {adjusted_ratio:.2f}, 최종 발화 속도: {final_rate:.2f}")
+        return final_rate
+    
     def _calculate_speaking_rate_match(
         self,
         src_segment: Dict[str, Any],
@@ -746,7 +858,7 @@ class SegmentAligner:
         tgt_lang: str
     ) -> float:
         """
-        언어별 특성을 고려한 발화 속도 유사도 계산
+        발화 속도 유사도 계산
         
         Args:
             src_segment: 원본 세그먼트
@@ -771,38 +883,16 @@ class SegmentAligner:
         if src_duration <= 0 or tgt_duration <= 0 or src_word_count == 0 or tgt_word_count == 0:
             return 0.5  # 기본값
         
-        # 언어별 계수 (언어마다 다름)
-        language_coefficients = {
-            "en": 1.0,    # 영어 (기준)
-            "ko": 0.85,   # 한국어 (영어보다 약간 느림)
-            "ja": 0.9,    # 일본어
-            "zh": 0.8,    # 중국어
-            "es": 1.1,    # 스페인어 (영어보다 약간 빠름)
-            "fr": 1.05,   # 프랑스어
-            "de": 0.95,   # 독일어
-            "it": 1.15,   # 이탈리아어 (영어보다 빠름)
-            # 기타 언어...
-        }
-        
-        # 기본 계수 (언어 코드가 없는 경우)
-        src_coef = language_coefficients.get(src_lang, 1.0)
-        tgt_coef = language_coefficients.get(tgt_lang, 1.0)
-        
-        # 언어별 특성을 고려한 발화 속도 beta 계수 계산
-        beta = tgt_coef / src_coef
-        
         # 단어당 지속 시간 계산
         src_word_duration = src_duration / src_word_count
         tgt_word_duration = tgt_duration / tgt_word_count
         
-        # 발화 속도 유사도 계산 (논문의 speaking rate match 개선)
-        normalized_tgt_word_duration = tgt_word_duration / beta
-        
+        # 발화 속도 유사도 계산 (단순 비율)
         # 정규화된 유사도 (1에 가까울수록 유사)
-        similarity = 1.0 - min(1.0, abs(normalized_tgt_word_duration - src_word_duration) / src_word_duration)
+        similarity = 1.0 - min(1.0, abs(tgt_word_duration - src_word_duration) / src_word_duration)
         
         return similarity
-    
+
     def _find_best_fallback_match(
         self, 
         src_segment: Dict[str, Any],

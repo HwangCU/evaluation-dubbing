@@ -85,11 +85,11 @@ class SimilarityEvaluator:
     
     def _evaluate_alignment(self, segment_alignments: List[Dict[str, Any]]) -> float:
         """
-        세그먼트 정렬 품질 평가
+        세그먼트 정렬 품질 평가 (순수 발화 시간 고려)
         
         Args:
             segment_alignments: 세그먼트 정렬 정보
-            
+                
         Returns:
             정렬 품질 점수 (0.0 ~ 1.0)
         """
@@ -97,11 +97,20 @@ class SimilarityEvaluator:
         if not segment_alignments:
             return 0.5
         
+        # 순수 발화 시간 사용 여부 설정
+        use_pure_speech_time = True
+        
         # 시간 정렬 정확도 계산
         temporal_scores = []
         for alignment in segment_alignments:
-            src_start = alignment.get("src_start", 0)
-            src_end = alignment.get("src_end", 0)
+            # 순수 발화 시간 정보 사용 (가능한 경우)
+            if use_pure_speech_time and "full_speech_start" in alignment:
+                src_start = alignment.get("full_speech_start", 0)
+                src_end = alignment.get("full_speech_end", 0)
+            else:
+                src_start = alignment.get("src_start", 0)
+                src_end = alignment.get("src_end", 0)
+                
             tgt_start = alignment.get("tgt_start", 0)
             tgt_end = alignment.get("tgt_end", 0)
             
@@ -144,9 +153,10 @@ class SimilarityEvaluator:
         """
         # 프로소디 전체 점수
         prosody_overall = prosody_scores.get("overall", 0.7)
+
         
-        # 가중 평균 계산 (프로소디 70%, 정렬 30%)
-        final_score = 0.7 * prosody_overall + 0.3 * alignment_score
+        # 가중 평균 계산 (프로소디 30%, 정렬 70%)
+        final_score = 0.3 * prosody_overall + 0.7 * alignment_score
         
         return final_score
     
@@ -164,11 +174,11 @@ class SimilarityEvaluator:
             return "A+"
         elif score >= 0.75:
             return "A"
-        elif score >= 0.6:
+        elif score >= 0.7:
             return "B"
-        elif score >= 0.4:
+        elif score >= 0.6:
             return "C"
-        elif score >= 0.3:
+        elif score >= 0.5:
             return "D"
         else:
             return "F"

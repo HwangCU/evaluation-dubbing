@@ -52,6 +52,6 @@ VIZ_CONFIG = {
 # 의미 유사도 계산 설정
 SEMANTIC_CONFIG = {
     "default_model": "laser",     # 기본 임베딩 모델
-    "similarity_threshold": 0.3,  # 의미 유사도 임계값
+    "similarity_threshold": 0.5,  # 의미 유사도 임계값
     "fallback_mode": "time"       # 매칭 실패 시 대체 모드 (시간 기반)
 }

@@ -28,7 +28,7 @@ class TextGridProcessor:
     
     def process_textgrid(self, textgrid_path: str) -> List[Dict[str, Any]]:
         """
-        TextGrid 파일을 처리하여 세그먼트 정보 추출
+        TextGrid 파일을 처리하여 세그먼트 정보 추출 (첫/마지막 묵음 제외)
         
         Args:
             textgrid_path: TextGrid 파일 경로
@@ -61,8 +61,45 @@ class TextGridProcessor:
                 logger.warning(f"단어 계층 '{self.word_tier_name}'을 TextGrid에서 찾을 수 없습니다")
                 word_tier = tg.tiers[0]  # 첫 번째 계층을 대체재로 사용
             
+            # 첫 번째와 마지막 묵음 구간 식별
+            first_non_empty_idx = -1
+            last_non_empty_idx = -1
+            
+            for i, interval in enumerate(word_tier):
+                text = interval.mark.strip()
+                if text:  # 비어있지 않은 interval
+                    if first_non_empty_idx == -1:
+                        first_non_empty_idx = i
+                    last_non_empty_idx = i
+            
+            # 첫 묵음과 마지막 묵음 시간 정보
+            first_speech_time = word_tier[first_non_empty_idx].minTime if first_non_empty_idx >= 0 else 0
+            last_speech_time = word_tier[last_non_empty_idx].maxTime if last_non_empty_idx >= 0 else tg.maxTime
+            
+            # 전체 길이와 순수 발화 길이 계산
+            total_duration = tg.maxTime - tg.minTime
+            pure_speech_duration = last_speech_time - first_speech_time
+            
+            logger.info(f"첫 발화 시작 시간: {first_speech_time}초, 마지막 발화 종료 시간: {last_speech_time}초")
+            logger.info(f"전체 길이: {total_duration}초, 순수 발화 시간: {pure_speech_duration}초")
+            
             # 문장 구분 (구두점 또는 긴 무음 기준)
             segments = self._extract_segments(word_tier)
+            
+            # 원래 세그먼트 정보 보존하면서 순수 발화 시간 추가
+            for segment in segments:
+                segment["orig_start"] = segment["start"]
+                segment["orig_end"] = segment["end"]
+                segment["orig_duration"] = segment["duration"]
+                
+                # 순수 발화 시간 정보 추가
+                segment["pure_start"] = first_speech_time
+                segment["pure_end"] = last_speech_time
+                segment["pure_duration"] = pure_speech_duration
+                
+                # 상대적 위치 정보 (첫 발화 시작을 0으로)
+                segment["relative_start"] = segment["start"] - first_speech_time
+                segment["relative_end"] = segment["end"] - first_speech_time
             
             # 각 세그먼트에 단어 단위 정보 추가
             for segment in segments:

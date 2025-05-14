@@ -18,7 +18,7 @@ class AlignmentToSSML:
     
     def __init__(self, 
                  min_speaking_rate: float = 0.7, 
-                 max_speaking_rate: float = 1.5,
+                 max_speaking_rate: float = 1.3,
                  lang_coefficient: Dict[str, float] = None):
         """
         초기화
@@ -141,58 +141,62 @@ class AlignmentToSSML:
         return ssml
     
     def _calculate_speaking_rate(self, 
-                               segment: Dict[str, Any], 
-                               lang_ratio: float,
-                               is_off_screen: bool = False) -> float:
+                            segment: Dict[str, Any], 
+                            lang_ratio: float = 1.0,
+                            is_off_screen: bool = False) -> float:
         """
-        세그먼트에 대한 적절한 발화 속도 계산
+        세그먼트에 대한 적절한 발화 속도 계산 (소스와 타겟 모두의 순수 발화 시간 고려)
         
         Args:
             segment: 세그먼트 정보
-            lang_ratio: 언어 간 비율 계수
+            lang_ratio: 언어 간 비율 계수 (기본값: 1.0)
             is_off_screen: 화면 밖 표시 여부
             
         Returns:
-            발화 속도 (1.0이 기본 속도)
+            발화 속도 (1.0이 기본 속도, >1.0은 빠르게, <1.0은 느리게)
         """
-        # 기본 발화 속도 계산
-        src_duration = segment.get("src_duration", 0)
-        tgt_duration = segment.get("tgt_duration", 0)
+        # 순수 발화 시간 사용 여부
+        use_pure_speech_time = True
         
-        # 원본/타겟 텍스트 길이 비율
-        src_text = segment.get("src_text", "")
-        tgt_text = segment.get("tgt_text", "")
+        if use_pure_speech_time and "src_pure_duration" in segment and "tgt_pure_duration" in segment:
+            # 순수 발화 시간 사용
+            src_duration = segment.get("src_pure_duration", 0)
+            tgt_duration = segment.get("tgt_pure_duration", 0)
+            logger.info(f"순수 발화 시간 기준 - 소스: {src_duration}초, 타겟: {tgt_duration}초")
+        else:
+            # 기존 방식 (전체 구간 사용)
+            src_duration = segment.get("src_duration", 0)
+            tgt_duration = segment.get("tgt_duration", 0)
+            logger.info(f"전체 구간 기준 - 소스: {src_duration}초, 타겟: {tgt_duration}초")
         
-        # 단어 수 비율 (근사치)
-        src_word_count = len(src_text.split())
-        tgt_word_count = len(tgt_text.split())
-        text_ratio = tgt_word_count / max(1, src_word_count)
-        
+        # 시간 정보가 없는 경우 기본값 반환
         if src_duration <= 0 or tgt_duration <= 0:
-            # 시간 정보가 없는 경우 기본값 반환
             return 1.0
         
-        # 발화 속도 계산 로직
-        # 1. 세그먼트 지속 시간 비율
-        duration_ratio = src_duration / tgt_duration
+        # 발화 속도 계산 로직 - 수정된 버전
+        # 타겟이 원본보다 길면(tgt_duration > src_duration) 빠르게 해야 함 -> rate > 1.0
+        # 타겟이 원본보다 짧으면(tgt_duration < src_duration) 느리게 해야 함 -> rate < 1.0
         
-        # 2. 텍스트 및 언어 특성 반영
-        adjusted_ratio = duration_ratio * (1.0 / text_ratio) * lang_ratio
+        # 원본 대비 타겟의 발화 속도 비율 계산
+        # 원본 시간 / 타겟 시간 = 필요한 속도 조정
+        rate = src_duration / tgt_duration
         
-        # 3. 화면 표시 여부에 따른 조정
-        # off-screen의 경우 더 자유롭게 조정 가능
+        logger.info(f"계산된 발화 속도 비율(원본/타겟): {rate:.2f}")
+        
+        # 화면 표시 여부에 따른 조정
         if is_off_screen:
             # 허용 범위 확장
-            min_rate = self.min_speaking_rate * 0.8
-            max_rate = self.max_speaking_rate * 1.2
+            min_rate = self.min_speaking_rate * 0.9
+            max_rate = self.max_speaking_rate * 1.1
         else:
             # on-screen은 좁은 범위로 유지
             min_rate = self.min_speaking_rate
             max_rate = self.max_speaking_rate
         
-        # 4. 최종 속도 제한
-        final_rate = max(min_rate, min(adjusted_ratio, max_rate))
+        # 최종 속도 제한
+        final_rate = max(min_rate, min(rate, max_rate))
         
+        logger.info(f"최종 발화 속도: {final_rate:.2f}")
         return final_rate
     
     def _calculate_breaks(self, 

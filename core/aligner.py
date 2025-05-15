@@ -42,7 +42,8 @@ class SegmentAligner:
                  embedding_model: str = "laser",
                  similarity_threshold: float = 0.3,
                  enable_n_to_m_mapping: bool = True,  # N:M 매핑 활성화
-                 min_segment_duration: float = 0.5):  # 최소 세그먼트 길이
+                 min_segment_duration: float = 0.5,
+                 temporal_params: Optional[Dict[str, float]] = None):  # 최소 세그먼트 길이
         """
         세그먼트 정렬기 초기화
         
@@ -58,7 +59,15 @@ class SegmentAligner:
         self.embedding_model = embedding_model
         self.enable_n_to_m_mapping = enable_n_to_m_mapping
         self.min_segment_duration = min_segment_duration
-        
+
+        # 시간적 유사도 계산 매개변수
+        self.temporal_params = temporal_params or EVAL_CONFIG.get("temporal_similarity_params", {
+            "start_weight": 0.6,
+            "end_weight": 0.4,
+            "relaxation_ratio": 0.5,
+            "penalty_factor": 0.7
+        })
+
         # 임베딩 모델 초기화
         self.laser = None
         self.sbert = None
@@ -96,6 +105,10 @@ class SegmentAligner:
         Returns:
             정렬된 세그먼트 쌍과 유사도 점수
         """
+        # 언어 코드를 클래스 속성으로 저장
+        self.src_lang = src_lang
+        self.tgt_lang = tgt_lang
+
         if output_dir:
             output_dir.mkdir(exist_ok=True, parents=True)
         
@@ -166,17 +179,18 @@ class SegmentAligner:
                     src_start, src_end, tgt_start, tgt_end
                 )
                 
-                # 발화 속도 유사도 계산 (간단한 계산으로 대체)
-                src_text = src_segment["text"]
-                src_word_count = len(src_text.split())
-                tgt_word_count = len(tgt_text.split())
-                
-                if src_duration > 0 and tgt_duration > 0 and src_word_count > 0 and tgt_word_count > 0:
-                    src_word_duration = src_duration / src_word_count
-                    tgt_word_duration = tgt_duration / tgt_word_count
-                    speaking_rate_similarity = 1.0 - min(1.0, abs(tgt_word_duration - src_word_duration) / src_word_duration)
-                else:
-                    speaking_rate_similarity = 0.5
+                # 발화 속도 유사도 계산
+                speaking_rate_similarity = self._calculate_speaking_rate_match(
+                    src_segment, 
+                    {
+                        "text": tgt_text,
+                        "duration": tgt_duration,
+                        "start": tgt_start,
+                        "end": tgt_end
+                    },  # 통합된 타겟 세그먼트
+                    self.src_lang, 
+                    self.tgt_lang
+                )
                 
                 # 세그먼트 정보 저장
                 aligned_segment = {
@@ -223,18 +237,18 @@ class SegmentAligner:
                     src_start, src_end, tgt_start, tgt_end
                 )
                 
-                # 발화 속도 유사도 계산 (간단한 계산으로 대체)
-                src_text = src_segment["text"]
-                tgt_text = tgt_segment["text"]
-                src_word_count = len(src_text.split())
-                tgt_word_count = len(tgt_text.split())
-                
-                if src_duration > 0 and tgt_duration > 0 and src_word_count > 0 and tgt_word_count > 0:
-                    src_word_duration = src_duration / src_word_count
-                    tgt_word_duration = tgt_duration / tgt_word_count
-                    speaking_rate_similarity = 1.0 - min(1.0, abs(tgt_word_duration - src_word_duration) / src_word_duration)
-                else:
-                    speaking_rate_similarity = 0.5
+                # 발화 속도 유사도 계산
+                # 합성된 타겟 세그먼트 생성 (N:M 매핑을 위해)
+                combined_tgt_segment = {
+                    "text": tgt_text,
+                    "start": tgt_start,
+                    "end": tgt_end,
+                    "duration": tgt_duration
+                }
+
+                speaking_rate_similarity = self._calculate_speaking_rate_match(
+                src_segment, combined_tgt_segment, self.src_lang, self.tgt_lang
+                )
                 
                 # 세그먼트 정보 저장
                 aligned_segment = {
@@ -252,9 +266,9 @@ class SegmentAligner:
                     "temporal_similarity": temporal_similarity,
                     "speaking_rate_similarity": speaking_rate_similarity,
                     "overall_similarity": (
-                        0.5 * text_similarity + 
+                        0.3 * text_similarity + 
                         0.3 * temporal_similarity + 
-                        0.2 * speaking_rate_similarity
+                        0.4 * speaking_rate_similarity
                     ),
                     "mapping_type": "one_to_one"
                 }
@@ -751,6 +765,13 @@ class SegmentAligner:
         Returns:
             시간적 유사도 (0.0 ~ 1.0)
         """
+        # config에서 매개변수 가져오기
+        start_weight = self.temporal_params.get("start_weight", 0.6)
+        end_weight = self.temporal_params.get("end_weight", 0.4)
+        relaxation_ratio = self.temporal_params.get("relaxation_ratio", 0.5)
+        penalty_factor = self.temporal_params.get("penalty_factor", 0.7)
+
+
         # 원본 및 타겟 세그먼트 길이
         src_duration = src_end - src_start
         tgt_duration = tgt_end - tgt_start
@@ -771,14 +792,15 @@ class SegmentAligner:
             normalized_start_diff = min(1.0, start_diff / src_duration)
             normalized_end_diff = min(1.0, end_diff / src_duration)
             
-            # 가중치 적용 (논문에서는 시작 시간이 더 중요)
-            α = 0.6  # 시작 시간 가중치
-            β = 0.4  # 종료 시간 가중치
-            weighted_similarity = α * (1.0 - normalized_start_diff) + β * (1.0 - normalized_end_diff)
+            # 가중치 적용
+            weighted_similarity = (
+                start_weight * (1.0 - normalized_start_diff) + 
+                end_weight * (1.0 - normalized_end_diff)
+            )
             
             # Relaxation 범위를 벗어나면 페널티 적용
             if not start_within_relaxation or not end_within_relaxation:
-                weighted_similarity *= 0.7
+                weighted_similarity *= penalty_factor
             
             return weighted_similarity
         else:
@@ -858,7 +880,7 @@ class SegmentAligner:
         tgt_lang: str
     ) -> float:
         """
-        발화 속도 유사도 계산
+        전체 발화 시간과 단어당 발화 시간을 모두 고려한 발화 속도 유사도 계산
         
         Args:
             src_segment: 원본 세그먼트
@@ -869,27 +891,86 @@ class SegmentAligner:
         Returns:
             발화 속도 유사도 (0.0 ~ 1.0)
         """
-        # 단어 수 계산
-        src_text = src_segment["text"]
-        tgt_text = tgt_segment["text"]
+        # 1. 순수 발화 시간 정보 추출
+        if "src_pure_duration" in src_segment and "tgt_pure_duration" in tgt_segment:
+            src_duration = src_segment.get("src_pure_duration", 0)
+            tgt_duration = tgt_segment.get("tgt_pure_duration", 0)
+            
+            # pure_speaking_rate_ratio가 있으면 사용
+            if "pure_speaking_rate_ratio" in src_segment:
+                pure_ratio = src_segment["pure_speaking_rate_ratio"]
+            else:
+                # 없으면 직접 계산
+                pure_ratio = src_duration / tgt_duration if tgt_duration > 0 else 1.0
+        else:
+            # 순수 발화 시간이 없으면 전체 구간 사용
+            src_duration = src_segment.get("duration", src_segment.get("end", 0) - src_segment.get("start", 0))
+            tgt_duration = tgt_segment.get("duration", tgt_segment.get("end", 0) - tgt_segment.get("start", 0))
+            
+            # 전체 발화 시간 비율 계산
+            pure_ratio = src_duration / tgt_duration if tgt_duration > 0 else 1.0
+        
+        # 유효성 검사
+        if src_duration <= 0 or tgt_duration <= 0:
+            return 0.5  # 기본값
+        
+        # 2. 단어당 발화 시간 계산
+        src_text = src_segment.get("text", "")
+        tgt_text = tgt_segment.get("text", "")
         
         src_word_count = len(src_text.split())
         tgt_word_count = len(tgt_text.split())
         
-        # 지속 시간
-        src_duration = src_segment.get("duration", src_segment.get("end", 0) - src_segment.get("start", 0))
-        tgt_duration = tgt_segment.get("duration", tgt_segment.get("end", 0) - tgt_segment.get("start", 0))
-        
-        if src_duration <= 0 or tgt_duration <= 0 or src_word_count == 0 or tgt_word_count == 0:
-            return 0.5  # 기본값
+        if src_word_count == 0 or tgt_word_count == 0:
+            # 단어 수가 없으면 전체 발화 시간 비율만 사용
+            total_duration_similarity = self._calculate_ratio_similarity(pure_ratio)
+            return total_duration_similarity
         
         # 단어당 지속 시간 계산
         src_word_duration = src_duration / src_word_count
         tgt_word_duration = tgt_duration / tgt_word_count
         
-        # 발화 속도 유사도 계산 (단순 비율)
-        # 정규화된 유사도 (1에 가까울수록 유사)
-        similarity = 1.0 - min(1.0, abs(tgt_word_duration - src_word_duration) / src_word_duration)
+        # 단어당 발화 시간 비율
+        word_duration_ratio = src_word_duration / tgt_word_duration if tgt_word_duration > 0 else 1.0
+        
+        # 3. 두 방식으로 유사도 계산
+        
+        # 방식 1: 기존의 상대 오차 기반 유사도 (단어 단위)
+        relative_error_similarity = 1.0 - min(1.0, abs(tgt_word_duration - src_word_duration) / src_word_duration)
+        
+        # 방식 2: 비율 기반 유사도 (전체 및 단어 단위)
+        total_duration_similarity = self._calculate_ratio_similarity(pure_ratio)
+        word_duration_similarity = self._calculate_ratio_similarity(word_duration_ratio)
+        
+        # 4. 최종 유사도 점수 (가중 평균)
+        # - 상대 오차 기반: 20%
+        # - 전체 발화 시간 비율 기반: 50%
+        # - 단어당 발화 시간 비율 기반: 30%
+        final_similarity = (0.20 * relative_error_similarity + 
+                           0.50 * total_duration_similarity + 
+                           0.30 * word_duration_similarity)
+        
+        return final_similarity
+    
+    def _calculate_ratio_similarity(self, ratio: float) -> float:
+        """
+        비율에 기반한 유사도 계산 (ratio가 1에 가까울수록 유사도 높음)
+        
+        Args:
+            ratio: 비교할 비율 (원본/타겟)
+            
+        Returns:
+            유사도 점수 (0.0 ~ 1.0)
+        """
+        # 비율이 1보다 크면 역수를 취해 0~1 범위로 변환
+        if ratio >= 1.0:
+            raw_similarity = 1.0 / ratio
+        else:
+            raw_similarity = ratio
+        
+        # 보다 부드러운 점수 분포를 위해 제곱근 적용 (선택적)
+        # 이는 약간의 차이는 덜 엄격하게, 큰 차이는 여전히 낮은 점수로 평가함
+        similarity = pow(raw_similarity, 0.8)
         
         return similarity
 
@@ -1010,11 +1091,7 @@ class SegmentAligner:
                 max_allowed_distance = src_duration * 2
                 time_score = max(0, 1 - time_distance / max_allowed_distance)
                 
-                # 텍스트 유사도 계산
-                from_src_lang = "ko"  # 기본값
-                to_tgt_lang = "en"  # 기본값
-                
-                # 최종 점수 (시간 거리 60%, 지속 시간 비율 20%, 텍스트 유사도 20%)
+                # 최종 점수 (시간 거리 60%, 지속 시간 비율 40%)
                 match_score = 0.6 * time_score + 0.4 * duration_ratio
                 
                 if match_score > best_score:
@@ -1028,6 +1105,35 @@ class SegmentAligner:
                 tgt_idx = best_tgt_indices[0]
                 tgt_segment = tgt_segments[tgt_idx]
                 
+                # 실제 텍스트 유사도 계산
+                try:
+                    text_similarity = self._calculate_text_similarity(
+                        src_segment["text"], tgt_segment["text"], self.src_lang, self.tgt_lang
+                    )
+                    # 임계값보다 낮은 경우 최소값 적용
+                    if text_similarity < self.similarity_threshold:
+                        text_similarity = max(0.2, text_similarity)
+                except Exception as e:
+                    logger.warning(f"텍스트 유사도 계산 중 오류: {e}. 기본값 사용.")
+                    text_similarity = 0.2  # 오류 발생 시 기본값
+                
+                # 발화 속도 유사도 계산
+                try:
+                    speaking_rate_similarity = self._calculate_speaking_rate_match(
+                        src_segment, tgt_segment, self.src_lang, self.tgt_lang
+                    )
+                except Exception as e:
+                    logger.warning(f"발화 속도 유사도 계산 중 오류: {e}. 기본값 사용.")
+                    # 오류 발생 시 기본 계산 방식으로 대체
+                    speaking_rate_similarity = min(src_duration, tgt_segment["duration"]) / max(src_duration, tgt_segment["duration"])
+                
+                # overall_similarity 계산 - 텍스트 유사도 반영
+                overall_similarity = (
+                    0.5 * text_similarity + 
+                    0.3 * best_score + 
+                    0.2 * speaking_rate_similarity
+                )
+                
                 # 대체 매칭 생성
                 return {
                     "src_idx": src_idx,
@@ -1040,10 +1146,10 @@ class SegmentAligner:
                     "tgt_start": tgt_segment["start"],
                     "tgt_end": tgt_segment["end"],
                     "tgt_duration": tgt_segment["duration"],
-                    "text_similarity": 0.2,  # 기본값 (낮음)
+                    "text_similarity": text_similarity,  # 계산된 값 사용
                     "temporal_similarity": best_score,
-                    "speaking_rate_similarity": min(src_duration, tgt_segment["duration"]) / max(src_duration, tgt_segment["duration"]),
-                    "overall_similarity": 0.5 * 0.2 + 0.3 * best_score + 0.2 * (min(src_duration, tgt_segment["duration"]) / max(src_duration, tgt_segment["duration"])),
+                    "speaking_rate_similarity": speaking_rate_similarity,
+                    "overall_similarity": overall_similarity,
                     "is_fallback": True,  # 이것이 대체 매칭임을 표시
                     "mapping_type": "one_to_one"
                 }
@@ -1055,6 +1161,43 @@ class SegmentAligner:
                 tgt_end = tgt_segments[tgt_indices[-1]]["end"]
                 tgt_duration = tgt_end - tgt_start
                 tgt_text = " ".join([tgt_segments[idx]["text"] for idx in tgt_indices])
+                
+                # 실제 텍스트 유사도 계산
+                try:
+                    text_similarity = self._calculate_text_similarity(
+                        src_segment["text"], tgt_text, self.src_lang, self.tgt_lang
+                    )
+                    # 임계값보다 낮은 경우 최소값 적용
+                    if text_similarity < self.similarity_threshold:
+                        text_similarity = max(0.2, text_similarity)
+                except Exception as e:
+                    logger.warning(f"텍스트 유사도 계산 중 오류: {e}. 기본값 사용.")
+                    text_similarity = 0.2  # 오류 발생 시 기본값
+                
+                # 합성된 타겟 세그먼트 생성
+                combined_tgt_segment = {
+                    "text": tgt_text,
+                    "start": tgt_start,
+                    "end": tgt_end,
+                    "duration": tgt_duration
+                }
+                
+                # 발화 속도 유사도 계산
+                try:
+                    speaking_rate_similarity = self._calculate_speaking_rate_match(
+                        src_segment, combined_tgt_segment, self.src_lang, self.tgt_lang
+                    )
+                except Exception as e:
+                    logger.warning(f"발화 속도 유사도 계산 중 오류: {e}. 기본값 사용.")
+                    # 오류 발생 시 기본 계산 방식으로 대체
+                    speaking_rate_similarity = min(src_duration, tgt_duration) / max(src_duration, tgt_duration)
+                
+                # overall_similarity 계산 - 텍스트 유사도 반영
+                overall_similarity = (
+                    0.5 * text_similarity + 
+                    0.3 * best_score + 
+                    0.2 * speaking_rate_similarity
+                )
                 
                 # 대체 매칭 생성
                 return {
@@ -1068,10 +1211,10 @@ class SegmentAligner:
                     "tgt_start": tgt_start,
                     "tgt_end": tgt_end,
                     "tgt_duration": tgt_duration,
-                    "text_similarity": 0.2,  # 기본값 (낮음)
+                    "text_similarity": text_similarity,  # 계산된 값 사용
                     "temporal_similarity": best_score,
-                    "speaking_rate_similarity": min(src_duration, tgt_duration) / max(src_duration, tgt_duration),
-                    "overall_similarity": 0.5 * 0.2 + 0.3 * best_score + 0.2 * (min(src_duration, tgt_duration) / max(src_duration, tgt_duration)),
+                    "speaking_rate_similarity": speaking_rate_similarity,
+                    "overall_similarity": overall_similarity,
                     "is_fallback": True,  # 이것이 대체 매칭임을 표시
                     "mapping_type": "n_to_m"
                 }
@@ -1210,10 +1353,17 @@ class SegmentAligner:
                     return obj.tolist()
                 return super(NumpyEncoder, self).default(obj)
         
+        # alignment 디렉토리 생성
+        alignment_dir = output_dir / "alignment"
+        alignment_dir.mkdir(exist_ok=True, parents=True)
+        
         # 결과 저장
-        alignment_path = output_dir / "segment_alignment.json"
+        alignment_path = alignment_dir / "segment_alignment.json"
         with open(alignment_path, 'w', encoding='utf-8') as f:
             json.dump(aligned_segments, f, ensure_ascii=False, indent=2, cls=NumpyEncoder)
+        
+        # 통계 저장
+        stats_path = alignment_dir / "alignment_stats.json"
         
         # 유사도 통계 계산
         text_similarities = [seg["text_similarity"] for seg in aligned_segments]
@@ -1257,15 +1407,38 @@ class SegmentAligner:
             "missing_segments_count": missing_count
         }
         
-        # 통계 저장
-        stats_path = output_dir / "alignment_stats.json"
         with open(stats_path, 'w', encoding='utf-8') as f:
             json.dump(stats, f, ensure_ascii=False, indent=2)
         
+        # 텍스트 정보 저장
+        text_info_path = alignment_dir / "alignment_text.txt"
+        with open(text_info_path, 'w', encoding='utf-8') as f:
+            f.write("세그먼트 정렬 상세 정보\n")
+            f.write("=" * 50 + "\n\n")
+            
+            for i, segment in enumerate(aligned_segments):
+                f.write(f"### 세그먼트 {i+1} ###\n")
+                f.write(f"원본: {segment['src_text']}\n")
+                f.write(f"합성: {segment['tgt_text']}\n")
+                f.write(f"텍스트 유사도: {segment['text_similarity']:.4f}\n")
+                f.write(f"시간 유사도: {segment['temporal_similarity']:.4f}\n")
+                f.write(f"발화 속도 유사도: {segment.get('speaking_rate_similarity', 0):.4f}\n")
+                f.write(f"종합 유사도: {segment['overall_similarity']:.4f}\n")
+                f.write(f"매핑 타입: {segment.get('mapping_type', 'one_to_one')}\n")
+                f.write(f"대체 매칭: {segment.get('is_fallback', False)}\n")
+                
+                if "missing_segments" in segment:
+                    f.write("\n-- 누락된 세그먼트 --\n")
+                    for missing in segment["missing_segments"]:
+                        f.write(f"  텍스트: {missing['missing_tgt_text']}\n")
+                        f.write(f"  시간: {missing['missing_tgt_start']:.2f}s - {missing['missing_tgt_end']:.2f}s ({missing['missing_tgt_duration']:.2f}s)\n")
+                
+                f.write("\n")
+        
         logger.info(f"세그먼트 정렬 결과가 {alignment_path}에 저장되었습니다.")
         logger.info(f"정렬 통계가 {stats_path}에 저장되었습니다.")
-        logger.info(f"매핑 타입: 1:1 = {one_to_one_count}, N:M = {n_to_m_count}, 대체 매칭 = {fallback_count}, 누락 세그먼트 = {missing_count}")
-    
+        logger.info(f"상세 텍스트 정보가 {text_info_path}에 저장되었습니다.")
+
     def _visualize_alignment_with_missing(
         self, 
         aligned_segments: List[Dict[str, Any]],
@@ -1446,41 +1619,14 @@ class SegmentAligner:
         plt.title('세그먼트 정렬 시각화 (누락된 세그먼트 포함)')
         plt.grid(axis='x', alpha=0.3)
        
-       # 범례 추가
+        # 범례 추가
         import matplotlib.patches as mpatches
         
         plt.legend(loc='upper right')
         
-       # 저장
-        plt.tight_layout()
+        # 메인 디렉토리에 저장
         chart_path = output_dir / "segment_alignment_with_missing.png"
         plt.savefig(chart_path)
         plt.close()
         
-        # 상세 텍스트 정보 저장
-        text_info_path = output_dir / "alignment_text.txt"
-        with open(text_info_path, 'w', encoding='utf-8') as f:
-           f.write("세그먼트 정렬 상세 정보\n")
-           f.write("=" * 50 + "\n\n")
-           
-           for i, segment in enumerate(aligned_segments):
-               f.write(f"### 세그먼트 {i+1} ###\n")
-               f.write(f"원본: {segment['src_text']}\n")
-               f.write(f"합성: {segment['tgt_text']}\n")
-               f.write(f"텍스트 유사도: {segment['text_similarity']:.4f}\n")
-               f.write(f"시간 유사도: {segment['temporal_similarity']:.4f}\n")
-               f.write(f"발화 속도 유사도: {segment.get('speaking_rate_similarity', 0):.4f}\n")
-               f.write(f"종합 유사도: {segment['overall_similarity']:.4f}\n")
-               f.write(f"매핑 타입: {segment.get('mapping_type', 'one_to_one')}\n")
-               f.write(f"대체 매칭: {segment.get('is_fallback', False)}\n")
-               
-               if "missing_segments" in segment:
-                   f.write("\n-- 누락된 세그먼트 --\n")
-                   for missing in segment["missing_segments"]:
-                       f.write(f"  텍스트: {missing['missing_tgt_text']}\n")
-                       f.write(f"  시간: {missing['missing_tgt_start']:.2f}s - {missing['missing_tgt_end']:.2f}s ({missing['missing_tgt_duration']:.2f}s)\n")
-               
-               f.write("\n")
-       
         logger.info(f"누락된 세그먼트를 포함한 정렬 시각화가 {chart_path}에 저장되었습니다.")
-        logger.info(f"상세 텍스트 정보가 {text_info_path}에 저장되었습니다.")

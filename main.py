@@ -10,6 +10,7 @@ from typing import Dict, Any, Optional, List, Tuple
 
 # 설정 파일 로드
 from config import INPUT_DIR, OUTPUT_DIR
+from config import EVAL_CONFIG
 
 # 핵심 모듈 로드
 from core.processor import TextGridProcessor, AudioProcessor
@@ -61,14 +62,29 @@ class ProsodySimilarityAnalyzer:
         # 각 컴포넌트 초기화
         self.textgrid_processor = TextGridProcessor()
         self.audio_processor = AudioProcessor()
+
+        # config에서 시간적 유사도 매개변수 가져오기
+        temporal_params = EVAL_CONFIG.get("temporal_similarity_params")
+    
         self.segment_aligner = SegmentAligner(
             embedding_model=embedding_model,
             similarity_threshold=similarity_threshold,
             enable_n_to_m_mapping=enable_n_to_m_mapping, 
-            min_segment_duration=min_segment_duration
+            min_segment_duration=min_segment_duration,
+            temporal_params=temporal_params
         )
-        self.prosody_analyzer = ProsodyAnalyzer()
-        self.evaluator = SimilarityEvaluator()
+
+        # config에서 각 가중치 가져오기
+        feature_weights = EVAL_CONFIG.get("feature_weights")
+        alignment_weights = EVAL_CONFIG.get("alignment_weights")
+        final_score_weights = EVAL_CONFIG.get("final_score_weights")
+
+        self.prosody_analyzer = ProsodyAnalyzer(feature_weights=feature_weights)
+        self.evaluator = SimilarityEvaluator(
+            feature_weights=feature_weights,
+            alignment_weights=alignment_weights,
+            final_score_weights=final_score_weights
+        )
         
         # SSML 변환기 초기화 (새로 추가)
         self.ssml_converter = AlignmentToSSML()
@@ -139,35 +155,27 @@ class ProsodySimilarityAnalyzer:
         src_audio, src_sr = load_audio(src_audio_path)
         tgt_audio, tgt_sr = load_audio(tgt_audio_path)
         
-        # 오디오 비교 시각화
-        logger.info("오디오 비교 시각화 생성 중...")
-        plot_audio_comparison(
-            src_audio, src_sr, tgt_audio, tgt_sr,
-            title=f"원본({src_lang}) vs 합성({tgt_lang}) 오디오 비교",
-            file_path=str(output_path / "audio_comparison.png")
-        )
-        
-        # 3. 세그먼트 정렬
+        # 3. 세그먼트 정렬 - 결과는 alignment 디렉토리에 저장됨
         logger.info("3. 세그먼트 정렬 중...")
         aligned_segments = self.segment_aligner.align_segments(
             src_segments, tgt_segments,
             src_lang=src_lang, tgt_lang=tgt_lang,
-            output_dir=output_path / "alignment"
+            output_dir=output_path  # 이제 직접 메인 디렉토리를 전달
         )
         
-        # 4. 프로소디 분석
+        # 4. 프로소디 분석 - 결과는 메인 디렉토리와 prosody 디렉토리에 저장됨
         logger.info("4. 프로소디 유사도 분석 중...")
         prosody_scores = self.prosody_analyzer.analyze(
             src_audio, src_sr, src_segments,
             tgt_audio, tgt_sr, tgt_segments,
-            output_dir=output_path / "prosody"
+            output_dir=output_path  # 이제 직접 메인 디렉토리를 전달
         )
         
-        # 5. 종합 평가
+        # 5. 종합 평가 - 결과는 메인 디렉토리에 저장됨
         logger.info("5. 종합 평가 중...")
         evaluation_results = self.evaluator.evaluate(
             prosody_scores, aligned_segments,
-            output_dir=output_path / "evaluation"
+            output_dir=output_path  # 이제 직접 메인 디렉토리를 전달
         )
         
         # 언어 정보 추가
@@ -176,7 +184,7 @@ class ProsodySimilarityAnalyzer:
             "tgt_lang": tgt_lang
         }
         
-        # 6. SSML 생성 (새로 추가된 부분)
+        # 6. SSML 생성 (필요 시)
         if self.generate_ssml:
             logger.info("6. 정렬 결과를 SSML로 변환 중...")
             
@@ -194,29 +202,6 @@ class ProsodySimilarityAnalyzer:
             # 결과에 SSML 경로 추가
             evaluation_results["ssml_path"] = str(ssml_path)
             logger.info(f"SSML이 {ssml_path}에 저장되었습니다.")
-        
-        # 7. 요약 보고서 및 시각화 생성
-        logger.info("7. 요약 보고서 및 시각화 생성 중...")
-        
-        # 유사도 점수 시각화
-        visualize_scores(
-            evaluation_results,
-            title=f"음성 유사도 평가 결과 ({src_lang} -> {tgt_lang})",
-            file_path=str(output_path / "similarity_scores.png")
-        )
-        
-        # 레이더 차트 시각화
-        visualize_radar_chart(
-            evaluation_results,
-            title=f"음성 유사도 레이더 차트 ({src_lang} -> {tgt_lang})",
-            file_path=str(output_path / "similarity_radar.png")
-        )
-        
-        # 요약 보고서 생성
-        create_summary_report(
-            evaluation_results,
-            file_path=str(output_path / "summary_report.txt")
-        )
         
         logger.info("유사도 분석 완료")
         logger.info(f"최종 점수: {evaluation_results.get('final_score', 0):.4f}, 등급: {evaluation_results.get('grade', 'N/A')}")

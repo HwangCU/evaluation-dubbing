@@ -131,21 +131,17 @@ class ProsodyAnalyzer:
         
         scores["overall"] = overall_similarity
         
-        # 결과 로깅
-        logger.info(f"프로소디 분석 완료: 전체 유사도 {overall_similarity:.4f}")
-        for key, value in scores.items():
-            if key != "overall":
-                logger.info(f"  - {key}: {value:.4f}")
-        
-        # 결과를 파일로 저장 및 시각화
+        # 오디오 비교 시각화 생성 (루트 디렉토리에)
         if output_dir:
-            self._save_results(scores, output_dir / "similarity_scores.json")
-            self._visualize_similarity_scores(scores, output_dir / "similarity_scores.png")
             self._visualize_audio_comparison(
                 src_audio, src_sr, src_segments,
                 tgt_audio, tgt_sr, tgt_segments,
-                output_dir / "audio_comparison.png"
+                output_dir / "audio_comparison.png"  # 메인 디렉터리에 저장
             )
+        
+        # prosody 디렉토리의 JSON 파일은 evaluator에서 처리
+        
+        logger.info(f"프로소디 분석 완료: 전체 유사도 {overall_similarity:.4f}")
         
         return scores
     
@@ -882,7 +878,11 @@ class ProsodyAnalyzer:
         plt.colorbar(format='%+2.0f dB')
         
         plt.tight_layout()
+        
+        # 디렉토리 생성 확인
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        
         plt.savefig(output_path)
         plt.close()
         
-        logger.info(f"오디오 비교 시각화가 {output_path}에 저장되었습니다.")
+        logger.info(f"오디오 비교 시각화가 저장되었습니다: {output_path}")

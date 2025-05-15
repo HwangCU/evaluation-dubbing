@@ -33,15 +33,15 @@ def main():
     )
     
     # 결과 저장 디렉토리
-    output_dir = "data/output/eleven_joker5"
+    output_dir = "data/output/bad_example"
     os.makedirs(output_dir, exist_ok=True)
     
     # 단일 파일 분석 실행
     result = analyzer.analyze(
         src_audio_path="data/input/en/eleven_joker2/eleven_joker_eng2.wav",
         src_textgrid_path="data/input/text_grid/eleven_joker_eng2.TextGrid",
-        tgt_audio_path="data/input/kr/eleven_joker/eleven_joker_kor1.wav",
-        tgt_textgrid_path="data/input/text_grid/eleven_joker_kor1.TextGrid",
+        tgt_audio_path="data/input/kr/윤장목소리/윤장목소리1.wav",
+        tgt_textgrid_path="data/input/text_grid/윤장목소리1.TextGrid",
         src_lang=src_lang,  # 소스 언어 코드
         tgt_lang=tgt_lang,  # 타어 코드겟 언
         output_dir=output_dir,  # 결과 저장 디렉토리

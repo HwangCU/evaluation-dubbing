@@ -134,7 +134,7 @@ def check_corpus_directory(corpus_dir):
 
 if __name__ == "__main__":
     # MFA 실행을 위한 경로 설정
-    corpus_directory = "C:/Users/SSAFY/Desktop/work/onion_PJT/data/p225_kr"  # 음성 및 텍스트 파일이 포함된 디렉토리
+    corpus_directory = "C:/Users/SSAFY/Desktop/work/onion_PJT/data/en_heewoun"  # 음성 및 텍스트 파일이 포함된 디렉토리
     
     # 경로 확인
     if not check_corpus_directory(corpus_directory):
@@ -146,9 +146,9 @@ if __name__ == "__main__":
             exit(1)
         else:
             corpus_directory = abs_corpus_directory
-    dictionary_path = "../pretrained_models/dictionary/korean_mfa.dict"  # 사전 파일 경로
-    acoustic_model_path = "../pretrained_models/acoustic/korean_mfa.zip"  # 음향 모델 경로
-    output_directory = "../data/input/p225_kr/text_grid"  # 결과를 저장할 디렉토리 경로
+    dictionary_path = "../pretrained_models/dictionary/english_mfa.dict"  # 사전 파일 경로
+    acoustic_model_path = "../pretrained_models/acoustic/english_mfa.zip"  # 음향 모델 경로
+    output_directory = "../data/input/HeeWoun/text_grid"  # 결과를 저장할 디렉토리 경로
 
     # MFA 실행: 음성 정렬
     run_mfa(corpus_directory, dictionary_path, acoustic_model_path, output_directory)

@@ -1,217 +1,193 @@
-# 음성 분석 및 유사도 점수 측정 방법론
+# 자동 더빙 프로소딕 유사도 평가 시스템
 
-## 1. 프로소딕 요소 분석 기법
+이 프로젝트는 원본 음성과 합성 음성 간의 프로소딕(운율) 유사도를 분석하고 평가하는 시스템입니다. 특히 Automatic Dubbing(자동 더빙) 시스템에서 생성된 음성의 품질을 정량적으로 측정하여 개선 방향을 제시합니다.
 
-프로소디(운율)는 음성의 리듬, 강세, 억양, 음높이 등 초분절적 특성을 의미합니다. 본 시스템은 이러한 프로소딕 요소들의 유사도를 정밀하게 측정합니다.
+## 주요 특징
 
-### 1.1. 휴지(Pause) 패턴 유사도
-- **세부 분석 방법**: 
-  - **무음 구간 검출**: 오디오 신호의 RMS(Root Mean Square) 에너지를 매 프레임마다 계산하여 에너지 윤곽(energy contour)을 추출합니다. 평균 에너지의 10%를 임계값으로 설정하여 이 값 미만의 구간을 무음으로 판단합니다.
-  - **연속성 판별**: 3프레임(약 30ms) 이상 연속된 무음 구간만을 유의미한 휴지로 간주합니다. 이는 짧은 음소 간 자연스러운 공백과 실제 문장 구조적 휴지를 구분하기 위함입니다.
-  - **중심점 계산**: 각 무음 구간의 시작과 끝 시간의 중간점을 휴지 위치로 설정합니다.
+- 다국어 음성 간 프로소딕 유사도 평가 (한국어-영어 등 다양한 언어 쌍 지원)
+- 다양한 프로소딕 요소 분석 (휴지, 음높이, 에너지, 리듬, 모음 길이 등)
+- 텍스트와 음성의 세그먼트 정렬 및 유사도 계산
+- 다국어 문장 임베딩 모델(LASER, SBERT)을 활용한 의미적 유사도 평가
+- 평가 결과 시각화 및 SSML 변환 기능
+- 자세한 분석 리포트 생성
 
-- **유사도 점수 계산**:
-  - **개수 유사도(count_similarity)**: `min(원본 휴지 수, 합성 휴지 수) / max(원본 휴지 수, 합성 휴지 수)`
-  - **위치 유사도(position_similarity)**: 각 원본 휴지에 대해 가장 가까운 합성 휴지와의 상대적 거리를 계산하고, 이 거리가 작을수록 높은 점수를 부여합니다. 구체적으로는 `1.0 - min(avg_distance * 10, 1.0)` 공식을 사용합니다.
-  - **최종 점수**: `0.4 * count_similarity + 0.6 * position_similarity`로 계산하여 위치 유사도에 더 높은 가중치를 부여합니다.
+## 요구사항
 
-### 1.2. 음높이(Pitch) 패턴 유사도
-- **세부 분석 방법**:
-  - **피치 추출**: 기본적으로 librosa의 `piptrack` 함수를 사용하여 각 시간 프레임에서 최대 진폭을 갖는 주파수를 기본 주파수(F0)로 추출합니다. 대체 방법으로 `pyin` 알고리즘(확률적 YIN 알고리즘)을 사용할 수도 있습니다.
-  - **전처리**: 0Hz(무음 구간) 값을 제외한 유효한 피치 값만 선택합니다.
-  - **정규화 과정**: 피치 값을 평균과 표준편차로 정규화(`(피치 - 평균) / 표준편차`)하여 서로 다른 화자(남성/여성 등)의 절대적 음역대 차이를 보정합니다.
+- Python 3.10 이상
+- Montreal Forced Aligner (TextGrid 생성용)
+- 필수 라이브러리:
+  - librosa
+  - numpy
+  - matplotlib
+  - scipy
+  - textgrid
+  - laserembeddings
+  - sentence_transformers
+  - fastdtw
 
-- **유사도 점수 계산**:
-  - **길이 맞춤**: 원본과 합성 음성의 피치 시퀀스 길이를 더 짧은 쪽에 맞춥니다.
-  - **상관 계수**: 정규화된 두 피치 윤곽 간의 피어슨 상관 계수(correlation coefficient)를 계산합니다.
-  - **최종 점수**: 상관 계수를 0-1 범위로 변환하기 위해 `(correlation + 1) / 2` 공식을 적용합니다.
+## 설치 방법
 
-### 1.3. 에너지(Energy) 패턴 유사도
-- **세부 분석 방법**:
-  - **에너지 추출**: librosa의 `feature.rms` 함수를 사용하여 각 프레임의 RMS 에너지를 계산합니다.
-  - **정규화**: 각 에너지 윤곽을 최대값으로 나누어 0-1 범위로 정규화함으로써 절대적 볼륨 차이를 보정합니다.
-  
-- **유사도 점수 계산**:
-  - **길이 맞춤**: 원본과 합성 음성의 에너지 윤곽 길이를 더 짧은 쪽에 맞춥니다.
-  - **상관 계수**: 정규화된 두 에너지 윤곽 간의 피어슨 상관 계수를 계산합니다.
-  - **최종 점수**: `(correlation + 1) / 2` 공식으로 0-1 범위의 유사도 점수를 산출합니다.
-
-### 1.4. 리듬(Rhythm) 패턴 유사도
-- **세부 분석 방법**:
-  - **온셋 강도 계산**: librosa의 `onset.onset_strength` 함수로 각 프레임에서 소리의 시작 강도를 측정합니다.
-  - **온셋 감지**: `onset.onset_detect` 함수로 강도가 급격히 증가하는 지점(온셋)을 식별합니다.
-  - **시간 변환**: 프레임 인덱스를 실제 시간(초)으로 변환합니다.
-  - **간격 분석**: 연속된 온셋 간의 시간 간격을 계산하여 리듬 패턴을 추출합니다.
-
-- **유사도 점수 계산**:
-  - **비트 개수 유사도**: `min(원본 온셋 수, 합성 온셋 수) / max(원본 온셋 수, 합성 온셋 수)`
-  - **간격 패턴 유사도**: 각 온셋 간격을 평균으로 나누어 정규화한 후, 정규화된 간격 패턴 간의 상관 계수를 계산합니다.
-  - **최종 점수**: `0.4 * beat_count_similarity + 0.6 * interval_similarity`로 계산하여 간격 패턴 유사도에 더 높은 가중치를 부여합니다.
-
-### 1.5. 모음(Vowel) 길이 패턴 유사도
-- **세부 분석 방법**:
-  - **음소 추출**: TextGrid에서 'phones' 계층의 음소 정보를 추출합니다.
-  - **모음 식별**: 영어('a', 'e', 'i', 'o', 'u', 'æ', 'ɑ' 등)와 한국어('ㅏ', 'ㅐ', 'ㅓ', 'ㅔ' 등) 모음 목록을 기준으로 각 음소가 모음인지 판별합니다.
-  - **길이 측정**: 각 모음의 시작 시간과 종료 시간 차이로 지속 시간을 계산합니다.
-
-- **유사도 점수 계산**:
-  - **개수 유사도**: `min(원본 모음 수, 합성 모음 수) / max(원본 모음 수, 합성 모음 수)`
-  - **길이 패턴 유사도**: 모음 길이를 평균으로 나누어 정규화한 후, 정규화된 길이 패턴 간의 상관 계수를 계산합니다.
-  - **최종 점수**: `0.3 * count_similarity + 0.7 * duration_similarity`로 계산하여 길이 패턴 유사도에 더 높은 가중치를 부여합니다.
-
-## 2. 세그먼트 정렬 및 비교 기법
-
-원본과 합성 음성의 세그먼트(문장 또는 구)를 정확하게 정렬하고 비교하는 알고리즘입니다.
-
-### 2.1. 텍스트 기반 세그먼트 매칭
-- **세부 분석 방법**:
-  - **텍스트 정규화**: 모든 텍스트를 소문자로 변환하고, 정규 표현식을 사용하여 특수 문자를 제거합니다.
-  - **유사도 행렬 계산**: 모든 원본-합성 세그먼트 쌍에 대해 텍스트 유사도를 계산하여 유사도 행렬을 생성합니다.
-  - **자카드 유사도**: 두 텍스트의 문자 집합과 단어 집합 각각에 대해 교집합 크기를 합집합 크기로 나눈 값을 계산합니다.
-  - **길이 비율**: `min(텍스트1 길이, 텍스트2 길이) / max(텍스트1 길이, 텍스트2 길이)`
-
-- **최적 매칭 찾기**:
-  - **Hungarian 알고리즘**: scipy의 `linear_sum_assignment` 함수를 사용하여 전체 유사도 합이 최대화되는 최적의 세그먼트 쌍을 찾습니다.
-  - **유사도 임계값**: 유사도가 특정 임계값(0.2) 미만인 매칭은 제외하여 부적절한 매칭을 방지합니다.
-
-### 2.2. 시간 기반 세그먼트 매칭
-- **세부 분석 방법** (텍스트 매칭 실패 시 사용):
-  - **시간 중첩도**: 각 원본 세그먼트에 대해 모든 합성 세그먼트와의 시간 중첩 구간을 계산합니다.
-  - **중첩 비율**: `중첩 구간 길이 / 두 세그먼트가 차지하는 전체 구간 길이`를 계산합니다.
-  - **최적 매칭**: 각 원본 세그먼트에 대해 중첩 비율이 가장 높은 합성 세그먼트를 선택합니다.
-
-- **종합 유사도 계산**:
-  - **가중 평균**: 중첩 비율(70%)과 텍스트 유사도(30%)의 가중 평균으로 최종 매칭 유사도를 계산합니다.
-
-### 2.3. 시간적 유사도 계산
-- **세부 분석 방법**:
-  - **시작/종료 시간 차이**: 매칭된 세그먼트 쌍의 시작 시간 차이(`|src_start - tgt_start|`)와 종료 시간 차이(`|src_end - tgt_end|`)를 계산합니다.
-  - **정규화**: 원본 세그먼트 길이로 나누어 상대적 오차를 계산합니다: `normalized_error = (start_error + end_error) / (2 * src_duration)`
-  
-- **유사도 점수 계산**:
-  - **시작 시간 유사도**: `1.0 - normalized_start_diff`
-  - **종료 시간 유사도**: `1.0 - normalized_end_diff`
-  - **최종 점수**: 시작 시간 유사도와 종료 시간 유사도의 평균을 계산합니다.
-
-## 3. 종합 평가 방법 상세
-
-여러 특성의 유사도 점수를 통합하여 최종 평가를 수행하는 방법론입니다.
-
-### 3.1. 가중 평균을 통한 종합 점수 계산
-- **프로소디 전체 점수 계산 공식**:
-```
-overall = (0.25 * pause_similarity) +
-(0.20 * pitch_similarity) +
-(0.20 * energy_similarity) +
-(0.25 * rhythm_similarity) +
-(0.10 * vowel_similarity)
-```
-이 가중치는 실험적으로 결정된 값으로, 휴지와 리듬 패턴이 더 중요하게 평가됩니다.
-
-- **최종 점수 계산 공식**:
-```
-final_score = (0.7 * prosody_overall) + (0.3 * alignment_score)
-```
-이는 프로소디 유사도가 정렬 유사도보다 청각적 품질에 더 큰 영향을 미친다는 가정에 기반합니다.
-
-### 3.2. 세부 등급 부여 기준
-- **A+ (0.9 이상)**: 거의 완벽한 유사도로, 원본과 합성 음성의 차이를 일반 청취자가 거의 감지할 수 없는 수준
-- **A (0.8-0.9)**: 매우 높은 유사도로, 세밀한 분석 없이는 차이점을 식별하기 어려운 수준
-- **B (0.7-0.8)**: 양호한 유사도로, 일부 불일치가 있지만 전반적으로 자연스러운 수준
-- **C (0.6-0.7)**: 보통 유사도로, 명확한 불일치가 있지만 의사소통에 큰 지장은 없는 수준
-- **D (0.6 미만)**: 개선이 필요한 유사도로, 불일치가 두드러지고 부자연스러운 느낌을 주는 수준
-
-### 3.3. 개선 제안 생성 세부 로직
-- **휴지 패턴 개선 (점수 < 0.7)**: 원본 음성의 문장 구분과 쉼표 위치에 맞춰 일시정지 패턴을 조정하고, 특히 긴 문장에서는 적절한 휴지를 추가하는 방안을 제안합니다.
-- **음높이 패턴 개선 (점수 < 0.7)**: 원본 음성의 억양 곡선을 분석하여 강조되는 단어나 구문에서 유사한 음높이 변화를 구현하는 방안을 제안합니다.
-- **에너지 패턴 개선 (점수 < 0.7)**: 원본 음성에서 중요 단어가 강조되는 부분에 맞춰 합성 음성의 볼륨과 강세를 조정하는 방안을 제안합니다.
-- **리듬 패턴 개선 (점수 < 0.7)**: 원본 음성의 말하기 속도 변화와 단어 간격을 분석하여 더 자연스러운 리듬을 구현하는 방안을 제안합니다.
-- **모음 길이 패턴 개선 (점수 < 0.7)**: 중요한 모음 소리의 길이를 원본과 유사하게 조정하여 더 자연스러운 발음을 구현하는 방안을 제안합니다.
-
-## 4. 신호처리 기법 세부 설명
-
-시스템 구현에 사용된 핵심 신호처리 기술들의 세부 내용입니다.
-
-### 4.1. 단시간 푸리에 변환(STFT)
-- **원리**: 오디오 신호를 작은 시간 창으로 나누어 각 창에 대해 푸리에 변환을 적용함으로써 시간에 따른 주파수 변화를 분석합니다.
-- **구현 세부사항**: 
-- 프레임 길이(frame_length): 1024 샘플 (약 23ms @ 44.1kHz)
-- 홉 길이(hop_length): 256 샘플 (약 5.8ms @ 44.1kHz)
-- 윈도우 함수: 해밍 윈도우(Hamming window)
-- 출력: 복소수 행렬(시간-주파수 표현)
-
-### 4.2. 스펙트로그램 분석
-- **원리**: STFT의 크기(magnitude)를 취하여 각 시간-주파수 지점의 에너지를 시각화합니다.
-- **데시벨 변환**: `20 * log10(|STFT| + 최소값)` 공식을 사용하여 인간의 청각 인지 특성에 맞게 로그 스케일로 변환합니다.
-- **응용**: 두 오디오 신호의 주파수 특성 비교 및 시각화에 활용됩니다.
-
-### 4.3. 멜 스펙트로그램
-- **원리**: 스펙트로그램의 주파수 축을 멜 스케일(인간의 청각 특성을 모방한 비선형 스케일)로 변환합니다.
-- **구현 세부사항**:
-- 필터 수(n_mels): 128개
-- 주파수 범위: 0-22050Hz (샘플링 레이트의 절반)
-- 출력: 멜 필터뱅크를 통과한 에너지 행렬
-
-### 4.4. 피치 추출 알고리즘 비교
-- **piptrack** (자기상관 기반):
-- **원리**: 주파수 영역에서 각 시간 프레임의 피치 후보들을 추적합니다.
-- **장점**: 계산 효율이 좋고, 구현이 간단합니다.
-- **한계**: 노이즈에 취약하고 옥타브 오류가 발생할 수 있습니다.
-
-- **pYIN** (확률적 YIN 알고리즘):
-- **원리**: YIN 알고리즘에 확률 모델을 도입하여 더 정확한 피치 추적을 구현합니다.
-- **장점**: 노이즈에 강하고 옥타브 오류가 적습니다.
-- **한계**: 계산 비용이 더 높습니다.
-
-### 4.5. 온셋 감지(Onset Detection)
-- **원리**: 오디오 신호에서 새로운 소리의 시작점(온셋)을 감지합니다.
-- **구현 세부사항**:
-- 온셋 강도 함수: 스펙트럼 흐름(spectral flux)을 기반으로 계산
-- 역치화(thresholding): 이동 평균과 표준편차를 이용한 동적 임계값 설정
-- 피크 피킹(peak picking): 국소 최대값(local maxima) 감지 알고리즘
-
-### 4.6. RMS 에너지 계산
-- **원리**: 오디오 신호의 제곱의 평균에 제곱근을 취하여 에너지 수준을 측정합니다.
-- **공식**: RMS = sqrt(Σ(x_i²) / N), 여기서 x_i는 i번째 샘플 값, N은 총 샘플 수입니다.
-- **응용**: 무음 구간 감지, 에너지 윤곽 추출, 볼륨 정규화 등에 활용됩니다.
-
-## 5. 방법론 출처 및 배경
-
-본 방법론은 다음 연구 논문들에 기반하여 개발되었습니다:
-
-### 5.1. 핵심 참고 문헌
-1. Virkar, Y., Federico, M., Enyedi, R., & Barra-Chicote, R. (2021). **"Improvements to Prosodic Alignment for Automatic Dubbing"**. IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 7543-7574.
-
-2. Virkar, Y., Federico, M., Enyedi, R., & Barra-Chicote, R. (2022). **"Prosodic Alignment for Off-Screen Automatic Dubbing"**. arXiv preprint arXiv:2204.02530.
-
-3. Öktem, A., Farrús, M., & Bonafonte, A. (2019). **"Prosodic Phrase Alignment for Machine Dubbing"**. Interspeech 2019.
-
-### 5.2. 주요 개념 및 기여
-- **등시성(Isochrony)**: 원본 음성의 구문 구조와 휴지 패턴을 합성 음성에 일치시키는 개념으로, 특히 화자의 입 움직임이 보이는 경우(on-screen dubbing) 중요합니다.
-
-- **프로소딕 정렬(Prosodic Alignment)**: 원본과 합성 음성 간의 프로소딕 구조를 정렬하는 기술로, 본 방법론은 Virkar 등(2021)이 제안한 모델을 확장 및 개선하였습니다.
-
-- **On-screen과 Off-screen 더빙**: 화자의 입이 보이는 상황(on-screen)과 보이지 않는 상황(off-screen)에 따라 서로 다른 정렬 제약 조건을 적용하는 방법론입니다. Off-screen 상황에서는 보다 유연한 정렬이 가능합니다.
-
-- **세그먼트 최적화**: Dynamic Programming을 활용하여 원본과 합성 음성 간의 최적 세그먼트 정렬을 찾는 방법으로, 본 방법론은 이러한 접근법을 개선하고 확장하였습니다.
-
-## 사용법
-#### MFA를 진행하여, TextGride파일 확보
-
-**커맨드 라인에서 실행**
-```bash 
-# 단일 파일 분석
-python main.py --src-audio source.wav --src-textgrid source.TextGrid --tgt-audio target.wav --src-lang ko --tgt-lang en --generate-ssml
-# 배치 파일 분석(예시시)
-python main.py --batch --src-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\data\p225_en" --tgt-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\data\p225_kr" --src-textgrid-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\data\input\p225_en\text_grid" --tgt-textgrid-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\data\input\p225_kr\text_grid" --src-lang "en" --tgt-lang "kr" --generate-ssml --output-dir "C:\Users\SSAFY\Desktop\work\onion_PJT\S12P31S307\src\AI\Evaluate\data\output"
+1. 저장소 클론
+```bash
+git clone
+cd 
 ```
 
-**.py로 실행**
-example_*.py 참고
-
-## 파일구조
+2. 필요한 패키지 설치
+```bash
+pip install -r requirements.txt
 ```
-Evaluate/
+
+3. 다국어 임베딩 모델 설치
+```bash
+# LASER 모델 설치
+pip install laserembeddings
+python -m laserembeddings download-models
+
+# Sentence-BERT 설치
+pip install sentence-transformers
+```
+
+4. Montreal Forced Aligner 설치 (TextGrid 생성용)
+```bash
+conda config --add channels conda-forge
+conda install montreal-forced-aligner
+```
+
+## 사용 방법
+
+### 1. TextGrid 파일 생성하기
+
+먼저 원본 및 합성 오디오에 대한 TextGrid 파일을 생성해야 합니다:
+
+```bash
+# 영어 모델 다운로드
+mfa model download dictionary english_mfa
+mfa model download acoustic english_mfa
+
+# 정렬 수행
+mfa align CORPUS_DIRECTORY DICTIONARY_PATH ACOUSTIC_MODEL_PATH OUTPUT_DIRECTORY
+```
+
+더 자세한 내용은 `./MFA/README` 와 [Montreal Forced Aligner 문서](https://montreal-forced-aligner.readthedocs.io/)를 참조하세요.
+
+### 2. 단일 파일 분석
+
+커맨드 라인에서 단일 음성 파일 쌍을 분석하려면:
+
+```bash
+python main.py --src-audio source.wav --src-textgrid source.TextGrid \
+               --tgt-audio target.wav --tgt-textgrid target.TextGrid \
+               --src-lang en --tgt-lang ko \
+               --generate-ssml --output-dir ./output
+```
+
+또는 Python 스크립트에서:
+
+```python
+from main import ProsodySimilarityAnalyzer
+
+analyzer = ProsodySimilarityAnalyzer(
+    embedding_model="laser",
+    similarity_threshold=0.3,
+    generate_ssml=True
+)
+
+result = analyzer.analyze(
+    src_audio_path="data/input/en/source.wav",
+    src_textgrid_path="data/input/text_grid/source.TextGrid",
+    tgt_audio_path="data/input/kr/target.wav",
+    tgt_textgrid_path="data/input/text_grid/target.TextGrid",
+    src_lang="en",
+    tgt_lang="kr",
+    output_dir="data/output/result"
+)
+
+# 결과 출력
+print(f"최종 점수: {result.get('final_score', 0):.4f}")
+print(f"등급: {result.get('grade', 'N/A')}")
+```
+
+### 3. 일괄 처리 분석
+
+여러 파일을 일괄적으로 분석하려면:
+
+```bash
+python main.py --batch \
+               --src-dir "./data/input/en" \
+               --tgt-dir "./data/input/kr" \
+               --src-textgrid-dir "./data/input/en/text_grid" \
+               --tgt-textgrid-dir "./data/input/kr/text_grid" \
+               --src-lang "en" --tgt-lang "kr" \
+               --generate-ssml --output-dir "./data/output"
+```
+
+예제 스크립트 활용:
+```bash
+# 단일 파일 분석 예제
+python example_single.py
+
+# 일괄 분석 예제
+python example_batch.py
+```
+
+## 분석 방법론
+
+### 1. 프로소딕 요소 분석
+
+다음과 같은 프로소딕 요소들의 유사도를 측정합니다:
+
+#### 1.1. 휴지(Pause) 패턴 유사도
+- **무음 구간 검출**: RMS 에너지를 사용해 무음 구간을 식별합니다.
+- **개수 유사도** 및 **위치 유사도**를 종합하여 최종 점수를 계산합니다.
+
+#### 1.2. 음높이(Pitch) 패턴 유사도
+- **피치 추출 및 정규화**: 서로 다른 화자의 음역대 차이를 보정합니다.
+- **상관 계수**를 계산하여 피치 윤곽의 유사도를 측정합니다.
+
+#### 1.3. 에너지(Energy) 패턴 유사도
+- **에너지 윤곽 추출 및 정규화**: 절대적 볼륨 차이를 보정합니다.
+- **상관 계수**를 계산하여 에너지 패턴의 유사도를 측정합니다.
+
+#### 1.4. 리듬(Rhythm) 패턴 유사도
+- **온셋 감지**: 소리의 시작점을 식별하여 리듬 패턴을 추출합니다.
+- **비트 개수 유사도** 및 **간격 패턴 유사도**를 종합합니다.
+
+#### 1.5. 모음(Vowel) 길이 패턴 유사도
+- **모음 식별 및 길이 측정**: 각 언어별 모음 목록을 사용하여 분석합니다.
+- **개수 유사도** 및 **길이 패턴 유사도**를 종합합니다.
+
+### 2. 세그먼트 정렬 및 비교
+
+텍스트와 시간 정보를 활용하여 원본-합성 세그먼트를 최적으로 정렬합니다:
+
+- **텍스트 기반 매칭**: 다국어 임베딩 모델을 사용한 텍스트 유사도 계산
+- **시간 기반 매칭**: 세그먼트 간 시간 중첩도 계산
+- **N:M 매핑**: 필요한 경우 여러 세그먼트를 묶어 매칭
+
+### 3. 종합 평가
+
+다양한 유사도 점수를 종합하여 최종 평가를 수행합니다:
+
+- **가중 평균 계산**: 각 특성의 중요도에 따라 가중치 적용
+- **등급 부여**: A+, A, B, C, D, F 등급으로 분류
+- **개선 제안 생성**: 낮은 점수의 특성에 대한 구체적 개선 방안 제시
+
+## 출력 결과
+
+분석 결과는 지정된 출력 디렉토리에 다음과 같은 형식으로 저장됩니다:
+
+- **summary_report.txt**: 전체 평가 요약 보고서
+- **similarity_radar.png**: 유사도 특성을 시각화한 레이더 차트
+- **segment_alignment_with_missing.png**: 세그먼트 정렬 시각화
+- **alignment/segment_alignment.json**: 세그먼트 정렬 결과
+- **tts_output.ssml**: 정렬 결과를 기반으로 생성된 SSML 파일
+- **audio_comparison.png**: 원본-합성 오디오 파형 비교
+
+## 프로젝트 구조
+
+```
+./
 │
 ├── main.py                    # 메인 실행 파일 
 ├── config.py                  # 설정 파일
@@ -221,7 +197,8 @@ Evaluate/
 │   ├── processor.py           # TextGrid 및 오디오 처리 모듈
 │   ├── aligner.py             # 프로소딕 정렬 모듈
 │   ├── analyzer.py            # 음성 유사도 분석 모듈
-│   └── evaluator.py           # 최종 평가 및 점수 계산 모듈
+│   ├── evaluator.py           # 최종 평가 및 점수 계산 모듈
+│   └── alignment_to_ssml.py   # 정렬 결과를 SSML로 변환하는 모듈
 │
 ├── utils/                     # 유틸리티 기능
 │   ├── __init__.py
@@ -229,7 +206,28 @@ Evaluate/
 │   ├── text_utils.py          # 텍스트 처리 유틸리티 
 │   └── visualizer.py          # 결과 시각화 모듈
 │
+├── example_single.py          # 단일 파일 분석 예제
+├── example_batch.py           # 일괄 분석 예제
+│
 └── data/                      # 입출력 데이터 디렉토리
     ├── input/                 # 입력 파일 디렉토리 (원본/합성 음성, TextGrid)
     └── output/                # 출력 파일 디렉토리 (평가 결과, 시각화)
 ```
+
+## 설정 옵션
+
+`config.py` 파일에서 다양한 설정을 조정할 수 있습니다:
+
+- **feature_weights**: 각 프로소딕 특성의 가중치 (휴지, 음높이, 에너지, 리듬, 모음)
+- **alignment_weights**: 정렬 특성의 가중치 (텍스트 유사도, 시간적 유사도, 발화 속도 유사도)
+- **final_score_weights**: 최종 점수 계산 가중치 (프로소디 점수, 정렬 점수)
+- **language_speed_coefficients**: 언어별 발화 속도 계수
+- **similarity_threshold**: 의미 유사도 임계값
+
+## 학술적 배경
+
+이 프로젝트는 다음 연구 논문들에 기반하여 개발되었습니다:
+
+1. Virkar, Y., Federico, M., Enyedi, R., & Barra-Chicote, R. (2021). **"Improvements to Prosodic Alignment for Automatic Dubbing"**. IEEE ICASSP, pp. 7543-7574.
+2. Virkar, Y., Federico, M., Enyedi, R., & Barra-Chicote, R. (2022). **"Prosodic Alignment for Off-Screen Automatic Dubbing"**. arXiv:2204.02530.
+3. Öktem, A., Farrús, M., & Bonafonte, A. (2019). **"Prosodic Phrase Alignment for Machine Dubbing"**. Interspeech 2019.

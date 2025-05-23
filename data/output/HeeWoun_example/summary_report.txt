@@ -1,0 +1,25 @@
+=== 음성 유사도 평가 요약 보고서 ===
+
+최종 점수: 0.7841
+등급: A
+
+== Prosody 세부 점수 ==
+- pause_similarity: 0.7040
+- pitch_similarity: 0.5034
+- energy_similarity: 0.6152
+- rhythm_similarity: 0.7396
+- vowel_similarity: 0.7000
+
+== Alignment 세부 점수 ==
+- text_similarity: 0.5359
+- temporal_similarity: 0.8190
+- speaking_rate_similarity: 0.8685
+
+Prosody 전체 점수: 0.6686
+Alignment 전체 점수: 0.8130
+
+== 개선 제안사항 ==
+1. 음높이(피치) 패턴 개선: 원본 음성의 억양 패턴을 모방하여 자연스러운 음높이 변화를 추가하세요.
+2. 텍스트 유사도 개선: 원본 텍스트의 의미를 더 정확히 보존하는 번역을 사용하세요.
+
+=== 평가 완료 ===

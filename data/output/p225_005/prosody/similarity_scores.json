@@ -1,8 +1,8 @@
 {
-  "pause_similarity": 0.05714285714285714,
-  "pitch_similarity": 0.5316535781778836,
-  "energy_similarity": 0.4944593684992095,
-  "rhythm_similarity": 0.6126607692134101,
-  "vowel_similarity": 0.3373701753801734,
-  "overall": 0.3316772181958804
+  "pause_similarity": 0.6127272757139393,
+  "pitch_similarity": 0.8081427254032365,
+  "energy_similarity": 0.58683827079946,
+  "rhythm_similarity": 0.7436606463630806,
+  "vowel_similarity": 0.556660789377286,
+  "overall": 0.6233644108638913
 }

@@ -14,8 +14,15 @@
     "tgt_duration": 4.63708,
     "text_similarity": 0.6198569536209106,
     "temporal_similarity": 0.9795261703492629,
-    "speaking_rate_similarity": 0.9488154258731574,
-    "overall_similarity": 0.7935494130898657,
-    "mapping_type": "one_to_one"
+    "speaking_rate_similarity": 0.9584452484897628,
+    "overall_similarity": 0.7954753776131868,
+    "mapping_type": "one_to_one",
+    "src_pure_start": 0.93,
+    "src_pure_end": 4.16,
+    "src_pure_duration": 3.23,
+    "tgt_pure_start": 0.05,
+    "tgt_pure_end": 4.51,
+    "tgt_pure_duration": 4.46,
+    "pure_speaking_rate_ratio": 0.7242152466367713
   }
 ]

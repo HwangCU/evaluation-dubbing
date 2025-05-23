@@ -845,7 +845,7 @@ class ProsodyAnalyzer:
         
         # 파형 비교
         plt.subplot(3, 1, 1)
-        plt.title("파형 비교")
+        plt.title("Waveform Comparison")
         
         # 파형 시간 정규화
         src_times = np.arange(len(src_audio)) / src_sr
@@ -854,25 +854,25 @@ class ProsodyAnalyzer:
         max_time = max(src_times[-1], tgt_times[-1])
         
         # 원본 파형
-        plt.plot(src_times, src_audio, 'b-', alpha=0.7, label='원본')
+        plt.plot(src_times, src_audio, 'b-', alpha=0.7, label='Source')
         
         # 합성 파형
-        plt.plot(tgt_times, tgt_audio, 'r-', alpha=0.7, label='합성')
+        plt.plot(tgt_times, tgt_audio, 'r-', alpha=0.7, label='Target')
         
-        plt.xlabel('시간 (초)')
-        plt.ylabel('진폭')
+        plt.xlabel('time (sec)')
+        plt.ylabel('amplitude')
         plt.legend()
         plt.grid(True)
         
         # 스펙트로그램 비교
         plt.subplot(3, 1, 2)
-        plt.title("원본 스펙트로그램")
+        plt.title("Source Spectrogram")
         D_src = librosa.amplitude_to_db(np.abs(librosa.stft(src_audio)), ref=np.max)
         librosa.display.specshow(D_src, sr=src_sr, x_axis='time', y_axis='log')
         plt.colorbar(format='%+2.0f dB')
         
         plt.subplot(3, 1, 3)
-        plt.title("합성 스펙트로그램")
+        plt.title("Target Spectrogram")
         D_tgt = librosa.amplitude_to_db(np.abs(librosa.stft(tgt_audio)), ref=np.max)
         librosa.display.specshow(D_tgt, sr=tgt_sr, x_axis='time', y_axis='log')
         plt.colorbar(format='%+2.0f dB')

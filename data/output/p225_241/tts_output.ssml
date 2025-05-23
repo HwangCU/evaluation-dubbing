@@ -1,7 +1,0 @@
-<speak>
-  <!-- on-screen 구간 시작 -->
-  <prosody rate="0.70" pitch="+0%" volume="medium">이 없 었 어요</prosody>
-  <break time="989ms"/>
-  <break time="989ms"/>
-  <prosody rate="1.50" pitch="+0%" volume="medium">그 들 은 운</prosody>
-</speak>

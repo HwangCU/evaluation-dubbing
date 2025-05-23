@@ -1,0 +1,28 @@
+[
+  {
+    "src_idx": 0,
+    "tgt_idx": [
+      0
+    ],
+    "src_text": "싸늘 하 다 가슴 에 비수 가 날아와 꽂힌다",
+    "tgt_text": "a chill runs down my spine itpierces my heart like a deadly dagger",
+    "src_start": 0.0,
+    "src_end": 2.77812,
+    "src_duration": 2.77812,
+    "tgt_start": 0.0,
+    "tgt_end": 4.03488,
+    "tgt_duration": 4.03488,
+    "text_similarity": 0.5359334945678711,
+    "temporal_similarity": 0.8190488531812881,
+    "speaking_rate_similarity": 0.868532094179757,
+    "overall_similarity": 0.6873878220742733,
+    "mapping_type": "one_to_one",
+    "src_pure_start": 0.03,
+    "src_pure_end": 2.77812,
+    "src_pure_duration": 2.74812,
+    "tgt_pure_start": 0.05,
+    "tgt_pure_end": 3.89,
+    "tgt_pure_duration": 3.8400000000000003,
+    "pure_speaking_rate_ratio": 0.71565625
+  }
+]

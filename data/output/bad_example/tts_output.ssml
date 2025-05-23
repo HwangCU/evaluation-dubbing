@@ -1,0 +1,13 @@
+<speak>
+  <!-- on-screen 구간 시작 -->
+  <prosody rate="0.70" pitch="+0%" volume="medium">잘 부탁 드립니다</prosody>
+  <break time="12950ms"/>
+  <break time="12950ms"/>
+  <prosody rate="0.70" pitch="+0%" volume="medium">안녕 하 세요 제</prosody>
+  <break time="4239ms"/>
+  <break time="4239ms"/>
+  <prosody rate="0.70" pitch="+0%" volume="medium">만나 서 반갑 습니다</prosody>
+  <break time="4699ms"/>
+  <break time="4699ms"/>
+  <prosody rate="0.70" pitch="+0%" volume="medium">이름 은 조윤장 입니다</prosody>
+</speak>
